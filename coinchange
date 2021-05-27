@@ -1,0 +1,20 @@
+class Solution(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        coin_number = 0
+        coins.sort()
+        for i in range(1, len(coins) + 1):
+            if amount == 0:
+                break
+            coin_type = coins[-i]
+            coin_number += amount / coin_type
+            amount %= coin_type
+         
+        if amount != 0:
+            return -1
+        else:
+            return coin_number
