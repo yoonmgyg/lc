@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        stack<char> stack;
+        for (int i = 0; i < s1.length(); i++)
+            stack.push(s1[i]);
+        for (int i = 0; i < s2.length(); i++)
+            stack.push(s2[i]);
+        int interlength = s3.length();
+        while (!stack.empty()) {
+            for (int i = 0; i < interlength; i++) {
+                if (s3[i] == stack.top()){
+                    stack.pop();
+                    break;
+                }
+                if (i == interlength - 1) {
+                    return false;
+                }
+            }   
+
+        }
+        return true;
+    }
+};
