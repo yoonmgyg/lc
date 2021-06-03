@@ -22,3 +22,12 @@ public:
         return true;
     }
 };
+
+/* 
+Input: "aabcc"
+       "dbbca"
+       "aadbbbaccc"
+       
+Output: true
+Expected: false
+*/
