@@ -1,33 +1,62 @@
 class Solution {
 public:
+class Solution {
+public:
     bool isInterleave(string s1, string s2, string s3) {
-        stack<char> stack;
-        for (int i = 0; i < s1.length(); i++)
-            stack.push(s1[i]);
-        for (int i = 0; i < s2.length(); i++)
-            stack.push(s2[i]);
-        int interlength = s3.length();
-        while (!stack.empty()) {
-            for (int i = 0; i < interlength; i++) {
-                if (s3[i] == stack.top()){
-                    stack.pop();
-                    break;
+            stack<char> stack1;
+            for (int i = s1.length(); i >= 0; i--)
+                stack1.push(s1[i]);
+
+            stack<char> stack2;
+            for (int i = s2.length(); i >= 0; i--)
+                stack2.push(s2[i]);     
+
+            stack<char> stack3;
+            for (int i = s3.length(); i >= 0; i--)
+                stack3.push(s3[i]);  
+
+            int interlength;
+            bool top;
+            while (!stack1.empty() || !stack2.empty() && !stack3.empty()) {
+                top = false;
+                while(!stack1.empty() && !stack3.empty()) {
+                    if (stack3.top() == stack1.top()){
+                        stack1.pop();
+                        stack3.pop();
+                        top = true;
+                    }
+                    else {
+                        break;
+                    }
+                }   
+
+                while(!stack2.empty() && !stack3.empty()) {
+                    if (stack3.top() == stack2.top()) {
+                        stack3.pop();
+                        stack2.pop();
+                        top = true;
+                    }
+                    else {
+                        break;
+                    }
                 }
-                if (i == interlength - 1) {
+                if (!top) {
                     return false;
                 }
-            }   
 
+            }
+            return true;
         }
-        return true;
-    }
+
+    
+};
 };
 
 /* 
-Input: "aabcc"
-       "dbbca"
-       "aadbbbaccc"
+Input: ""
+       "b"
+       "b"
        
-Output: true
-Expected: false
+Output: false
+Expected: true
 */
