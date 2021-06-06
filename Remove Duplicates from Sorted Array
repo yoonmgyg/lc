@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        map<int, int> dupeless;
+        for (auto it = nums.begin(); it != nums.end(); ++it) {
+            dupeless[*it] = *it;
+        }
+        nums.clear();
+        for (auto it = dupeless.begin(); it != dupeless.end(); ++it) {
+            nums.push_back(it->second);
+        }
+        return nums.size();
+    }
+};
