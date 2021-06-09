@@ -1,0 +1,17 @@
+class Solution:
+    def countAndSay(self, n: int) -> str:
+        i = 1
+        temp, res = '1', ''
+        for i in range(1,n):
+            j = 1
+            stack = [temp[0]]
+            while j < len(temp):
+                if temp[j] == stack[-1]:
+                    stack.append(temp[j])
+                else:
+                    res += str(len(stack)) + stack[-1]
+                    stack = [temp[j]]
+                j += 1
+            temp = res + str(len(stack)) + stack[-1]
+            res = ''
+        return temp
