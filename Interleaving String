@@ -1,62 +1,39 @@
 class Solution {
 public:
-class Solution {
-public:
     bool isInterleave(string s1, string s2, string s3) {
-            stack<char> stack1;
-            for (int i = s1.length(); i >= 0; i--)
-                stack1.push(s1[i]);
-
-            stack<char> stack2;
-            for (int i = s2.length(); i >= 0; i--)
-                stack2.push(s2[i]);     
-
-            stack<char> stack3;
-            for (int i = s3.length(); i >= 0; i--)
-                stack3.push(s3[i]);  
-
-            int interlength;
-            bool top;
-            while (!stack1.empty() || !stack2.empty() && !stack3.empty()) {
-                top = false;
-                while(!stack1.empty() && !stack3.empty()) {
-                    if (stack3.top() == stack1.top()){
-                        stack1.pop();
-                        stack3.pop();
-                        top = true;
-                    }
-                    else {
-                        break;
-                    }
-                }   
-
-                while(!stack2.empty() && !stack3.empty()) {
-                    if (stack3.top() == stack2.top()) {
-                        stack3.pop();
-                        stack2.pop();
-                        top = true;
-                    }
-                    else {
-                        break;
-                    }
-                }
-                if (!top) {
-                    return false;
-                }
-
-            }
+        int n1 = s1.length();
+        int n2 = s2.length();
+        int n3 = s3.length();
+        if(!n1 && !n2 && !n3)
+        {
             return true;
         }
-
-    
+        if((n1+n2)!=n3)
+        {
+            return false;
+        }
+        vector<vector<int>> dp(n1+1,vector<int>(n2+1,0));
+        for(int i=0;i<=n1;i++)
+        {
+            for(int j=0;j<=n2;j++)
+            {
+                if(i==0 && j==0)
+                {
+                    dp[i][j] = 1;
+                }
+                else if(i==0 && j!=0)
+                {
+                    dp[i][j] = (dp[i][j-1] && s2[j-1]==s3[j-1]);
+                }
+                else if(i!=0 && j==0)
+                {
+                    dp[i][j] = (dp[i-1][j] && s1[i-1]==s3[i-1]);
+                }
+                else{
+                    dp[i][j] = (dp[i-1][j] && s1[i-1]==s3[i+j-1])||(dp[i][j-1] && s2[j-1]==s3[i+j-1]);
+                }
+            }
+        }
+        return dp[n1][n2];
+    }
 };
-};
-
-/* 
-Input: ""
-       "b"
-       "b"
-       
-Output: false
-Expected: true
-*/
