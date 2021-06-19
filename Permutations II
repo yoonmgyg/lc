@@ -1,0 +1,13 @@
+class Solution:
+    def permute(self, nums):
+      if len(nums) <= 1:
+        return [nums]
+      
+      result = []
+      for variant in self.permute(nums[1:]):
+        for i in range(0, len(nums)):
+          copy = variant.copy()
+          copy.insert(i, nums[0])
+          result.append(copy)
+  
+      return result
