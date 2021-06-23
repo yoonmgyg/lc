@@ -1,0 +1,27 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1:
+            return s
+        n = len(s)
+        ans = ""
+        start = 2*numRows - 2
+        for i in range(numRows):
+            j = i
+            isOdd = True
+            while j < n:
+                if isOdd:
+                    if start != 2*i:
+                        ans += s[j]
+                        j += start-2*i
+                    isOdd = False
+                else:
+                    if i != 0:
+                        ans += s[j]
+                        j += 2*i
+                    isOdd = True
+        return ans
