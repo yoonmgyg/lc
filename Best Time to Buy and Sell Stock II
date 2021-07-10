@@ -1,0 +1,17 @@
+class Solution:      
+    def computeProfit(self,prices,start):
+        if start >= len(prices):
+            return 0
+        profit = 0
+        max1 = 0
+        for iBuy in range(start, len(prices)-1):
+            max2 = 0
+            for iSell in range(idxBuy, len(prices)):
+                if prices[iSell] > prices[iBuy]:
+                    profit = self.computeProfit(prices,iSell+1)+(prices[iSell]-prices[iBuy])
+                if max2 < profit:
+                    max2 = profit
+                    
+            if max1 < max2:
+                max1 = max2
+        return max1  
