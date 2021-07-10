@@ -1,0 +1,21 @@
+class Solution(object):
+    def validBSTHelper(self, root):
+        if not root:
+            return True
+
+        res = self.validBSTHelper(root.left)
+
+        if not self.prev:
+            self.prev = root
+        else:
+            if root.val <= self.prev.val:
+                res = False
+            self.prev = root
+
+        res = res and self.validBSTHelper(root.right)
+
+        return res
+
+    def isValidBST(self, root):
+        self.prev = None
+        return self.validBSTHelper(root) 
