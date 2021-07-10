@@ -1,0 +1,23 @@
+class Solution(object):
+    def lengthOfLIS(self, nums):
+
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return 1
+
+        lst = []
+        for item in nums:
+            if not lst or item != lst[-1]:
+                lst.append(item)
+        nums = lst
+        m = 0
+        for i in range(len(nums)):
+            stack = [nums[i]]
+            for j in range(i+1,len(nums)):
+                if nums[j] > stack[-1]:
+                    stack.append(nums[j])
+                elif len(stack) > 1 and nums[j] > stack[-2]:
+                    stack[-1] = nums[j]
+            m = max(m,len(stack))  
+        return m
