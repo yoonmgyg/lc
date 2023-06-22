@@ -1,0 +1,37 @@
+class Solution {
+private:
+    int helper(vector<int>& ratings, vector<vector<int>>& dp) {
+
+        int n = ratings.size();
+        dp[0][0] = 1;
+        for (int i = 1; i < n; ++i) {
+            if (ratings[i] > ratings[i - 1]) {
+                dp[0][i] = dp[0][i - 1] + 1;
+            } else {
+                dp[0][i] = 1;
+            }
+        }
+
+        dp[1][n - 1] = 1;
+        for (int i = n - 2; i >= 0; --i) {
+            if (ratings[i] > ratings[i + 1]) {
+                dp[1][i] = dp[1][i + 1] + 1;
+            } else {
+                dp[1][i] = 1;
+            }
+        }
+
+        int total = 0;
+        for (int i = 0; i < n; ++i) {
+            total += max(dp[0][i], dp[1][i]);
+        }
+        return total;
+    }
+
+public:
+    int candy(vector<int>& ratings) {
+        // vector<vector<int>> var_name (row, vector<int>(col, init_value));
+        vector<vector<int>> dp (2, vector<int>(ratings.size(), 0));
+        return helper(ratings, dp);
+    }
+};
