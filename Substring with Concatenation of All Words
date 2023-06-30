@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+    // helper to find substrings
+    bool checkSubstring(unordered_map<string, int> wordCount, string s, int wordLen) {
+
+        // loops through string, creating substrings by length and returning false if not found in map
+        for(int j=0; j<s.size(); j+=wordLen) {
+            string w = s.substr(j, wordLen);
+            if(wordCount.find(w) != wordCount.end()) {
+                if(--wordCount[w] == -1) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> res;
+        int wordLen = words[0].size();
+        int sLen = s.size();
+        int wordsMax = words.size() * wordLen;
+        
+        unordered_map<string, int> wordCount;
+
+        // add words into map
+        for(int i=0; i<words.size(); i++) {
+            wordCount[words[i]]++;
+        }
+        
+        int i = 0;
+        // loop through string to find words
+        while(i + wordsMax <= sLen) {
+            // going through each substring, add to result if found in map
+            if(checkSubstring(wordCount, s.substr(i, wordsMax), wordLen)) {
+                res.push_back(i);
+            }
+            i++;
+        }
+        return res;
+    }
+};
