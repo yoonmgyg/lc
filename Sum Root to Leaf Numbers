@@ -1,0 +1,26 @@
+class Solution {
+public:  
+  int sumNumbers(TreeNode* root) {
+      return sumNumbersHelper(root, 0);
+  }
+  
+  int sumNumbersHelper(TreeNode* node, int currentSum) {
+      if (node == nullptr) {
+          return 0;
+      }
+  
+      // Multiply current sum by 10 and add current node's value
+      int newSum = currentSum * 10 + node->val;
+  
+      // If leaf, return the new sum
+      if (node->left == nullptr && node->right == nullptr) {
+          return newSum;
+      }
+  
+      // Recursion for left and right subtree
+      int leftSum = sumNumbersHelper(node->left, newSum);
+      int rightSum = sumNumbersHelper(node->right, newSum);
+  
+      return leftSum + rightSum;
+  }
+};
