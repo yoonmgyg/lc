@@ -1,0 +1,25 @@
+class Solution {
+public:
+  int maxPathSum(TreeNode* root) {
+      int maxSum = INT_MIN;
+      maxPathSumHelper(root, maxSum);
+      return maxSum;
+  }
+  
+  int maxPathSumHelper(TreeNode* node, int& maxSum) {
+      if (node == nullptr) {
+          return 0;
+      }
+  
+      // Recursively compute for left and right subtrees
+      int leftSum = max(maxPathSumHelper(node->left, maxSum), 0);
+      int rightSum = max(maxPathSumHelper(node->right, maxSum), 0);
+  
+      // Update the maximum sum 
+      int pathSum = node->val + leftSum + rightSum;
+      maxSum = max(maxSum, pathSum);
+  
+      // Return the maximum sum 
+      return node->val + max(leftSum, rightSum);
+  }
+};
