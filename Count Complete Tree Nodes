@@ -1,0 +1,32 @@
+class Solution {
+public:
+  int countNodes(TreeNode* root) {
+      if (root == nullptr) {
+          return 0;
+      }
+
+      // Find height of left tree
+      int leftHeight = 0;
+      TreeNode* leftNode = root->left;
+      while (leftNode != nullptr) {
+          leftNode = leftNode->left;
+          leftHeight++;
+      }
+
+      // Find height of right tree
+      int rightHeight = 0;
+      TreeNode* rightNode = root->right;
+      while (rightNode != nullptr) {
+          rightNode = rightNode->right;
+          rightHeight++;
+      }
+
+      // if equal, then complete
+      if (leftHeight == rightHeight) {
+          return (1 << (leftHeight + 1)) - 1;
+      // if not complete
+      } else {
+          return 1 + countNodes(root->left) + countNodes(root->right);
+      }
+  }
+};
