@@ -1,0 +1,29 @@
+class Solution {
+  public:
+  void flatten(TreeNode* root) {
+      if (root == nullptr) {
+          return;
+      }
+  
+      TreeNode* left = root->left;
+      TreeNode* right = root->right;
+  
+      root->left = nullptr;
+  
+      // Recursively flatten the left and right tree
+      flatten(left);
+      flatten(right);
+  
+      // Set the right to the flattened subtree
+      root->right = left;
+  
+      // Find the rightmost node 
+      TreeNode* current = root;
+      while (current->right != nullptr) {
+          current = current->right;
+      }
+  
+      // Set the right child to flattened right subtree
+      current->right = right;
+  }
+};
