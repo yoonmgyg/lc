@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int ans=-1;
+        int n=gas.size(); 
+        int diff; 
+        int sum=0, backsum=0;
+
+        // loop through gas stations
+        for (int i=0;i<n;i++)
+        {
+            diff= gas[i]-cost[i];
+            // add sum if negative
+            if(diff<0) 
+            {
+                sum+=diff;
+                continue;
+            }
+
+            else 
+            {
+                // use old as starting point
+                if (sum>=0)
+                {
+                    if(i==0) 
+                    ans=i;
+                    sum+=diff; 
+                    continue;
+                }
+                else // choose as starting point
+                {
+                    backsum=backsum+sum;
+                    sum=diff;
+                    ans=i;
+                }
+            }
+
+        }
+        sum=sum+backsum;
+        return sum>=0 ? ans : -1;
+    }
+};
