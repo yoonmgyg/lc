@@ -1,0 +1,40 @@
+class Solution: {
+public:
+  vector<double> averageOfLevels(TreeNode* root) {
+      vector<double> averages;
+  
+      if (root == NULL) {
+          return averages;
+      }
+  
+      queue<TreeNode*> q;
+      q.push(root);
+
+      // loop through tree from root
+      while (!q.empty()) {
+          int levelSize = q.size();
+          double levelSum = 0;
+  
+          for (int i = 0; i < levelSize; i++) {
+              TreeNode* node = q.front();
+              q.pop();
+
+              // sum level
+              levelSum += node->val;
+
+              // add subtrees into queue
+              if (node->left != NULL) {
+                  q.push(node->left);
+              }
+              if (node->right != NULL) {
+                  q.push(node->right);
+              }
+          }
+          // calculate level average
+          double levelAverage = levelSum / levelSize;
+          averages.push_back(levelAverage);
+      }
+  
+      return averages;
+  }
+};
