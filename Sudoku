@@ -1,0 +1,38 @@
+class Solution:
+    def valid_rows(self, board):
+        for y in range(9):
+            seen = set()
+            for x in range(9):
+                if board[y][x] != '.' and board[y][x] in seen:
+                    return False
+                seen.add(board[y][x])
+        return True
+
+    def valid_cols(self, board):
+        for x in range(9):
+            seen = set()
+            for y in range(9):
+                if board[y][x] != '.' and board[y][x] in seen:
+                    return False
+                seen.add(board[y][x])
+        return True
+
+    def valid_sub_boxes(self, board):
+        def is_valid_sub_box(box_row, box_col):
+            seen = set()
+            for y in range(box_row, box_row + 3):
+                for x in range(box_col, box_col + 3):
+                    if board[y][x] != '.' and board[y][x] in seen:
+                        return False
+                    seen.add(board[y][x])
+            return True
+        for sub_box_row in range(0, 7, 3):
+            for sub_box_col in range(0, 7, 3):
+                if not is_valid_sub_box(sub_box_row, sub_box_col):
+                    return False
+        return True
+
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        if not (board and board[0]):
+            return False
+        return self.valid_rows(board) and self.valid_cols(board) and self.valid_sub_boxes(board)
