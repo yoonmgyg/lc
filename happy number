@@ -1,0 +1,22 @@
+    def isHappy(self, n: int) -> bool:
+        hashSet = set()
+        while True:
+            cSum = 0
+            # loop through number
+            while n > 0:
+                # get digit
+                n_dash = n % 10
+                # add sum of squares
+                cSum += (n_dash * n_dash)
+                n = n // 10
+            # check if magic number
+            if cSum == 1:
+                return True
+            # check for duplicates
+            elif cSum in hashSet:
+                return False
+            # enter previous sum into hash
+            else:
+                hashSet.add(cSum)
+                n = cSum
+        
