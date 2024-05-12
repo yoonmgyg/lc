@@ -1,0 +1,16 @@
+
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if root == None:
+            return None
+            
+        # switch root branches for DFS
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+        
+        # recursively apply to left and right branches
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
+        return root   
+        
