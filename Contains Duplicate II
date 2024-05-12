@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        // map to keep track of duplicates
+        unordered_map<int, int> dupemap;
+        // loop through nums
+        for (int i = 0; i < nums.size(); i++) {
+            int numval = nums[i];
+            // initialize elements in map
+            if (dupemap.find(numval) == dupemap.end()) {
+                dupemap[numval] = i;
+            }
+            else {
+                // check if within k
+                if (abs(dupemap[numval] - i) <= k) {
+                    return true;
+                }
+                // update closest index if not
+                else {
+                    dupemap[numval] = i;
+                }
+            }
+        }
+        return false;
+    }
+};
