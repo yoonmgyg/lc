@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char, int> letters;
+        // add magazine letters to hash map
+        for (auto i : magazine) {
+            letters[i]++;
+        }
+        // subtract ransom note letters
+        for (auto i : ransomNote) {
+            letters[i]--;
+        }
+        // check if any ransom note letters outmatch magazine
+        for (auto i: letters) {
+            if (i.second < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
