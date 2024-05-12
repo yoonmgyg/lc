@@ -1,0 +1,26 @@
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # list to represent the directed graph
+        graph = defaultdict(list)
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
+        
+        # array to store the number of incoming edges 
+        indegrees = [0] * numCourses
+        for prereq, _ in prerequisites:
+            indegrees[prereq] += 1
+        
+        # add all the nodes with indegree 0 to a queue
+        queue = deque()
+        for course in range(numCourses):
+            if indegrees[course] == 0:
+                queue.append(course)
+        
+        # get course graph and add course prereqs to queue to sort
+        while queue:
+            course = queue.popleft()
+            for prereq in graph[course]:
+                indegrees[prereq] -= 1
+                if indegrees[prereq] == 0:
+                    queue.append(prereq)
+
+        return all(indegree == 0 for indegree in indegrees)
