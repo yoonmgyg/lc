@@ -1,0 +1,19 @@
+class Solution {
+public:
+    double myPow(double x, int n) {
+        // termination for recrsion
+        if (n == 0) return 1;
+        // divide even exponents by 2 to reduce stack overflow
+        if (n % 2 == 0) {
+            return myPow(x*x, n/2);
+        }
+        // multiply by 1/x if negative
+        if (n < 0) {
+            return 1/x * myPow(x, n+1);
+        }
+        // multiply by x if positive
+        else {
+            return x * myPow(x, n-1);
+        }
+    }
+};
