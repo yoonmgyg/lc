@@ -1,0 +1,13 @@
+    def isSubsequence(self, s: str, t: str) -> bool:
+        # slow pointer to iterate through subsequence
+        slow = 0
+        if len(s) == 0:
+            return True
+        for fast in range(len(t)):
+            # go to next char if found within
+            if s[slow] == t[fast]:
+                slow += 1
+            # return True if number of chars of subsequence are matched 
+            if slow == len(s):
+                return True
+        return False
