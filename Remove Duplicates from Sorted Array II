@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int removeDuplicates(std::vector<int>& nums) {
+        // set second pointer for new array
+        int j = 1;
+        for (int i = 1; i < nums.size(); i++) {
+            // if there are 2 instances of element, increment j and add new i 
+            if (j == 1 || nums[i] != nums[j-2]) {
+                nums[j++] = nums[i];
+            }
+        }
+        // return new array of j length
+        return j;
+    }
+};
