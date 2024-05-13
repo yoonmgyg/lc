@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        vector<int> indexS(200, 0); // index of characters in string s
+        vector<int> indexT(200, 0); // index of characters in string t
+        
+        int len = s.length(); //
+        
+        if(len != t.length()) { // lengths of the two strings are different, they can't be isomorphic
+            return false;
+        }
+        
+        for(int i = 0; i < len; i++) { // iterate through each character of the strings
+            if(indexS[s[i]] != indexT[t[i]]) { // index of the current character in string s is different from the index of the corresponding character in string t
+                return false; 
+            }
+            
+            indexS[s[i]] = i + 1; // updating position of current character
+            indexT[t[i]] = i + 1;
+        }
+        
+        return true; 
+    }
+};
