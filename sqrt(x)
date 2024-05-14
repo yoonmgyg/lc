@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        // gets sqrt of x rounded down
+        if (x == 0) {
+            return 0;
+        }
+
+        int first = 1; 
+        int last = x;
+        // binary search to find sqrt
+        while (first <= last) {
+            int mid = first + (last - first) / 2;
+            if (mid == x / mid) {
+                return mid;
+            }
+            // move last index if greater
+            else if (mid > x / mid) {
+                last = mid -1;
+            }
+            // move first index if lesser
+            else {
+                first = mid + 1;
+            }
+        }
+        return last;
+    }
+};
