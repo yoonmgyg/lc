@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        // summarize vector of ints into vector of ranges
+
+        vector<string> ranges;
+        // return empty range if empty vector
+        if (nums.size() == 0) {
+            return ranges;
+        }
+
+        // initialize range starts and ends
+        int rangestart = nums[0];
+        int rangeend =  nums[0];
+        string numberrange;
+        // loop through nums vector
+        for (int i = 1; i < nums.size(); i++) {
+            // if number follows previous number, set new range end
+            if (nums[i - 1] == nums[i] - 1) {
+                rangeend = nums[i];
+            }
+            // if not, finish range and append to new vector
+            else {
+                numberrange = to_string(rangestart);
+                if (rangestart != rangeend) {
+                    numberrange += "->" + to_string(rangeend);
+                }
+                ranges.push_back(numberrange);
+                // new range is set to next number
+                rangestart = nums[i];
+                rangeend = rangestart;
+            }
+        }
+        // finish entering last range
+        numberrange = to_string(rangestart);
+        if (rangestart != rangeend) {
+            numberrange += "->" + to_string(rangeend);
+        }
+        ranges.push_back(numberrange);
+
+        return ranges;
+    }
+};
