@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        // counts number of zeroes in factorial of n
+        int zeros = 0;
+        while (n / 5) {
+            // get number of 5s in n and add together
+            zeros += n / 5;
+            // get 5s within multiples of 5
+            n = n / 5;
+        }
+        return zeros;
+    }
+};
