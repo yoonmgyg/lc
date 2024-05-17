@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        // checks if gas stations which provide and cost gas can be traversed clockwise
+        int surplus = 0;
+        int total = 0;
+        int startIndex = 0;
+        for (int i = 0; i < gas.size(); i++) {
+            // get total surplus throughout circuit
+            total += gas[i] - cost[i];
+            // get surplus when starting from station
+            surplus += gas[i] - cost[i];
+            if (surplus < 0) {
+                // reset station if surplus is less than 0
+                surplus = 0;
+                startIndex  = i + 1;
+            }
+        }
+
+        // return station index if total gas is greater than 0
+        return (total < 0) ? -1 : startIndex;
+    }
+};
