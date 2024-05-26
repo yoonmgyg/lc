@@ -1,0 +1,26 @@
+// return vector of possible combinations of n and k
+class Solution {
+private:
+    // function recursively generates combinations of k
+    void backtrack(int start, std::vector<int>& comb, std::vector<std::vector<int>>& res, int n, int k) {
+        // once one combination of n and k is complete, push to res
+        if (comb.size() == k) {
+            res.push_back(comb);
+            return;
+        }
+        // loop to create combinations for each n
+        for (int num = start; num <= n; num++) {
+            comb.push_back(num);
+            backtrack(num + 1, comb, res, n, k);
+            comb.pop_back();
+        }
+    }    
+public:
+    vector<vector<int>> combine(int n, int k) {
+        std::vector<std::vector<int>> res;
+        std::vector<int> comb;
+        // initialize backrack to generate combs from 1 to n
+        backtrack(1, comb, res, n, k);
+        return res;        
+    }
+};
