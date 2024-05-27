@@ -1,0 +1,21 @@
+// remove target element and return number of non-targets
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int index = 0;
+        for(int i = 0; i< nums.size(); i++){
+            // if not target, add to beginning and increment beginning index
+            if (nums[i] != val){
+                nums[index] = nums[i];
+                index++;
+            }
+            // if target, remove from array
+            else {
+                nums[i] = -1;
+            }
+        }
+        // return number of non-values
+        return index;
+    }
+
+};
