@@ -1,0 +1,14 @@
+// return maximum depth
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        // if head is null
+        if(root==nullptr){
+            return 0;
+        }
+        // recursively get the maximum of left and right subtrees
+        else{
+            return max(maxDepth(root->left),maxDepth(root->right))+1;
+        }
+    }
+};
