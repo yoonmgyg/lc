@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        // return 0 when null
+        if (root == NULL) {
+            return 0;
+        }
+        // count left and right branches recursively
+        int leftNodes = countNodes(root->left);
+        int rightNodes = countNodes(root->right);
+        // return sum of nodes in branches
+        return 1 + leftNodes + rightNodes;
+    }
+};
