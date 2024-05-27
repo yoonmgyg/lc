@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string> words;
+        string temp = "";
+        // loop through all chars
+        for (char c : s) {
+            // push back word if space
+            if (c == ' ') {
+                if (!temp.empty()){
+                    words.push_back(temp);
+                    temp.clear();
+                }
+            }
+            // store words in temp until space is found
+            else {
+                temp.push_back(c);
+            }
+        }
+        if (!temp.empty()) {
+            words.push_back(temp);
+        }
+        // reverse list of words
+        reverse(words.begin(), words.end());
+
+        string ans;
+        // iterate through vector and add words together
+        for (string word : words) {
+            ans += word + ' ';
+        }
+        if (!ans.empty()) {
+            ans.pop_back();
+        }
+        return ans;
+    }
+};
