@@ -1,0 +1,22 @@
+// finds the length of the last word
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int length = 0;
+        bool counting = false;
+        // decrement from end of string until space 
+        for (int i = s.length() - 1; i >= 0; i--) {
+            // increment length if not space
+            if (s[i] != ' ') {
+                counting = true;
+                length++;
+            }
+            // return length once space is found
+            else if (counting) {
+                break;
+            }
+        }
+        
+        return length;
+    }
+};
