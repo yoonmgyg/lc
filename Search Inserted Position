@@ -1,0 +1,29 @@
+// get position if inserted
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        // get start end and middle for binary search
+        int s = 0
+        e = nums.size()-1 ;
+        int mid = s + (e-s)/2;
+
+        int ans;
+        while (s <= e){
+            // return if target is gotten
+            if (nums[mid] == target) {
+                return mid;
+            }
+            // adjust start if less than target
+            if (nums[mid] < target){
+                ans = mid + 1;
+                s = mid + 1;
+            }
+            // adjust end if greate
+            else {
+                e = mid - 1; 
+            }
+            mid = s + (e-s)/2;
+        }
+        return ans;
+    }
+};
