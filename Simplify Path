@@ -1,0 +1,25 @@
+// converts to unix absolute directory
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> dirOrFiles;
+        stringstream ss(path);
+        string dirOrFile;
+        // get each directory and push back to vector of dirs if valid directory
+        while (getline(ss, dirOrFile, '/')) {
+            // if .. or empty, remove last directory
+            if (!dirOrFiles.empty() && dirOrFile == "..") {
+                dirOrFiles.pop_back();
+            } 
+            else if (dirOrFile != "." && dirOrFile != "" && dirOrFile != "..") {
+                dirOrFiles.push_back(dirOrFile);
+            }
+        }
+        string simplified_path = "";
+        // go through vector and add slashes 
+        for (string dirOrFile : dirOrFiles) {
+            simplified_path += "/" + dirOrFile;
+        }
+        return simplified_path;
+    }
+};
