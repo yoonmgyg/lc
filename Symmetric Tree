@@ -1,0 +1,20 @@
+// Symmetric Tree
+class Solution {
+public:
+    bool isMirror(TreeNode* left, TreeNode* right) {
+    // both branches null
+    if (left == NULL && right == NULL) { 
+        return true;
+    }
+    // one branch is null
+    if (left == NULL || right == NULL) {
+        return false;
+    }
+    // recursively go through all left and right branches to check if equal
+    return (left->val == right->val) && isMirror(left->left, right->right) && isMirror(left->right, right->left);
+}
+
+bool isSymmetric(TreeNode* root) {
+    if (root == NULL) return true;
+    return isMirror(root->left, root->right);
+}
