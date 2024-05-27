@@ -1,0 +1,16 @@
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        // return null if empty
+        if(root==NULL) {
+            return NULL;
+        }
+        // recursively call through left and right branch
+
+        // store left branch and assign opposite branches
+        TreeNode* temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+        return root; // Return the root
+    }
+};
