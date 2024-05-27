@@ -1,0 +1,32 @@
+// get the longest consecutive sequence in vector
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int, int> map;
+        // insert all numbers into map
+        for (int num : nums) {
+            map[num] = 1;
+        }            
+
+        int max = 0;
+        // loop through map elements
+        for (auto num : map) {
+            int sequence = 1;
+            int seqStart = num.first;
+            // if previous number can be found, skip key
+            if (map.find(seqStart-1) != map.end()) {
+                continue;
+            }
+            // while next consecutive number can be found, count sequences
+            while (map.find(seqStart + 1) != map.end()) {
+                seqStart++;
+                sequence++;
+            }
+            // assign max sequence values
+            if (sequence > max) {
+                max = sequence;
+            }
+        }
+        return max;                                                                                                                       
+    }
+};
