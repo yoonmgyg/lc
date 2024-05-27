@@ -1,0 +1,19 @@
+// return bool if trees are identical
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        // check for null tree
+        if (p == NULL && q == NULL) {
+            return true;
+        }
+        // check if one tree is null
+        if (p == NULL || q == NULL) {
+            return false;
+        }
+        // recursively check if subtrees are equal
+        if (p->val == q->val) {
+            return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+        }
+        return false;
+    }
+};
