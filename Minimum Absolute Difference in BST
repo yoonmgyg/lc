@@ -1,0 +1,30 @@
+class Solution {
+public:
+    // inorder traversal
+    void InOrder(TreeNode* root, vector<int>& num){
+         if (root == NULL) return ;
+        // recursively visit left
+        InOrder(root->left, num);
+        // visit current node
+        num.push_back(root->val);
+        // visit right tree
+        InOrder(root->right, num);
+    }
+    int getMinimumDifference(TreeNode* root) {
+        vector<int> num;
+        InOrder(root, num);
+        // get the size of the num vector
+        int s = num.size();
+        // initialize the minimum difference with the difference between the second and first nodes
+        int d = abs(num[1] - num[0]);
+        
+        // iterate through the num vector starting from the third element
+        for(int i = 2; i < s; i++){
+            // Calculate the absolute difference between the current element and the previous element
+            int dd = abs(num[i] - num[i-1]);
+            if (dd < d) d = dd;
+        }
+        
+        return d;
+    }  
+};
