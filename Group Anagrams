@@ -1,0 +1,19 @@
+// return vector grouping each anagram by vector
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> map;
+        // loop through strings and sort, to get same key, assign each anagram to key
+        for(auto x: strs){
+            string word = x;
+            sort(word.begin(), word.end());
+            map[word].push_back(x);
+        }
+        // loop all anagrams and add to vector based on key
+        vector<vector<string>> ans;
+        for(auto x: map){
+            ans.push_back(x.second);
+        }
+        return ans;
+    }
+};
