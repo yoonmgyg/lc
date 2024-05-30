@@ -1,0 +1,18 @@
+// return the sum of the maximum subarray
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int cur = nums[0];  
+        int ans = nums[0]; 
+        
+        // iterate through each starting from the second
+        for (int i = 1; i < nums.size(); i++) {
+            // cur is the maximum of either cur + nums[i] or nums[i]
+            cur = max(cur + nums[i], nums[i]);
+            // get the maximum of current sum and previous max
+            ans = max(ans, cur);
+        }
+        
+        return ans; 
+    }
+};
