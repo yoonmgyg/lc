@@ -1,0 +1,25 @@
+class BSTIterator {
+public:
+    stack<TreeNode*> s;
+    BSTIterator(TreeNode* root) {
+        partialInorder(root);
+    }
+    // partial inorder traversal of left subtree to have O(h) memory
+    void partialInorder(TreeNode* root){
+        while(root != NULL){
+            s.push(root);
+            root = root->left;
+        }
+    }
+    // pop top of value and enter right subtree afterwards
+    int next() {
+        TreeNode* top = s.top();
+        s.pop();
+        partialInorder(top->right);
+        return top->val;
+    }
+    
+    bool hasNext() {
+        return !s.empty();
+    }
+};
