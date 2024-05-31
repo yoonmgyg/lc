@@ -1,0 +1,24 @@
+// find minimu path from bottom left to bottom right
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        // use grid as dp to find values when added with left number
+        for (int i = 1; i < m; i++) {
+            grid[i][0] += grid[i-1][0];
+        }
+        // find values when added with upper row
+        for (int j = 1; j < n; j++) {
+            grid[0][j] += grid[0][j-1];
+        }
+        // go through each row and column and add minimum combinations of rows and columns
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                grid[i][j] += min(grid[i-1][j], grid[i][j-1]);
+            }
+        }
+        // return value at end
+        return grid[m-1][n-1];
+    }
+};
