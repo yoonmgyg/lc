@@ -1,0 +1,18 @@
+// get kth smallest element in tree
+class Solution {
+public:
+    void inOrder(TreeNode* root, vector<int> &v){
+        if(root == NULL)    return;
+        
+        // inorder traversal of tree to get lower number in left node, sorting by smallest
+        inOrderTraversal(root->left, v);
+        v.push_back(root->val);
+        inOrderTraversal(root->right, v);      
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> v; 
+        inOrderTraversal(root, v);
+        // get kth number by accessing kth number in inorder
+        return v[k-1];
+    }
+};
