@@ -1,0 +1,34 @@
+// generate all combinations of parentheses
+void backtrack(int n, int leftCount, int rightCount, vector<char>& output,
+               vector<string>& result) {
+    // parentheses are equal and can be appended to result
+    if (leftCount >= n && rightCount >= n) {
+        // join array into string and output
+        string outputStr(output.begin(), output.end());
+        result.push_back(outputStr);
+    }
+
+    // left parentheses need to be added, backtrack to equal parentheses
+    if (leftCount < n) {
+        output.push_back('(');
+        backtrack(n, leftCount + 1, rightCount, output, result);
+        output.pop_back();
+    }
+
+    // right parentheses need to be added
+    if (rightCount < leftCount) {
+        output.push_back(')');
+        backtrack(n, leftCount, rightCount + 1, output, result);
+        output.pop_back();
+    }
+}
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        vector<char> output;
+        backtrack(n, 0, 0, output, result);
+        return result;
+    }
+};
