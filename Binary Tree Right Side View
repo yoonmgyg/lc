@@ -1,0 +1,31 @@
+// get right branches of tree
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> result;
+        // check if empty tree
+        if(root == nullptr)
+            return result;
+
+        // push visible nodes onto queue
+        queue<TreeNode*> levels;
+        levels.push(root);
+
+        while(!levels.empty()){
+            int size = levels.size();
+            TreeNode* current = levels.front();
+            // push current top of queue to results
+            result.push_back(current->val);
+            // loop throughout tree, push right tree and left if existing to get branches, then pop
+            for(int i = 0; i < size; i++){
+                current = levels.front();
+                if(current->right)
+                    levels.push(current->right);
+                if(current->left)
+                    levels.push(current->left);
+                levels.pop();
+            }
+        }
+        return result;
+    }
+};
