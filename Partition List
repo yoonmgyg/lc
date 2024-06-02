@@ -1,0 +1,27 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        // set up two pointers to partition the list
+        ListNode before(0), after(0);
+        ListNode* before_curr = &before;
+        ListNode* after_curr = &after;
+        while(head) {
+            // attach nodes to before if less than x
+            if(head->val < x) {
+                before_curr->next = head;
+                before_curr = head;
+            }
+            // attach nodes to after if not
+            else {
+                after_curr->next = head;
+                after_curr = head;
+            }
+            head = head->next;
+        }
+        // append after to before to merge list
+        after_curr->next = nullptr;
+        before_curr->next = after.next;
+        
+        return before.next;
+    }
+};
