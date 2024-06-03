@@ -1,0 +1,19 @@
+TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
+{
+    // if p and q are found, LCA is returned as root
+    if (root == NULL || root == p || root == q)
+        return root;
+    // recursively search subtrees for p and q
+    TreeNode *left = lowestCommonAncestor(root->left, p, q);
+    TreeNode *right = lowestCommonAncestor(root->right, p, q);
+
+    // return other branch if not found
+    if (left == NULL)
+        return right;
+
+    if (right == NULL)
+        return left;
+
+    else
+        return root;
+}
