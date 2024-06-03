@@ -1,0 +1,36 @@
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        // hashmap to store indices of elements in the inorder traversal
+        unordered_map<int, int> map;
+        for (int i = 0; i < inorder.size(); i++) {
+            map[inorder[i]] = i;
+        }
+        
+        // the index variable to track the current position
+        int index = 0;
+        
+        // recursive function to build the binary tree
+        return construct(preorder, map, index, 0, inorder.size() - 1);
+    }
+
+private:
+    TreeNode* construct(vector<int>& preorder, unordered_map<int, int>& map, int& index, int i, int j) {
+        start index exceeds the end index
+        if (i > j) {
+            return NULL;
+        }
+        
+        // new node with the value from the preorder traversal at the current index
+        TreeNode* root = new TreeNode(preorder[index++]);
+        
+        // find index of the root value in the inorder traversal
+        int mid = map[root->val];
+        
+        // recursively build the trees with inorder traversal
+        root->left = construct(preorder, map, index, i, mid - 1);
+        root->right = construct(preorder, map, index, mid + 1, j);
+        
+        return root;
+    }
+};
