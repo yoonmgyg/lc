@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        // check if empty
+        if (matrix.size()==0) return 0;
+        // initialize dp dimensions
+        int maxSqr = 0, m = matrix.size() , n = matrix[0].size();
+        // create matrix for solutions
+        vector<vector<int>> dp(m + 1, vector<int>(cn+1,0));
+        
+        // iterate through matrix
+        for(int i = 1; i <= m; i++){
+            for(int j = 1; j <= n; j++){
+                // if the matrix is 1, search adjacent squares for side length
+                if(matrix[i-1][j-1]=='1'){
+                    dp[i][j] = min({dp[i-1][j-1], dp[i-1][j], dp[i][j-1]})+ 1;
+                    // get the maximum side length of a square
+                    maxSqr = max(maxSqr,dp[i][j]);
+                }
+            }
+        }
+        return maxSqr*maxSqr;
+    }
+};
