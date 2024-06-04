@@ -1,0 +1,20 @@
+// find the element which only appears once
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+    int ans = 0;
+    // loop through each bit of int
+    for (int i = 0; i < 32; ++i) {
+        int sum = 0;
+        // loop through each number and get the bit at i
+        for (int num : nums)
+            sum += num >> i & 1;
+        // check for 3 numbers by getting divisibility
+        sum %= 3;
+        // get the position of the bit without 3 values
+        ans |= sum << i;
+    }
+
+    return ans;
+  }
+};
