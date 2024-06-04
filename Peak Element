@@ -1,0 +1,21 @@
+// find peak element in array
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int left = 0;
+        int right = nums.size()-1;
+        // binary search to find a peak element
+        while (left < right){
+            int mid = left + (right - left) / 2;
+            // check if mid is greater than adjacent numbers
+            if (nums[mid] > nums[mid+1]){
+                right = mid;
+            }
+            // adjust left if not
+            else { 
+                left = mid+1;
+            }
+        }
+        return left;
+    }
+};
