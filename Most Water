@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.size() - 1;
+        // binary search to get left and right of container
+        while (left < right) {
+            // calculate current max area
+            maxArea = max(maxArea, (right - left) * min(height[left], height[right]));
+            // move pointers to the center until max area is found
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxArea;        
+    }
+};
