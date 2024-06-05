@@ -1,0 +1,44 @@
+class RandomizedSet {
+private:
+    vector<int> a;
+    unordered_map<int, int> mp;
+public:
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if (mp.find(val) !=  m.end()) 
+            return false;
+        // add value to array and map if not already found
+        else {
+            a.push_back(val);
+            mp[val] = a.size() - 1;
+            return true;
+        }
+    }
+    
+    bool remove(int val) {
+        // check if within map
+        if (mp.find(val) !=  m.end()) 
+            return false;
+        else {
+            int last = a.back();
+            // replace value with element at back
+            a[mp[val]] = a.back();
+            // remove back element
+            a.pop_back();
+            // overwrite value map with back value
+            mp[last] = mp[val];
+            // remove back key
+            mp.erase(val);
+            return true;
+        }
+    }
+    
+    int getRandom() {
+        // get random int within size
+        return a[rand() % a.size()];
+    }
+};
+
