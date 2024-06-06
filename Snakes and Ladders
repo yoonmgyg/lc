@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int snakesAndLadders(vector<vector<int>> &board) {
+        int n = board.size(), lbl = 1;
+        // create vector for each tile on board
+        vector<pair<int, int>> cells(n*n+1);
+        vector<int> columns(n);
+        iota(columns.begin(), columns.end(), 0);
+
+        // loop through each tile amd fill with row and column
+        for (int row = n - 1; row >= 0; row--) {
+            for (int column : columns) {
+                cells[lbl++] = {row, column};
+            }
+            reverse(columns.begin(), columns.end());
+        }
+        // stores distance to reach each cell
+        vector<int> dist(n*n+1, -1);
+        dist[1] = 0;
+        queue<int> q;
+        q.push(1);
+
+        // loop through tiles in queue
+        while (!q.empty()) {
+            int curr = q.front();
+            q.pop();
+            // loops between 1 and 6 for the possible die from current tile
+            for (int next = curr + 1; next <= min(curr+6, n*n); next++) {
+                auto [row, column] = cells[next];
+                // initialize each cell's distance
+                if (board[row][column] != -1) {
+                    int destination = board[row][column];
+                }
+                else {
+                    int destination = next;
+                }
+                if (dist[destination] == -1) {
+                    dist[destination] = dist[curr] + 1;
+                    q.push(destination);
+                }
+            }
+        }
+        // return distance at end of board
+        return dist[n*n];
+    }
+};
