@@ -1,0 +1,23 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* res = new ListNode(0, head);
+        ListNode* temp = res;
+
+        // move head to nth node
+        for (int i = 0; i < n; i++) {
+            head = head->next;
+        }
+
+        // temp pointer stops when head reaches end, at the pointer before the nth node from the end
+        while (head != nullptr) {
+            head = head->next;
+            temp = temp->next;
+        }
+
+        // change the node before n to link to the node after n
+        temp->next = temp->next->next;
+
+        return res->next;        
+    }
+};
