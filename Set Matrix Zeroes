@@ -1,28 +1,31 @@
-public void setZeroes(int[][] matrix){
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
 
-		int m=matrix.length, n=matrix[0].length;
-        int rowsArray[]= new int[m];
-        int colsArray[]= new int[n];
+	// create array for each row and column
+        unordered_set<int> setRows; 
+        unordered_set<int> setColumns; 
 
-        // create array for each row and column
-        Arrays.fill(rowsArray,1);
-        Arrays.fill(colsArray,1);
-
-        // loop through array and set row and column to 0 if 0 is found in matrix
-        for (int i = 0; i < m; i++){
-            for (int j = 0; j < n;j++){
-                if(matrix[i][j]==0){
-                    rowsArray[i] = 0;
-                    colsArray[j] = 0;
+        // loop through array and insert rows and columns which should be 0
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if(matrix[i][j] == 0){
+                    setRows.insert(i);
+                    setColumns.insert(j);
                 }
             }
         }
 
-        // loop through array and set rows and columns equalling 0 to 0 in the matrix
-        for (int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(rowsArray[i] == 0 || colsArray[j] == 0)
+	// loop through matrix and set to 0 if found in arrays
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (setRows.count(i) > 0 || setColumns.count(j) > 0){
                     matrix[i][j] = 0;
+                }
             }
         }
     }
+};
+
