@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        //check if empty
+        if (nums.empty()) {
+            return 0;
+        }
+
+        int k = 1; 
+        // loop through nums
+        for (int i = 1; i < nums.size(); i++) {
+            // if equal, skip and keep element at k to be overwritten
+            // if not equal, overwrite element at k
+            if (nums[i] != nums[i - 1]) {
+                nums[k++] = nums[i]; 
+            }
+        }
+        
+        return k;
+    }
+};
