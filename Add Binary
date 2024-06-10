@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string ans;
+        int carry = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        // loop through both strings
+        while (i >= 0 || j >= 0 || carry) {
+            // add binary digit from a and any carry digits
+            if (i >= 0)
+                carry += a[i--] - '0';
+            // add binary digit from b
+            if (j >= 0)
+                carry += b[j--] - '0';
+
+            // calculate next binary digit
+            ans += carry % 2 + '0';
+
+            // divide carry for next value
+            carry /= 2;
+        }
+        // reverse for ans
+        reverse(begin(ans), end(ans));
+        return ans;
+  }
+};
