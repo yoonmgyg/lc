@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        // initialize graph and vectors
+        vector<int> indegree(numCourses, 0);
+        vector<vector<int>> adj(numCourses);
+        vector<int> ans;
+
+        // loop through prereqs and push into graph while adding number of prereqs
+        for(auto x : prerequisites){
+            adj[x[1]].push_back(x[0]);
+            indegree[x[0]]++;
+        }
+
+        queue<int> q;
+        // push each course without prereqs into ans
+        for(int i = 0 ; i < numCourses; i++){
+            if(indegree[i] == 0)
+                q.push(i);
+        }
+
+        // loop through queue
+        while(!q.empty()){
+            // push queue into answer
+            int cur = q.front();
+            q.pop();
+            ans.push_back(cur);
+
+            // loop through graph and decrease reqs as previous nodes are explored
+            for(auto neighbours: adj[cur]){
+                indegree[neighbours]--;
+                if(indegree[neighbours] == 0)
+                    q.push(neighbours);
+            }
+        }
+
+        // check that all courses can be taken
+        if(ans.size() != numCourses) return {};
+        return ans;
+    }
+};
