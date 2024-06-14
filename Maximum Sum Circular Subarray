@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int max1 = INT_MIN, sum = 0, total = 0;
+
+        // loop through nums and sum elements, keeping track of total and maximum number
+        for (auto x : nums) {
+            sum += x;
+            max1 = max(max1,sum);
+            if (sum < 0)
+                sum = 0;
+            total += x; 
+        }
+        
+        int max2 = 0;
+        sum = 0;
+        // loop thorough nums to check right and left sum from circular array
+        for (auto x : nums) {
+            // if right or left sum is greater than middle usum, update max
+            max1 = max(max1, total + max2); 
+            total -= x; 
+            sum += x; 
+            // get maximum left sum
+            max2 = max(max2,sum);
+        }
+        return max1;
+    }
+};
