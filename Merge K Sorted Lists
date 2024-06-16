@@ -1,0 +1,40 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.size() == 0) return NULL;
+        return mergeKListsHelper(lists, 0, lists.size()-1);
+    }
+
+    // helper function to split lists into 2 and merge
+    ListNode* mergeKListsHelper(vector<ListNode*>& lists, int start, int end) {
+        if (start > end) return NULL; 
+        if (start == end) return lists[start];
+
+        int mid = start + (end-start) / 2;
+        ListNode* left = mergeKListsHelper(lists, start, mid);
+        ListNode* right = mergeKListsHelper(lists, mid + 1, end);
+        return merge(left, right);
+    }
+
+    ListNode* merge(ListNode* list1Head, ListNode* list2Head) {
+        ListNode* dummyHead = new ListNode(-1);
+        ListNode* dummyTail = dummyHead;
+
+        // get head of both split lists and continually add lower number to results
+        while(list1Head != NULL && list2Head != NULL) {
+            // if left is less than right, put left after tail
+            if (list1Head->val < list2Head->val) {
+                dummyTail->next = list1Head;
+                list1Head = list1Head->next;
+            // otherwise put right after tail
+            } else {
+                dummyTail->next = list2Head;
+                list2Head = list2Head->next;
+            }
+            dummyTail = dummyTail->next;
+        }
+        // put remaining head at end
+        dummyTail->next = (list1Head != NULL) ? list1Head : list2Head;
+        return dummyHead->next;
+    }
+};
