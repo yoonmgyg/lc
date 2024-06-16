@@ -1,0 +1,91 @@
+class TrieNode {
+public:
+    // nodes for each char
+    TrieNode* children[26]; /
+    // check if end of word
+    bool isWord; 
+
+    TrieNode() {
+        isWord = false;
+        memset(children, 0, sizeof(children));
+    }
+};
+
+class Solution {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        // insert words from dict into trie
+        for (int i = 0; i < words.size(); i++) {
+            insert(words[i]); 
+        }
+        
+        int m = board.size();
+        int n = board[0].size();
+        
+        TrieNode* node = root; 
+        vector<string> result; 
+        
+        // iterate through each cell 
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // DFS search from each cell and get results
+                search(board, i, j, m, n, node, "", result); 
+            }
+        }
+        
+        return result; 
+    }
+private:
+    TrieNode* root = new TrieNode();
+    
+    // inserts string into Trie
+    void insert(string word) {
+        TrieNode* node = root; 
+        int curr = 0;
+        
+        // iterate through trie, create node if not already existing
+        for (int i = 0; i < word.size(); i++) {
+            curr = word[i] - 'a'; 
+            if (node->children[curr] == NULL) {
+                node->children[curr] = new TrieNode(); 
+            }
+            node = node->children[curr];
+        }
+        
+        node->isWord = true; 
+    }
+    
+    // DFS search in board
+    void search(vector<vector<char>>& board, int i, int j, int m, int n, TrieNode* node, string word, vector<string>& result) {
+        // check if out of bounds or visited
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] == '#') {
+            return; 
+        }
+        
+        char c = board[i][j]; 
+        
+        node = node->children[c - 'a'];
+        if (node == NULL) {
+            return; 
+        }
+        
+        word += board[i][j]; 
+
+        // add word if found
+        if (node->isWord) {
+            result.push_back(word); 
+            node->isWord = false;
+        }
+
+        // mark visited cells
+        board[i][j] = '#';
+        
+        // recursively search through adjacent cells
+        search(board, i - 1, j, m, n, node, word, result);
+        search(board, i + 1, j, m, n, node, word, result);
+        search(board, i, j - 1, m, n, node, word, result);
+        search(board, i, j + 1, m, n, node, word, result);
+
+        // change cell value back
+        board[i][j] = c; 
+};
