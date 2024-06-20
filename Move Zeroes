@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        // put left pointer at nearest 0
+        int left = 0;
+
+        // iterate through nums with right pointer
+        for (int right = 0; right < nums.size(); right++) {
+            // move left pointer to next 0 if right is not 0
+            if (nums[right] != 0) {
+                swap(nums[right], nums[left]);
+                left++;
+            }
+        }        
+    }
+};
