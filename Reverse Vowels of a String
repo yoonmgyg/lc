@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        stack<char> vowels;
+        string vowel = "AEIOUaeiou";
+        // loop through string and push vowels onto stack
+        for (auto ch : s) {
+            if (vowel.find(ch) != string::npos) 
+                vowels.push(ch);
+        }
+        int i = 0;
+        // loop through string and pop stack if vowel
+        for (auto ch : s) {
+            if (vowel.find(ch) != string::npos)  { 
+                s[i] = vowels.top();
+                vowels.pop();
+            }
+            i++;
+        }       
+        return s;
+    }
+};
