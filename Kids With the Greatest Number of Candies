@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        int greatest = 0;
+        vector<bool> ans;
+        // get max value within kids
+        for (int kid : candies) {
+            greatest = max(greatest, kid);
+        }
+        // check if the extra candies are greater than or equal to the max        
+        for (int kid : candies) {
+            ans.push_back(kid + extraCandies >= greatest);
+        }
+
+        return ans;
+    }
+};
