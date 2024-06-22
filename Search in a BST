@@ -1,0 +1,16 @@
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+        // return node if value is equal
+        if (root == NULL || root->val==val){
+            return root;
+        }
+        // recursively search less subbranch if less
+        if (val < root->val){
+            return searchBST(root->left,val);
+        }
+        // recursively search right if greater 
+        else{
+            return searchBST(root->right,val);
+        }
+}
