@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string removeStars(string s) {
+        int j = 0;
+        // loop through string
+        for (int i = 0; i < s.size(); i++){
+            // if star is found, move j to get rid of last element
+            if (s[i] == '*') {
+                j--;
+            // if not star, set to char at j to add into filtered answer
+            } else {
+                s[j++] = s[i];
+            }
+        }
+        // return answer as filtered string at j
+        return s.substr(0,j);
+    }
+};
