@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector <int> countBits(int num) {
+        // add dp vector to store bit results
+        vector<int> res(num);
+        // add base case for 0
+        res.push_back(0); 
+        if (num == 0) return res;
+
+        // loop through num to create dp vector
+        for (int i = 1; i <= num; i++) {
+            // if number is even, same amount of 1s as half 
+            if (i % 2 == 0) 
+                res[i] = res[i / 2];
+            // if odd, 1s are previous number + 1
+            else
+                res[i] = res[i - 1] + 1;
+        }
+        return res;
+    }
+};
