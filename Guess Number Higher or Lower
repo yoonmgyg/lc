@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int guessNumber(int n) {
+        // use binary search to get middle of each interval
+        int left = 1;
+        int right = n;
+        int mid = left  + (right-left) / 2;
+        while (left < right) {
+            // use given api to compare with results
+            int ans = guess(mid);
+            if (ans== 0) return mid;
+            // move right if less
+            else if(ans == -1) {
+                right = mid-1; 
+            } 
+            // move left if greater
+            else {
+                left = mid + 1;
+            }
+            // shift again towards middle
+            mid = left + (right-left) / 2;
+        }
+        return mid ; 
+    }
+};
