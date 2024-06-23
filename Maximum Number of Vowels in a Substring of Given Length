@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxVowels(string s, int k) {
+        string vowels = "aeiouAEIOU";
+        int current = 0, maximum = INT_MIN;
+        
+        // get initial substring of k
+        for (int i = 0; i < k; i++)
+            // count vowels within substring
+            if (vowels.find(s[i]) != string::npos) 
+                current += 1;
+        
+        maximum = current;
+
+        // loop through s after k
+        for (int i = k; i < s.size(); i++) {
+            // move window by character and add or subtract if newest or oldest character is a vowel
+            if (vowels.find(s[i]) != string::npos) 
+                current += 1;
+            if (vowels.find(s[i-k]) != string::npos)
+                current -= 1;
+            maximum = max(current, maximum);
+        }
+
+        return maximum;
+    }
+};
