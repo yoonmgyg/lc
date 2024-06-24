@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int tribonacci(int n) {
+        // set cases for tribonacci of 0 and 1
+        if (n == 0)
+            return 0;
+        if (n == 1 || n == 2)
+            return 1;
+
+        // make dp vector of triobnacci numbers
+        vector<int> Tribonacci(n+1);
+
+        // set initial tribonacci of 2
+        Tribonacci[0] = 0;
+        Tribonacci[1] = 1;
+        Tribonacci[2] = 1;
+
+        // calculate each tribonacci from previous elements
+        for(int i = 3; i < n+1; i++){
+            Tribonacci[i] = Tribonacci[i-1] + Tribonacci[i-2] + Tribonacci[i-3];
+        }
+        return Tribonacci[n];
+    }
+};
