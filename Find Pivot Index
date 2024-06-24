@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        // initialize left and right sums at index 0
+        int left = 0;
+        int right = accumulate(nums.begin(), nums.end(), 0);
+        
+        for (int i = 0; i < nums.size() ; i++ ){    
+            // subtract each num to include into left
+            totalWeightOnRight -= nums[i];
+
+            // if equal, i is pivotr index
+            if (left == right) {
+                return i;
+            }
+            
+            left += currentWeight;
+        }
+        
+        
+        return -1;
+    }
+};
