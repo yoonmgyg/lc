@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int left = 0, right = 0;
+        // loop through vector
+        while (right < nums.size()) {
+            // use flips if number is 0
+            if (nums[right] == 0) {
+                k--;
+            }
+            // if out of flips, shift left window until k is restored
+            if (k < 0) {
+                // restore k if left is a zero and flip was used
+                if (nums[left] == 0) {
+                    k++;
+                }
+                left++;        
+            }
+            right++;
+        }
+
+        return right - left;
+    }
+};
