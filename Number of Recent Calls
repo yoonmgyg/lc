@@ -1,0 +1,21 @@
+class RecentCounter {
+puublic:
+    queue<int> q;
+
+    // initialize empty recent counter
+    RecentCounter() {
+        return;
+    }
+
+    int ping(int t) {
+        // add ping onto queue
+        q.push(t);
+
+        // check if ping is within 3000 
+        while(q.front() < t-3000)
+            q.pop();
+        
+        // return pings within 3000
+        return q.size();
+    }
+};
