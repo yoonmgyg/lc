@@ -1,0 +1,22 @@
+class StockSpanner {
+public:
+    stack<pair<int, int>> stack;
+    StockSpanner() {
+    }
+    
+    int next(int price) {
+        int consec = 1;
+        // if top of stack's price is less than current, 
+        // add consecutive days to current price and remove from stack
+        while (!stack.empty() && stack.top().first <= price) {
+            consec += stack.top().second;
+            stack.pop();
+        }
+        // push current day's price onto stack
+        stack.push({price, consec});
+
+        // return number of consecutive days of price
+        return consec;
+    }
+};
+
