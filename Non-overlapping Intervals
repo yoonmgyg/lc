@@ -1,0 +1,25 @@
+bool compareEnd(vector<int>& a,vector<int>& b) {
+	return a[1]<b[1];
+}
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        // sort by endpoint to maximize intervals
+        sort(intervals.begin(), intervals.end(), compareEnd);
+        int overlap = 0;
+        int start = 0;
+
+        // loop through intervals
+        for (int i = 1; i < intervals.size(); i++) {
+            // if previous interval's end is greater than current beginning, add overlap
+            if (intervals[start][1] > intervals[i][0]) {
+                overlap++;
+            }
+            // if non overlapping, switch previous interval to current
+            else {
+                start = i;
+            }
+        }
+        return overlap;
+    }
+};
