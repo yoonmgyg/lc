@@ -1,0 +1,26 @@
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root) 
+            // call function until node is found
+            if (key < root->val) 
+              root->left = deleteNode(root->left, key);   
+            else if (key > root->val) 
+              root->right = deleteNode(root->right, key);       
+            else{
+                // if no child, retrun null
+                if(!root->left && !root->right) return NULL;          
+                // if one child, replace node with child
+                if (!root->left || !root->right)
+                    return root->left ? root->left : root->right;    
+
+                // if two child, replace with greatest in left branch or smallest in right
+                TreeNode* temp = root->left;                       
+                while (temp->right != NULL) 
+                    temp = temp->right;     
+                root->val = temp->val;                            
+                root->left = deleteNode(root->left, temp->val); 
+            }
+        return root;
+    }   
+};
