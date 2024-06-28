@@ -1,0 +1,25 @@
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        // return NULL if no node
+        if (head == NULL) 
+            return NULL;
+
+        // initialize slow pointer
+        ListNode* prev = new ListNode(0);
+        prev->next = head;
+
+        // make two pointers where fast pointer moves twice
+        ListNode* slow = prev;
+        ListNode* fast = head;
+
+        // move pointers until fast reaches end, meaning slow is in middle
+        while (fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        // change pointer of slow to remove middle pointer
+        slow->next = slow->next->next;
+        return prev->next;
+    }
+};
