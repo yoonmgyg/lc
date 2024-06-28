@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        int n = spells.size();
+        int m = potions.size();
+        vector<int> pairs(n, 0);
+        // sort potions ascendingly
+        sort(potions.begin(), potions.end());
+
+        // loop through spells
+        for (int i = 0; i < n; i++) {
+            int spell = spells[i];
+            int left = 0;
+            int right = m - 1;
+            // use binary search to find potion and spell match
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+
+                // if spell * potions is greater than success, set right threshold of spells
+                long long product = (long long) spell * (long long) potions[mid];
+                if (product >= success) {
+                    right = mid - 1;
+                // otherwise move left threshold
+                } else {
+                    left = mid + 1;
+                }
+            }
+            // add matching pairs - left threshold
+            pairs[i] = m - left;
+        }
+        return pairs;
+    }
+};
