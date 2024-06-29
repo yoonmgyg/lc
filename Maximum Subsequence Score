@@ -1,0 +1,59 @@
+
+class Solution {
+public:
+    long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
+        // stores nums1 in decreasing order to get max multipler
+        priority_queue<pair<int, int>> maxHeap;
+
+        // stores nums2 in increasing order to get min sum
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minHeap;
+
+        long long ans = INT_MIN;
+        long long score = 0;
+        long long sum = 0;
+        
+        // push all the elements from nums1 into maxheap
+        for(int i = 0; i < nums1.size(); i++) {
+            maxHeap.push({nums1[i] , i});
+        } 
+        
+        // sum the max k elements of nums1 and push the corresponding elements from nums2 into minHeap
+        while (!maxHeap.empty() && k > 0) {
+            pair<int, int> top = maxHeap.top();
+            sum += top.first;
+            minHeap.push({nums2[top.second], top.second});
+            maxHeap.pop();
+            k--;
+        }
+
+        // the top element from minHeap is used as multiplier
+        int minmul = minHeap.top().first;
+
+        // calculate score for the top k elements and get greatest using min sum
+        score = sum * minmul;
+        ans = max(ans,score);
+
+        // compare scores with different multipliers 
+        while (!maxHeap.empty()) {
+            // try to find better element for sum
+            pair<int, int> mintop = minHeap.top();
+            sum -= nums1[mintop.second];
+            minHeap.pop();
+
+            // add sum from other mults
+            pair<int, int> maxtop = maxHeap.top();
+            // add the element to sum
+            sum += maxtop.first;
+            // push the correspoding ele to minHeap
+            minHeap.push({nums2[maxtop.second],maxtop.second});
+            maxHeap.pop();
+
+            // get the limiting (min) value from minHeap
+            minmul = minHeap.top().first;
+            // update score and ans
+            score = sum*minmul;
+            ans = max(ans,score);
+        }
+        return ans;
+    }
+};
