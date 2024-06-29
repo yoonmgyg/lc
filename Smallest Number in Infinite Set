@@ -1,0 +1,28 @@
+class SmallestInfiniteSet {
+public:
+    int cur;
+    set<int> s;
+
+    // initialize infinite set with 1 as first number
+    SmallestInfiniteSet() {
+        cur = 1;
+    }
+    
+    int popSmallest() {
+        // if set is not empty, remove added element in set
+        if (!s.empty()){
+            int res = *s.begin(); 
+            s.erase(res);
+            return res;
+        // if set is empty, return current element and increment once
+        } else {
+            cur++;
+            return cur-1;
+        }
+    }
+    void addBack(int num) {
+        // if the number is less than the current, insert into set
+        if (cur > num)
+            s.insert(num);
+    }
+};
