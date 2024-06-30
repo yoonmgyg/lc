@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minFlips(int a, int b, int c) {
+        int flips = 0;
+        while (a > 0 || b > 0 || c > 0) {
+            // get bit numbers
+            int bitA = a & 1;
+            int bitB = b & 1;
+            int bitC = c & 1;
+
+            // if c is 0, flip both bits to 0
+            if (bitC == 0) {
+                flips += (bitA + bitB); 
+            } else {
+                // if bitC is 1, then flip if both are 0
+                if (bitA == 0 && bitB == 0) {
+                    flips += 1; 
+                }
+            }
+            // move all bits to right
+            a >>= 1;
+            b >>= 1;
+            c >>= 1;
+        }
+
+        return flips;
+    }
+};
