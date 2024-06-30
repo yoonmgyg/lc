@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maxHeightOfTriangle(int red, int blue) {
+        int levelMax = 1;
+        // loop twice for both red and blue starts
+        for (int i = 1; i < 3; i++) {
+            int redNo = red;
+            int blueNo = blue;
+            int current = 1;
+
+            bool startRed = i % 2;
+            while (redNo >= current && startRed || blueNo >= current && !startRed) {
+                // alternate color usage based on boolean
+                startRed ? redNo -= current : blueNo -= current;
+                // flip colors
+                startRed = !startRed;
+                ++current;
+            }
+            // get maximum level readched by red or blue start
+            levelMax = max(levelMax, current - 1);
+        }
+        
+        return levelMax;
+    }
+};
