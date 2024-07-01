@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int> stack;
+        for (int a : asteroids) {
+            // push into stack if moving right
+            if (a > 0) {
+                stack.push(a);
+            } else {
+                // while top of stack is right and current is left and greater, remove stack on top
+                while (!stack.empty() && stack.top() > 0 && stack.top() < -a) {
+                    stack.pop();
+                }
+                // if stack is empty or top is left, add onto stack
+                if (stack.empty() || stack.top() < 0) {
+                    stack.push(a);
+                }
+                // if both are equal, remove both 
+                if (!stack.empty() && stack.top() == -a) {
+                    stack.pop();
+                }
+            }
+        }
+
+        vector<int> res(stack.size());
+        int i = stack.size() - 1;
+
+        // add stack afterwards into vector
+        while (!stack.empty()) {
+            res[i--] = stack.top();
+            stack.pop();
+        }
+
+        return res;        
+    }
+};
