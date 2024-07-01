@@ -1,0 +1,20 @@
+class Solution {
+public:
+      int maxLength = 0;
+
+      // use recursive function to alternate through BST
+      void solve(TreeNode* root, int dir, int currLength) {
+          if (!root) return;
+          // update max length when greater
+          maxLength = max(maxLength, currLength);
+          // loop through left and right branch, updating length based on direction
+          solve(root->left, 0, dir ? currLength+1 : 1);
+          solve(root->right , 1, dir ? 1 : currLength+1);
+      }
+  
+      int longestZigZag(TreeNode* root) {
+          solve(root,0,0);
+          solve(root,1,0);
+          return maxLength;
+      }
+};
