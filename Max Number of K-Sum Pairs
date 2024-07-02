@@ -1,0 +1,23 @@
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        // sort array
+        Arrays.sort(nums);
+        int count = 0;
+        int i = 0;
+        int j = nums.length - 1;
+        // use two pointers as sliding window
+        while (i < j) {
+            // if sums equal k, remove number from window and add count
+            int sum = nums[i] + nums[j];
+            if (sum == k) {
+                count++;
+                i++;
+                j--;
+            }
+            // if not, move window according to sum's value due to sort 
+            else if (sum > k) j--;
+            else i++;
+        }
+        return count;
+    }
+}
