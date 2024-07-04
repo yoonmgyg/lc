@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void getSubset(vector<int>& nums, vector<vector<int>>& subs, vector<int>& set, int index) {
+        // if index reaches end of list, add set into subs
+        if (index == nums.size()) {
+            subs.push_back(set);
+            return;
+        }        
+
+        // recursively add each index no into set
+        set.push_back(nums[index]);
+        getSubset(nums, subs, set, index+1);
+        // remove last element and add again into set
+        set.pop_back();
+        getSubset(nums, subs, set, index+1);
+
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> subs;
+        vector<int> set;
+
+        // enter answers as parameters for function
+        getSubset(nums, subs, set, 0);
+        return subs;
+    }
+};
