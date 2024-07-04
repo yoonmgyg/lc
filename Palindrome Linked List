@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *slow = head, *fast = head;
+        // use slow and fast pointers to get middle
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // reverse back half of linked list
+        ListNode *prev, *temp;
+        while (slow && slow->next) {
+            // save next node and set to previous node
+            temp = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = temp;
+        }
+
+        fast = head;
+        slow = prev;
+        // compare both halves to be equal
+        while (slow && fast) {
+            if (fast->val != slow->val) 
+                return false;
+            else {
+                fast = fast->next;
+                slow = slow->next;
+            }
+        }
+        return true;
+    }
+};
