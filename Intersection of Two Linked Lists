@@ -1,0 +1,24 @@
+class Solution {
+public:
+	ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+		ListNode* nodeA = headA;
+		ListNode* nodeB = headB;
+    // loop while nodeA and node B are not equal
+		while (nodeA != nodeB) {
+      // once node reaches the end, set it to other head
+			if (!nodeA) {
+			  nodeA = headB;
+			}	else {
+				nodeA = nodeA->next;
+			}
+      // when both nodes reach the end, they are set at the same distance to the intersection point
+			if (!nodeB) {
+				nodeB = headA;
+			} else {
+				nodeB = nodeB->next;
+			}
+		}
+    // return intersection point
+		return nodeA;
+	}
+};
