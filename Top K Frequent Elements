@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> elements;
+        vector<int> ans;
+        
+        // add frequency into map
+        for (int i = 0; i < nums.size(); i++) {
+            elements[nums[i]]++;
+        }
+        
+        // push key and value into vector
+        vector<pair<int, int>> freq;
+        for (auto i : elements) {
+            cout << i.second << "," <<  i.first << endl;
+            freq.push_back({i.second, i.first});
+        }
+        
+        // sort vector by frequency
+        sort(freq.begin(), freq.end());
+        
+        // get last k elements of vector
+        for (int i = 1; i < k + 1; i++) {
+            ans.push_back(freq[freq.size() - i].second);
+        }
+        
+        return ans;
+        
+    }
+};
