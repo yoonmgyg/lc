@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if (!root)
+            return 0;  
+        // recursively search each branch
+        int left = minDepth(root->left);
+        int right = minDepth(root->right);
+
+        // if left and right exist, get minimum from both branches
+        if (root->left && root->right) {
+            return 1 + min(left, right);
+        }
+        // if one does not exist, it cannot be minimum depth and so must return the max
+        else 
+            return 1 + max(left, right);
+    }
+};
