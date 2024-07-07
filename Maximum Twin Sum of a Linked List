@@ -1,0 +1,18 @@
+public:
+    int pairSum(ListNode* head) {
+        vector<int> nodeVals;
+        // store ll into vector for indexed access
+        while (head) {
+            nodeVals.push_back(head->val);
+            head = head->next;
+        }
+
+        int n = nodeVals.size() - 1;
+        int maximum = 0;
+        // calculate the sum of twin and get the maximum from latter half
+        for (int i = n; i > n / 2; i--) {
+            maximum = max(maximum, nodeVals[i] + nodeVals[n-i]);
+        }
+        return maximum;
+    }
+};
