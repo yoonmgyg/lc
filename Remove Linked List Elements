@@ -1,0 +1,15 @@
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        // end recursion at end
+        if (!head) 
+            return NULL;
+
+        // return next node instead of current node to remove
+        if (head->val == val) 
+            return removeElements(head->next, val);
+
+        // go through rest of linked list and set next as result of recursion
+        head->next = removeElements(head->next, val);
+        return head;
+    }
