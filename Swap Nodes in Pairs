@@ -1,0 +1,27 @@
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        // check if list is empty
+        if (!head || !head->next) {
+            return head;
+        }
+
+
+        // create node pointing for answer
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* curr = dummy;
+
+        // get node pairs and swap with first and second
+        while (!curr->next  && !curr->next->next) {
+            ListNode* first = curr->next;
+            ListNode* second = curr->next->next;
+            curr->next = second;
+            first->next = second->next;
+            second->next = first;
+            curr = curr->next->next;
+        }
+        
+        return dummy->next;
+    }
+};
