@@ -1,0 +1,34 @@
+//Upvote and Comment
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        // check if empty
+        if (!head) return;
+        
+        // finding the middle through slow and fast pointers
+        ListNode *tmp = head, *half = head, *prev = NULL;
+        while (tmp->next && tmp->next->next) {
+            tmp = tmp->next->next;
+            half = half->next;
+        }
+        
+        // reverse second half of list
+        while (half) {
+            tmp = half->next;
+            half->next = prev;
+            prev = half;
+            half = tmp;
+        }
+        half = prev;
+        
+        // merge halves back and alternate between nodes
+        while (head && half) {
+            tmp = head->next;
+            prev = half->next;
+            head->next = half;
+            half->next = tmp;
+            head = tmp;
+            half = prev;
+        }
+    }
+};
