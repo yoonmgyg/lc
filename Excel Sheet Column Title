@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        if (columnNumber == 0) 
+            return "";
+        columnNumber--;
+        // convert character to excel column
+        char c = 'A' + columnNumber % 26;
+        // recursively apply to all characters and add
+        return convertToTitle(columnNumber / 26) + c;
+    }
+};
