@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void combination(vector<int>& candidates, int target, int index, vector<vector<int>>&ans, vector<int>&ds){
+        // add answer if 0
+        if (target == 0){
+            ans.push_back(ds);
+            return;
+        }
+        for (int i = index; i< candidates.size(); i++){
+            // if exceeding target, end loop
+            if (candidates[i] > target) 
+                break;
+            // if duplicate, ignore
+            if (i > index && candidates[i] == candidates[i-1])
+                continue;
+            // add to combination if not
+            ds.push_back(candidates[i]);
+            // recursively get next element
+            combination(i+1, target- candidates[i], candidates, ans, ds); 
+            ds.pop_back();
+        }
+        
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        // sort candidates
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>>ans;
+        vector<int>ds;
+        combination(candidates, target, 0, ans, ds);
+        return ans;
+    }
+};
