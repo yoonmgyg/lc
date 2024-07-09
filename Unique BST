@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numTrees(int n) {
+        // intialize dp vector
+        vector<int> result(n+1,0);
+        result[0] = result[1] = 1;
+        // iterate through possible trees
+        for (int i = 2; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                // use previous tree, with result[j] being left subtree and [i-j-1] being right subtree, then multiply to get possible trees
+                result[i] += result[j] * result[i-j-1]; 
+            }
+        }
+        return result[n]; 
+    }
+};
