@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        // sort vector to find triple
+        sort(nums.begin(), nums.end());
+        int ans = INT_MAX;
+        int result = 0;
+
+        // use 3 pointers to get beginning, middle, end of array
+        for (int i = 0; i < nums.size() - 2; i++) {
+            int j = i + 1;
+            int k = nums.size() - 1;
+            // calcualte current sum and check forr absdolute value
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == target) {
+                    return sum;
+                } else if (abs(sum - target) < abs(ans)) {
+                    ans = sum - target;
+                    result = sum;
+                }
+                // move pointers to narrrow window of values after sum
+                if (sum > target) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        return result;
+    }
+};
