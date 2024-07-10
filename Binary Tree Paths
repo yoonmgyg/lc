@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void helper(TreeNode* root,vector<string>& answer, vstring curr){
+        if (!root) return;
+        // if there are children, add current value and arrow
+        if (root->left || root->right) 
+            curr += (to_string(root->val)+"->");
+
+        // if not, complete string and add to answer
+        else {
+            curr += (to_string(root->val));
+            answer.push_back(curr);
+        }
+
+        // recursively apply left and right
+        helper(root->left, answer, curr);
+        helper(root->right, answer, curr);  
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> answer;
+        string curr="";
+        helper(root, answer, curr);
+        return answer;
+    }
+};
