@@ -1,0 +1,25 @@
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while (fast && fast->next) {
+            // move fast pointer twice and slow pointer once
+            slow = slow->next;
+            fast = fast->next->next;
+
+            // once pointers match, return slow to head
+            if (slow == fast) {
+                slow = head;
+                // distance between slow and fast is distance of one cycle, and will match at the cycle node
+                while (slow != fast){
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
+            }
+        }
+        return NULL;
+    }
+};
