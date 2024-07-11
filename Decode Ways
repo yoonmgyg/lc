@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int numDecodings(std::string s) {
+        // check if empty or 0
+        if (s.empty() || s[0] == '0') {
+            return 0;
+        }
+        // map all possible letters to dp vector
+        int n = s.length();
+        std::vector<int> dp(n + 1, 0);
+        dp[0] = 1;
+        dp[1] = 1;
+
+        // loop throughout string chars
+        for (int i = 2; i <= n; ++i) {
+            // separate into one and two digits for all possible decodes
+            int oneDigit = s[i - 1] - '0';
+            int twoDigits = std::stoi(s.substr(i - 2, 2));
+
+            // add previous character value if not 0
+            if (oneDigit != 0) {
+                dp[i] += dp[i - 1];
+            }
+
+            // if between 10 and 26, add character value previous to last
+            if (10 <= twoDigits && twoDigits <= 26) {
+                dp[i] += dp[i - 2];
+            }
+        }
+
+        return dp[n];
+    }
+};
