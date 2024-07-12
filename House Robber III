@@ -1,0 +1,29 @@
+struct RobbedRoot {
+    int robbedRoot;
+    int skippedRoot;
+};
+
+class Solution {
+private:
+    RobbedRoot robDFS(TreeNode* root) {
+        if (root == nullptr) {
+            return RobbedRoot{0, 0};
+        }
+        // recursively search left and right branches
+        RobbedRoot robLeft = robDFS(root->left);
+        RobbedRoot robRight = robDFS(root->right);
+
+        // get value of rob and skipped nodes for each node
+        int robThisNode = root->val + robLeft.skippedRoot + robRight.skippedRoot;
+        int skipThisNode = max(robLeft.robbedRoot, robLeft.skippedRoot) + max(robRight.robbedRoot, robRight.skippedRoot);
+
+        // return both robbed and skipped nodes for comparison
+        return RobbedRoot{robThisNode, skipThisNode};
+    }
+public:
+    int rob(TreeNode* root) {
+        RobbedRoot finalState = robDFS(root);
+        // return greater of robbed root and skipped root node 
+        return max(finalState.robbedRoot, finalState.skippedRoot);
+    }
+};
