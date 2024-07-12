@@ -1,0 +1,12 @@
+class Solution {
+public:
+	void deleteNode(ListNode* node) {
+    // store next node in temp
+		ListNode* temp = node->next;
+    // copy value into temp
+		node->val = temp->val;
+    // set next node into node after next
+		node->next = temp->next;
+		delete temp;
+	}
+};
