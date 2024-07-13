@@ -1,0 +1,21 @@
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if (!root) {
+            return NULL;
+        }
+        // if left subtree exists, set left child's next node to right child
+        if (root->left) {
+            root->left->next = root->right;
+
+            // if next node exists, set right child's next node to next's left soi that left and right are connected
+            if (root->next) {
+                root->right->next = root->next-> left;
+            }
+            // recursively apply for left and right trees
+            connect(root->left);
+            connect(root->right);
+        }
+        return root;
+    }
+};
