@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        stack<char> stack;
+        bool isNum = false;
+        preorder.push_back(','); 
+
+        // loop through preorder chars
+        for (auto c: preorder){
+            // if null, add onto stack
+            if (c == '#') {
+                // while top of stack is null, check for null and number pattern
+                while (!stack.empty() && stack.top() == '#') { 
+                    stack.pop();
+                    // valid cannot have 3 nulls in a row
+                    if (stack.empty() || stack.top() == '#') 
+                        return false; 
+                    stack.pop(); 
+                }
+                stack.push('#');
+            } else if (c == ',') {
+                // if number, add to stack as number
+                if (isNum) stack.push('n'); 
+                isNum = false;
+            // set to be number
+            } else {
+                isNum = true;
+            }
+        }
+        
+        return stk.size() == 1 && stk.top() == '#';
+    }
+};
