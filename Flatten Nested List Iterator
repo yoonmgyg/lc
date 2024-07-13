@@ -1,0 +1,38 @@
+class NestedIterator {
+private:
+    vector<NestedInteger> nestedList;
+    vector<int> flattenedList;
+    int currentIndex = 0;
+
+    // recursively flattens list and add integers
+    void flatten(vector<NestedInteger>& currentList) {
+        for (int i = 0; i < currentList.size(); i++) {
+            // if integer, add into list
+            if (currentList[i].isInteger()) {
+                flattenedList.push_back(currentList[i].getInteger());
+            } else {
+                // otherwise, is a nested list and recursively flattened
+                flatten(currentList[i].getList());
+            }
+        }
+    }
+
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        this->nestedList = nestedList;
+        // add list and flatten
+        flatten(nestedList);
+    }
+
+    // return next number in list
+    int next() {
+        int number = flattenedList[currentIndex];
+        currentIndex++;
+        return number;
+    }
+
+    // check if current index exceeds size
+    bool hasNext() {
+        return currentIndex < flattenedList.size();
+    }
+};
