@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        unordered_map<char, int> lastOccurrence;
+        // add each character into map
+        for (int i = 0; i < s.length(); i++) {
+            lastOccurrence[s[i]] = i;
+        }
+
+        stack<char> stack;
+        unordered_set<char> visited;
+
+        for (int i = 0; i < s.length(); i++) {
+            // skip if current character was visited
+            if (visited.find(s[i]) != visited.end()) {
+                continue;
+            }
+
+            // loop when top of stack is greater than current and the last occurrence is after current index, then remove
+            while (!stack.empty() && s[i] < stack.top() && i < lastOccurrence[stack.top()]) {
+                visited.erase(stack.top());
+                stack.pop();
+            }
+
+            // add visited char into vector and stack
+            visited.insert(s[i]);
+            stack.push(s[i]);
+        }
+
+        string result;
+        // add chars in order of stack
+        while (!stack.empty()) {
+            result = stack.top() + result;
+            stack.pop();
+        }
+        return result;        
+    }
+};
