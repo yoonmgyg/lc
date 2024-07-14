@@ -1,0 +1,22 @@
+int hIndex(vector<int>& c) {
+        int n = c.size();
+        if (!n) return 0;
+        int left = 0
+        int right = n-1;
+        int ans = 0;
+        // use binary search to find element greater than remaining
+        while (left <= right){
+            int mid = left+(right-left)/2;
+            // check if remaining is less than current
+            if(c[mid] >= n-mid){
+                // update answer and window
+                ans = n-mid;
+                right = mid - 1;
+            // otherwise close left window
+            } else {
+                left  = mid + 1;
+            }
+        }
+        
+        return ans;
+	}
