@@ -1,0 +1,28 @@
+class Solution {
+public:
+  vector<int> intersect(vector<int>& nums1, vector<int>& nums2) { 
+        // sort both vectors
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        int n1 = (int) nums1.size(), n2 = (int) nums2.size();
+        int i1 = 0, i2 = 0;
+        vector<int> res;
+        // loop through both vectors
+        while(i1 < n1 && i2 < n2){
+            // if indexes are equal, add into result
+            if(nums1[i1] == nums2[i2]) {
+                res.push_back(nums1[i1]);
+                i1++;
+                i2++;
+            }
+            // otherwise increment lesser index as vectors are sorted
+            else if (nums1[i1] > nums2[i2]){
+                i2++;
+            }
+            else{
+                i1++;
+            }
+        }
+        return res;
+    }
+};
