@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        // store nums value in set for keys
+        unordered_set<int> m(nums1.begin(), nums1.end());
+        vector<int> res;
+        // loop through second array 
+        for (auto a : nums2)
+            // if key can be found, push into result and erase from set to prevent duplicate
+            if (m.count(a)) {
+                res.push_back(a);
+                m.erase(a);
+            }
+        return res;
+    }
+};
