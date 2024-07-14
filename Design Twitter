@@ -1,0 +1,34 @@
+class Twitter {
+private:
+    vector<pair<int,int>> posts;
+    unordered_map<int, unordered_map<int, int>> follows;
+public:
+    Twitter() {}
+
+    // add posts by pushing back onto vector
+    void postTweet(int userId, int tweetId) {
+        posts.push_back(make_pair(userId, tweetId));
+    }
+
+
+    vector<int> getNewsFeed(int userId) {
+        vector<int>feed;
+        int count = 0;
+        // loop through posts until 10 are found
+        for (int i = posts.size() - 1; i >= 0 && count < 10; i--)
+            // check that user's post is being followed and push onto feed
+            if (posts[i].first == userId || follows[userId][posts[i].first])
+                feed.push_back(posts[i].second), count++;
+        return feed;
+    }
+    
+    void follow(int followerId, int followeeId) {
+        // add follower into map of map
+        follows[followerId][followeeId] = 1;
+    }
+    
+    void unfollow(int followerId, int followeeId) {
+        // set value to 0
+        follows[followerId][followeeId] = 0;
+    }
+};
