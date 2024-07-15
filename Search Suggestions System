@@ -1,0 +1,44 @@
+// create trie to insert searches
+struct Trie {
+    unordered_map<char, Trie*> leaves;
+    vector<string> suggestions;
+};
+
+void insertTrie(Trie* root, string word) {
+    // insert each char in trie
+    for (const char& c: word) {
+        // if character not found in word, create new tree for char
+        if (root->leaves.find(c) == root->leaves.end())
+            root->leaves[c] = new Trie();
+        root = root->leaves[c];
+        
+        // add additional suggestions if less than 3
+        if (root->suggestions.size() < 3)
+            root->suggestions.emplace_back(word);
+    }
+}
+
+
+vector<vector<string>> suggestionTrie(vector<string>& products, string searchWord) {
+    vector<vector<string>> result(searchWord.size());
+    // sort product words
+    sort(begin(products), end(products));
+    // create trie and insert each word
+    Trie *root = new Trie();
+    for (const string &word: products)
+        insertTrie(root, word);
+    
+    string prefix;
+    // loop through chars of search and compare with trie
+    for (int i = 0; i < searchWord.size(); i++) {
+        auto it = root->leaves.find(searchWord[i]);
+        if (it != root->leaves.end()) {
+            root = it->second;
+        }
+        else
+            break;
+        // add suggestions if any for the current char
+        result[i] = root->suggestions;
+    }
+    return result;
+}
