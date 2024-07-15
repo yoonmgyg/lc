@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int n = nums.size(); 
+
+        int left = 0;
+        int zeros = 0; 
+        int ans = 0; 
+        // use window to get number of ones
+        for (int right = 0; right < n; right++) {
+            // count zeros in window
+            if (nums[right] == 0) {
+                zeros++; 
+            }
+
+            // move window left until there is 1 or less zeroes
+            while (zeros > 1) {
+                if (nums[left] == 0) {
+                    zeros--; 
+                }
+                left++; 
+            }
+
+            // recalculate maximum length found
+            ans = max(ans, right - left + 1 - zeros);
+        }
+
+        // subtract 1 if all chars are 1
+        return (ans == n) ? ans - 1 : ans;
+    }
+};
