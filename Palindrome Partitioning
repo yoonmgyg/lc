@@ -1,0 +1,39 @@
+class Solution {
+public:
+    // recursive backtracking function for partitioning
+    void partition(string& s, int start, vector<string>& par, vector<vector<string>>& pars) {
+        int n = s.length();
+        if (start == n) {
+            pars.push_back(par);
+        } else {
+            // loop until n, if string is palindrome then push into partition
+            for (int i = start; i < n; i++) {
+                if (isPalindrome(s, start, i)) {
+                    par.push_back(s.substr(start, i - start + 1));
+                    // check for additional substring palindromes with i+1
+                    partition(s, i + 1, par, pars);
+                    par.pop_back();
+                }
+            }
+        }
+    }
+    
+    bool isPalindrome(string& s, int l, int r) {
+        // loop through string and check that string is palindrome
+        while (l < r) {
+            if (s[l++] != s[r--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> pars;
+        vector<string> par;
+        partition(s, 0, par, pars);
+        return pars;
+    }
+
+};
