@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int count = 0;
+    void solution(long n, int osf) {
+        // return minimum of count
+        if (n == 1) {
+            if (count == 0 || osf < count)  count = osf;
+            return;
+        }
+        // if even, recursively divide
+        if (n % 2 == 0) {
+            solution(n / 2, osf + 1);
+        // if odd, recursively look for +1 and -1 solutions
+        } else {
+            solution(n - 1, osf + 1);
+            solution(n + 1, osf + 1);
+        }
+    }
+
+    int integerReplacement(int n) {
+        solution(n, 0);
+        return count;
+    }
+};
