@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string predictPartyVictory(string senate) {
+        queue<int> rad, dir;
+        int n = senate.length();
+        // add all senators to respective queue
+        for (int i = 0; i < n; i++){
+            if (senate[i] == 'R'){
+                rad.push(i);
+            }
+            else {
+                dir.push(i);
+            }
+        }
+        // loop through both queues
+        while (!rad.empty() && !dir.empty()){
+            // push back into queue if less
+            if (rad.front() < dir.front()){
+                rad.push(n++);
+            }
+            else {
+                dir.push(n++);
+            }
+            rad.pop(), dir.pop();
+        }
+        // return which queue is emptyh
+        return (rad.empty()) ? ("Dire") : ("Radiant");
+    }
+};
