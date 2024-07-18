@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(TreeNode* root, int high){
+        if (root){
+            // recursively traverse into left and right trees and get max
+            int  k = solve(root->left, max(high, root->val)) + solve(root->right, max(high, root->val));
+            // add good node if greater than high
+            if (root->val >= high) {
+                k++;
+            }
+            // return number of good nodes
+            return k;
+        }
+        return 0;
+    }
+    int goodNodes(TreeNode* root) {
+        return solve(root, -10001);
+    }
+};
