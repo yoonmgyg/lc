@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int maxLevelSum(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        queue<TreeNode*> queue;
+        queue.push(root);
+        int maxLevel = 1;
+        int maxSum = INT_MIN;
+        int level = 1;
+
+        // loop through queue
+        while (!queue.empty()) {
+            int levelSum = 0;
+            int levelSize = queue.size();
+
+            // make node of front and add according to level size
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode* node = queue.front();
+                queue.pop();
+                levelSum += node->val;
+
+                // enter subtrees into queue
+                if (node->left != nullptr) {
+                    queue.push(node->left);
+                }
+                if (node->right != nullptr) {
+                    queue.push(node->right);
+                }
+            }
+
+              // update max sum and levels
+              maxSum = max(maxSum, levelSum);
+              maxLevel = max(maxLevel, level);
+
+
+            level++;
+        }
+
+        return maxLevel;
+    }
+};
