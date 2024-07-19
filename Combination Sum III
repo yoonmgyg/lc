@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    
+    void combination(vector<int>& cur, int cnum, int k, int n) {
+        // ignore combination if invalid
+        if (n < 0 || cur.size() > k) 
+            return;
+        // add combination if matching n
+        if (n == 0 && cur.size() == k) {
+            ans.push_back(cur);
+            return;
+        }
+        // for each number k, loop through 1 to 9 for possible combinations
+        for (int i = cnum; i <= 9; i++) {
+            cur.push_back(i);
+            // backtrack with all numbers 1-9 for each number within combination
+            combination(cur, i+1, k, n-i);
+            cur.pop_back();
+        }
+    }
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> cur;
+        combination(cur, 1, k, n);
+        return ans;
+    }
+};
