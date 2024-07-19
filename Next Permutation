@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size(), index = -1;  
+        // check if current index is less than next index
+        for (int i = n-2; i >= 0; i--) {
+            if (nums[i] < nums[i+1]){
+                index = i;
+                // break at largest index less than the next index
+                break;
+            }
+        }
+        // find largest index going backwards
+        for (int i = n-1; i >= index && index != -1; i--) {
+            // swap index at both pointres if less
+            if (nums[i] > nums[index]) {
+                swap(nums[i], nums[index]);
+                break;
+            }
+        }
+        // reverse elements if no larger permutation, meaning first permutation is next
+        reverse(nums.begin() + index + 1, nums.end());
+    }
+};
