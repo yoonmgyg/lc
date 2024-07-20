@@ -1,0 +1,23 @@
+class Solution {
+private:
+    int sum = 0;
+
+    void traverse(TreeNode* root) {
+        if (root) {
+            // traverse right subtree to get greater keyts
+            traverse(root->right);
+            // add to sum
+            sum += root->val; 
+            // update current node value
+            root->val = sum;  
+            // go to left subtree
+            traverse(root->left);  
+        }
+    }
+
+public:
+    TreeNode* bstToGst(TreeNode* root) {
+        traverse(root);
+        return root;
+    }
+};
