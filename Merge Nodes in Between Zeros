@@ -1,0 +1,26 @@
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head){
+    // check for multiple zeroes
+    if (!head->next) 
+        return nullptr;
+    
+
+    ListNode* ptr= head->next;
+    int sum = 0;
+
+    // loop through nodes between zeroes and add sum
+    while (ptr->val != 0) { 
+        sum += ptr->val;
+        ptr=ptr->next;
+    }
+
+    // assign zero to next nonzero
+    head->next->val= sum;
+    
+    // connect the answer to next head
+    head->next->next= mergeNodes(ptr);
+    
+    return head->next;
+  }
+};
