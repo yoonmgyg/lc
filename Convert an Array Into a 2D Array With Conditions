@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> findMatrix(vector<int>& nums) {
+        vector<vector<int>> ans;
+        unordered_map<int, int> mp;
+        // count and add frequences into map from nums
+        for (auto i: nums){
+            mp[i]++;
+        }  
+
+        while(!mp.empty()){
+            vector<int> temp;
+            // loop through map to get row for each element
+            for (auto it = mp.begin(); it != mp.end();) {
+                // push into vector to create row
+                temp.push_back(it->first);
+                it->second--;
+                // check for duplicates and remove if 0
+                if (it->second == 0){
+                    it = mp.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+            // push row into vector
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
