@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int deepestLeavesSum(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        int ans = 0, qlen = 0;
+        while (q.size() > 0) {
+            qlen = q.size(), ans = 0;
+            // loop through all queue elements
+            for (int i = 0; i < qlen; i++) {
+                TreeNode* curr = q.front(); 
+                q.pop();
+                // add ends of tree into sum
+                ans += curr->val;
+                // add each subtree into queue
+                if (curr->left) 
+                    q.push(curr->left);
+                if (curr->right) 
+                    q.push(curr->right);
+            }
+        }
+        return ans;
+    }
+};
