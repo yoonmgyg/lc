@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int n = grid.size(), res = 0;
+        // make vector for rows and columns
+        vector<int> rows(n), cols(n);
+
+        // assign each row and column the maximum of current row and grid
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                rows[i] = max(rows[i], grid[i][j]);
+                cols[j] = max(cols[j], grid[i][j]);
+            }
+        }
+        // add to result the smaller row and column to maximize skyline
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                res += min(rows[i], cols[j]) - grid[i][j];
+            }
+        }
+        
+        return res;
+    }
+};
