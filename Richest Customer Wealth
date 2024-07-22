@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int res = 0;
+        // loop through accounts for wealth
+        for (int i = 0; i < accounts.size(); i++){
+            int temp = 0;
+            // add each account within bank 
+            for (int j = 0; j < accounts[i].size(); j++){
+                temp += accounts[i][j];
+            }
+            // check and return maximum account wealth
+            res = max(res,temp);
+        }
+        return res;
+    }
+};
