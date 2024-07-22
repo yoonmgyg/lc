@@ -1,0 +1,23 @@
+class SubrectangleQueries {
+    // use vector of vector as rectangle
+    vector<vector<int>> res;
+public:
+    SubrectangleQueries(vector<vector<int>>& rectangle) {
+        res = rectangle;
+    }
+    
+    void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {
+        // assign new values to row and column
+        for (int i = row1; i <= row2; i++){
+            for (int j = col1;j<=col2;j++){
+                res[i][j]=newValue;
+            }
+        }
+    }
+
+    // get value from vector
+    int getValue(int row, int col) {
+        return res[row][col];
+    }
+};
+
