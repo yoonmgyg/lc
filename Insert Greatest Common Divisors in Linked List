@@ -1,0 +1,28 @@
+
+class Solution {
+public:
+    // return gcd of two parameters
+    int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+    
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        if (!head || !head->next)
+            return head;
+        // loop through linked list
+        ListNode *p = head;
+        while (p->next){
+            // create new node of gcd between nodes
+            ListNode* node = new ListNode(gcd(p->val, p->next->val));
+            ListNode *tmp = p->next; 
+			      // inserting node in between
+            p->next = node; 
+            node->next = tmp;
+			      // moving to next node in original list
+            p = tmp;
+        }
+        
+        return head;
+    }
+};
