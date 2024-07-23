@@ -1,0 +1,36 @@
+
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+        int ans = 0;
+        vector<int> lasers;
+        // loop through strings in bank
+        for (auto a : bank){
+            string s = a;
+            int cnt = 0;
+            // loop through each char
+            for (int i = 0; i < s.size(); i++) {
+                // count lasers in row
+                if (s[i] == '1') 
+                    cnt++;
+            }
+
+            // add row of lasers if not 0
+            if (cnt != 0){
+                lasers.push_back(cnt);
+            }
+            
+        }
+
+        // multiply number of lasers with previous row and add lasers
+        for (int i = 1; i < lasers.size(); i++){
+            int t = lasers[i] * lasers[i-1];
+            ans += t; 
+        }
+        
+        return ans;
+    }
+};
+
+
+
