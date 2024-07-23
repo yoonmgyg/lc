@@ -1,0 +1,31 @@
+class Solution {
+private:
+    int res = 0;
+
+public:
+    // recursive postorder traversal
+    pair<int, int> postorder(TreeNode* node) {
+        if (!node) {
+            return {0, 0}; 
+        }
+
+        // go through left and right subtrees
+        auto left = postorder(node->left);
+        auto right = postorder(node->right);
+
+        // add sum of subtrees and ndoesx
+        int totalSum = left.first + right.first + node->val;
+        int totalCount = 1 + left.second + right.second;
+
+        // add each node whose value equal sum divided by count
+        res += (node->val == totalSum / totalCount);
+
+        // return sum and number of nodes
+        return {totalSum, totalCount};
+    }
+
+    int averageOfSubtree(TreeNode* root) {
+        postorder(root);
+        return res;
+    }
+};
