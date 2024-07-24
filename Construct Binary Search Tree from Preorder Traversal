@@ -1,0 +1,27 @@
+class Solution {
+public:
+    TreeNode* helper(vector<int>& arr, int l, int r) {
+        if (l > r)
+            return NULL;
+		    // initialize root to array
+        TreeNode *root = new TreeNode(arr[l]);
+        int pos = l;
+        // find last element smaller than root
+        for (int i = l+1; i <= r; i++) {   
+            if (arr[i] < root->val)
+                pos=i;
+            else
+                break;
+        }
+        // make left and right subtrees
+        root->left=helper(arr,l+1,pos);  
+        root->right=helper(arr,pos+1,r); 
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        // run helper using edges of array
+        int l = 0;                 
+		    int r = preorder.size()-1;  
+        return helper(preorder,l,r);
+    }
+};
