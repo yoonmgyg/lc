@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int garbageCollection(std::vector<std::string>& garbage, std::vector<int>& travel) {
+        int res = 0;
+
+        // get length of each garbage
+        for (const string& g : garbage) {
+            res += g.length();
+        }
+
+        bool m = false, p = false, g = false;
+
+        // check each index to see if m, p, or g can be found
+        for (int i = travel.size(); i > 0; i--) {
+            m = m || garbage[i].find("M") != string::npos;
+            p = p || garbage[i].find("P") != string::npos;
+            g = g || garbage[i].find("G") != string::npos;
+
+            // calculate travel time using time at m, p, g
+            res += travel[i-1] *  (m + p + g);
+        }
+
+        return res;
+    }
+};
