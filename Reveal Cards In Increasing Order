@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        // sort deck
+        sort(deck.begin(), deck.end());
+        
+        int n = deck.size();
+        vector<int> res(n);
+        deque<int> indices;
+
+        // initialize deque with n
+        for (int i = 0; i < n; i++) {
+            indices.push_back(i); 
+        }
+        
+        for (int card : deck) {
+            // get and removecard at front
+            int idx = indices.front(); 
+            indices.pop_front();
+
+            // place card in result and add additional cards if empty  
+            res[idx] = card; 
+            if (!indices.empty()) {
+                indices.push_back(indices.front()); // Move the used index to the end of deque
+                indices.pop_front(); // Remove the index from the front
+            }
+        }
+        
+        return res;
+    }
+};
