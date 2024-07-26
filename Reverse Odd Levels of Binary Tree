@@ -1,0 +1,22 @@
+class Solution {
+public:
+    TreeNode* reverseOddLevels(TreeNode* rootNode) {
+        preOrder(rootNode->left, rootNode->right, 1);
+        return rootNode;
+    }
+
+private:
+    void preOrder(TreeNode* rootLeft, TreeNode* rootRight, int levelNumber) {
+        // recursive when there are both children
+        if (rootLeft && rootRight) {
+            // when level is odd, swap value of children
+            if(levelNumber % 2) {
+                // swap the node values of both the childrens
+                swap(rootLeft->val, rootRight->val);
+            }
+            // recursively search rest of children
+            preOrder(rootLeft->left, rootRight->right, levelNumber+1);
+            preOrder(rootLeft->right, rootRight->left, levelNumber+1);
+        }
+    }
+};
