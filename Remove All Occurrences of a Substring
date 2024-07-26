@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string removeOccurrences(string s, string part) {
+        int pos = s.find(part);
+        // find substirng until it cannot bef ound in s
+        while (pos != string::npos){
+            // erase substring and get previous position for storage
+            s.erase(pos,part.length());
+            pos = s.find(part);
+        }
+        return s;
+    }
+    
+};
