@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int finalXor = 0;
+        // xor all elements of array
+        for (int n : nums) {
+            finalXor = finalXor ^ n;
+        }
+        
+        int count = 0;
+        // loop until k and finalxor are 0
+        while (k || finalXor) {
+            // check that rightmost bit in both numbers don't match
+            if ((k % 2) != (finalXor % 2)) {
+                count++;
+            }
+            
+            // remove last bit from integers
+            k /= 2;
+            finalXor /= 2;
+        }
+        
+        return count;
+    }
+};
