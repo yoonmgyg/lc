@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> pivotArray(vector<int> &nums, int pivot) {
+        int low = 0;
+        int same = 0;
+        int high;
+        // count nums which are lower or the same to pivot
+        for (auto n : nums) {
+            if (n < pivot)             {
+                ++low;
+            }
+            else if (n == pivot) {
+                ++same;
+            }
+        }
+        vector<int> res(nums.size());
+        // use same and low to get index to start higher pivt
+        high = same + low;
+        same = low;
+        low = 0;
+        for (auto n : nums) {
+            // set index at low if lower
+            if (n < pivot) {
+                res[low++] = n;
+            }
+            // set index at same if same
+            else if (n == pivot) {
+                res[same++] = n;
+            }
+            // set index at high if higher
+            else {
+                res[high++] = n;
+            }
+        }
+        return res;
+    }
+};
