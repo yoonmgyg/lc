@@ -1,0 +1,43 @@
+
+class Solution {
+public:
+    // global map
+    unordered_map<int, vector<TreeNode *>> memo;
+    
+    vector<TreeNode *> allPossibleFBT(int n) {
+        vector<TreeNode *> ans;
+        // base case
+        if (n < 1 || n % 2 == 0) {
+            return ans;
+        }
+        // if in map, return preemptively
+        if (memo.find(n) != memo.end()) {
+            return memo[n];
+        }
+        // if n is 1, return ans
+        if (n == 1) {
+            ans.push_back(new TreeNode(0));
+            memo[1] = ans;
+            return ans;
+        }
+
+        // get all the possible number of node combinations possible on the left and right sub tree
+        for (int i = 1; i < n; i += 2) {
+            // make 2 vectors that store the number of nodes in left and right sub tree specifically
+            vector<TreeNode *> left = allPossibleFBT(i);
+            vector<TreeNode *> right = allPossibleFBT(n - 1 - i);
+
+            // make trees from  left and right subtrees
+            for (int j = 0; j < left.size(); j++) {
+                for (int k = 0; k < right.size(); k++) {
+                    TreeNode *root = new TreeNode(0);
+                    root->left = left[j];
+                    root->right = right[k];
+                    ans.push_back(root);
+                }
+            }
+        }
+        memo[n] = ans;  
+        return ans;
+    }
+};
