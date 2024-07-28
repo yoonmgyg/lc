@@ -1,0 +1,25 @@
+
+class Solution {
+public:
+    int moves = 0;
+
+    // recursive dfs into tree
+    int dfs(TreeNode* node) {
+        if (!node) return 0;
+        // search into left and right subtree
+        int left_excess = dfs(node->left);
+        int right_excess = dfs(node->right);
+
+        // add left and right moves
+        moves += abs(left_excess) + abs(right_excess);
+
+        // count excess coins and add amount of moves to move it to head 
+        return node->val + left_excess + right_excess - 1;
+    }
+
+    int distributeCoins(TreeNode* root) {
+        // run helper
+        dfs(root);
+        return moves;
+    }
+};
