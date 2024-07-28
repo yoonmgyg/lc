@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int wateringPlants(vector<int>& p, int capacity) {
+        int ans = 0, c = capacity;
+        for (int i = 0; i < p.size(); i++) {
+            // if enough water, take step andwater plant
+            if (c >= p[i])
+                ans++; 
+            // if not, go back and fill then come back
+            else {
+                ans += i;
+                ans += i+1;
+                c=capacity;
+            }
+            // subtract water
+             c = c-p[i];
+        }
+        return ans;
+    }
+};
