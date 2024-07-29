@@ -1,0 +1,30 @@
+ Solution {
+public:
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        stack<TreeNode*> st; 
+        // loop through nums
+        for (int i = 0; i < nums.size(); i++) {
+            // make new node from nums
+            TreeNode* curr = new TreeNode(nums[i]);
+            // while greater than top, place top at left node and pop
+            while (st.size() && st.top()->val < nums[i]) {
+                curr->left = st.top();
+                st.pop();
+            }
+
+            // when less than top, place to right of top
+            if (st.size()) {
+                st.top()->right = curr;
+            }
+
+            // push onto stack
+            st.push(curr);
+        }
+        // remove until last value
+        while (st.size() != 1) 
+            st.pop();
+
+        // last value is max
+        return st.top();  
+    }
+};
