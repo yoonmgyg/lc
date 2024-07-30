@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        vector<int> circle;
+        // add n numbers into circle
+        for (int i = 1; i <= n; i++) {
+            circle.push_back(i);
+        }
+        int cur_ind = 0;
+
+        // loop until last number remaining
+        while (circle.size() > 1) {
+            // get current + k to get node to remove and under circle size
+            int next_to_remove = (cur_ind + k - 1) % circle.size();
+            // remove from circle
+            circle.erase(circle.begin() + next_to_remove);
+            cur_ind = next_to_remove;
+        }
+
+        return circle[0];
+    }
+};
