@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int triangularSum(vector<int>& nums) {
+        int n = nums.size();
+        // recursively loop until one element is remaining
+        if (n==1) 
+            return nums[0];
+        
+        vector<int> newNums(n-1);
+        // loop to create rows for trangle
+        for (int i = 0; i < n-1; i++)
+            // calculate triangular sums
+            newNums[i] = (nums[i]+nums[i+1]) %10;
+        
+        return triangularSum(newNums);
+    }
+};
