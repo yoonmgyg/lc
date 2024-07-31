@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int count(int i, int n) {
+        // check if string of n is formed
+        if (n==0) 
+            return 1; 
+        // end if greater than 5 vowels
+        if (i >= 5) 
+            return 0; 
+
+        int pick, notPick;
+        // recursively loop for length of character
+        pick = count(i, n-1);
+        // try 5 vowels for each character
+        notPick = count(i+1, n);
+        return pick + notPick;
+    }
+
+    int countVowelStrings(int n) {
+        return count(0, n);
+    }
+
+};
