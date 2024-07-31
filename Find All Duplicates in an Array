@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        if (nums.empty())
+            return {};
+        vector<int> res;
+        unordered_map<int,int> mp;
+        // count frequency within nums in map
+        for (int no : nums)
+          mp[no]++;
+        // add to res if multiple values
+        for (auto it : mp) 
+            if (it.second > 1)
+              res.push_back(it.first);
+        return ans;
+    }
+};
