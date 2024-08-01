@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        vector<vector<int>> matrix(m, vector<int> (n, -1));
+        int left = 0, right = n-1, top = 0, bottom = m-1;
+        while (left <= right and top <= bottom) { // loop until reaching center of grid
+            for (int i = left; i <= right; i++) { // go left to right assigning head values
+                if (head) {
+                    matrix[top][i] = head->val;
+                    head = head->next;
+                }
+            }
+            top++;
+            for (int i = top; i <= bottom; i++) { // go top to bottom and assign node
+                if (head) {
+                    matrix[i][right] = head->val;
+                    head = head->next;
+                }
+            }
+            right--;
+            for (int i = right; top <= bottom && i >= left; i--) { // go right to left assigning node
+                if (head) {
+                    matrix[bottom][i] = head->val;
+                    head = head->next;
+                }
+            }   
+            bottom--;
+            for (int i = bottom; left <= right && i >= top; i--) { // go bottom to top assigning node
+                if (head) {
+                    matrix[i][left] = head->val;
+                    head = head->next;
+                }
+            }
+            left++;
+        }
+        return matrix;
+    }
+};
