@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxIceCream(vector<int>& costs, int coins) {
+        int n = costs.size();
+        sort(costs.begin(), costs.end()); // sort ice cream costs to get lowest costs
+        for (int i = 0; i < n; i++)
+            if (coins >= costs[i])
+                coins -= costs[i]; // buy ice cream
+            else
+                return i; // return how many ice cream bars were able to be bought
+        return n;
+      }
+};
