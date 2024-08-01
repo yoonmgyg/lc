@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int partitionString(string s) {
+        int idx = 0;
+        int count = 0;
+        unordered_map<char, bool> mp; // keep track of char in current substring
+        while (idx < s.length()) {
+            if (mp.find(s[idx]) != mp.end()) { // add count if already in substring
+                count++; 
+                mp.clear(); // create new substring
+            }
+            mp[s[idx]] = true; // add current char to map
+            idx++; 
+        }
+        return count + 1; // return number of substrings 
+    }
+};
