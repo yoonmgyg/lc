@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+       int n = nums.size();
+       priority_queue<int> pq; // max priority queue
+       for (int x : nums) // add nums into pq
+            pq.push(x);
+
+       int i = 1;
+        // add top of pq in odd index
+       while (pq.size() && i < n) {
+           nums[i] = pq.top();
+           pq.pop();
+           i+=2;
+       }
+
+        // put remaining in even index to get wiggle
+       int j = 0;
+       while (pq.size() && j < n) {
+           nums[j] = pq.top();
+           pq.pop();
+           j+=2;
+       }
+    }
+};
