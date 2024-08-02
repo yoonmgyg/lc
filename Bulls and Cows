@@ -1,0 +1,31 @@
+class Solution {
+public:
+    // only contains digits 
+    string getHint(string secret, string guess) {
+        int bulls = 0;
+        int cows = 0;
+        vector<int> sVec(10, 0); 
+        vector<int> gVec(10, 0);  
+        // check if secret and guess are valid
+        if (secret.size() != guess.size() || secret.empty())
+          return "0A0B";
+
+        // loop through char of secret
+        for (int i = 0; i < secret.size(); ++i) {
+            char c1 = secret[i]; char c2 = guess[i];
+            // if char match, add bulls
+            if (c1 == c2) {
+                ++bulls; 
+            // if not matching, add difference in digits to vector
+            } else {
+                ++sVec[c1-'0'];
+                ++gVec[c2-'0'];
+            }
+        }
+        // loop through chars and add difference
+        for (int i = 0; i < sVec.size(); ++i) {
+            cows += min(sVec[i], gVec[i]);
+        }
+        return to_string(bulls) + 'A' + to_string(cows) + 'B';
+    }
+};
