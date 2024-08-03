@@ -1,0 +1,29 @@
+class Solution {
+    bool isSamePattern(string str1, string str2){
+        int n = str1.length();
+        unordered_map<char, char> mp;
+        vector<bool> visited (26,false);
+        
+        for (int i = 0; i < n; ++i) { // loop through each char from both strings
+            char c1 = str1[i], c2 = str2[i]; 
+            
+            if (mp[c1] && mp[c1] != c2) // return false if not matching pattern
+                return false;
+            if (!mp[c1] && visited[c2-'a']) // or if letter has been visited but is not in map
+                return false;
+            
+            mp[c1] = c2; // add to map and visited
+            visited[c2-'a'] = true;
+        }
+        return true;
+    }
+    
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        vector<string> ans;
+        for (string word : words)
+            if (isSamePattern(word,pattern)) 
+                ans.emplace_back(word);
+        return ans;
+    }
+};
