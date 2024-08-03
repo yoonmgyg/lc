@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool search(std::vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1;
+
+        while (low <= high) { // binary search to find target
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) 
+                return true;
+
+            // remove duplicates from lower end
+            if (nums[low] == nums[mid]) {
+                low++;
+                continue;
+            }
+
+            if (nums[low] <= nums[mid]) { 
+                if (nums[low] <= target && target <= nums[mid]) // if less than middle and higher than target, adjust high to middle
+                    high = mid - 1;
+                else // if less than middle and greater than target, set low to middle
+                    low = mid + 1;
+            } else { // 
+                if (nums[mid] <= target && target <= nums[high]) // if middle is less than low and target, adjust low to middle
+                    low = mid + 1;
+                else // middle is higher than target and lower than middle, adjust high to middle
+                  high = mid - 1;
+            }
+        }
+        return false;
+    }
+};
