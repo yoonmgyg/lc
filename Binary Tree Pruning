@@ -1,0 +1,13 @@
+class Solution {
+public:
+    TreeNode* pruneTree(TreeNode* root) {
+         if (!root)
+            return nullptr;
+         // recursively call into branches
+         root->left = pruneTree(root->left);
+         root->right = pruneTree(root->right);
+         if (root->val == 0 && !root->left && !root->right) // remove node if 0 and no children
+                return NULL;
+         return root;
+    }
+};
