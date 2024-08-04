@@ -1,0 +1,15 @@
+class Solution {
+public:
+    string defangIPaddr(string address) {
+        string ans;
+        for (int i = 0; i < address.size(); i++) { // add each char to answer
+            if (address[i] == '.') { // use [.] instead if character is .
+                ans += "[.]";
+            }
+            else {
+                ans += address[i];
+            }
+        }
+        return ans;
+    }
+};
