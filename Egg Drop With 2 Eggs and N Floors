@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int twoEggDrop(int n) {
+        vector<int> bests(n + 1);        
+        vector<int> oneRow(n + 1);
+        vector<vector<int>> dp(n + 1, oneRow); // initialize buildings and drops
+        
+        dp[1][1] = 1; // building with 1 floor and drop at floor 1
+        dp[1][2] = 2; 
+        dp[2][2] = 2; 
+        
+        bests[0] = 0;
+        bests[1] = 1;
+        bests[2] = 2;
+        
+        for (int col = 3; col <= n; ++col) {
+            int bestThisCol = n; // test up to n floors in building
+            for (int row = 1; row <= col; ++row) { // drop at each floor
+                int breaks = 1 + row - 1; // calculate break and survival and choose max to see if egg survived
+                int survive = 1 + bests[col - row];
+                dp[row][col] = max(breaks, survive);
+                bestThisCol = min(bestThisCol, dp[row][col]); // find minimum safe floor
+            }
+            bests[col] = bestThisCol;
+        }
+        
+        return bests[n];
+    }
+};
