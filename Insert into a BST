@@ -1,0 +1,15 @@
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        // add new node with val if not existing
+        if (!root)
+			      return new TreeNode(val);
+
+        if (val > root->val) // go to right if greater
+			      root->right = insertIntoBST(root->right, val);
+        else // go to left if less
+			      root->left = insertIntoBST(root->left, val);
+			
+        return root;
+    }
+};
