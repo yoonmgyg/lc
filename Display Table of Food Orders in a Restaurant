@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<string>> displayTable(vector<vector<string>>& orders) {
+        vector<vector<string>> ans;
+        map<int,map<string,int>> mp;
+        set<string> food;
+        vector<string> first;
+        
+        // loop through food to fill map and set
+        for (int i = 0; i < orders.size(); i++) {
+            food.insert(orders[i][2]);
+            mp[stoi(orders[i][1])][orders[i][2]]++;
+        }
+        
+        first.push_back("Table");
+        for (auto it : food) {
+            first.push_back(it);
+        }
+        
+        // append first row to answer
+        ans.push_back(first);
+
+        // get rest of rows
+        for (auto it : m) {
+            // tmp stores the i'th row
+            vector<string> tmp;
+            // add table number
+            tmp.push_back(to_string(it.first));
+            
+            // add food quantity
+            for (auto item : food) {
+                if (it.second.find(item) != it.second.end()) {
+                    tmp.push_back(to_string(it.second[item]));
+                }
+                
+                else {
+                    tmp.push_back("0");
+                }
+            }
+            
+            // append row
+            ans.push_back(tmp);
+        }
+        
+        return ans;
+    }
+};
