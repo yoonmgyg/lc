@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> memLeak(int memory1, int memory2) {
+        int i = 1;
+        while(max(memory1, memory2) >= i) { // loop until memory runs out
+            if (memory1 >= memory2) // use greatest memory stick
+                memory1 -= i;
+            else
+                memory2 -= i;
+            i++; // increment time
+        }
+        return {i, memory1, memory2};
+    }
+};
