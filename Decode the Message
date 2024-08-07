@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        vector<int> table(26, -1);
+        for (int i = 0, k = 0; i < key.size(); i++) { // loop through keys
+            if (key[i] != ' ' && table[key[i]-'a'] == -1) { // add letter value to key
+                table[key[i]-'a'] = k++;
+            }
+        }
+        for (int i = 0; i < message.size(); i++) { 
+            if (message[i] != ' ') { // translate each char in message by using key
+                message[i] = table[message[i]-'a'] + 'a';
+            }
+        }  
+        return message;
+    }
+};
