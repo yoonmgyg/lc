@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool canBeSimplifed(int num1, int num2) { // function to check for simplification
+        for (int i = 2; i <= num1; i++){
+            if (num1 % i == 0 && num2 % i == 0) // check if divisor can be found
+                return true;
+        }
+        return false;
+    }
+    
+    vector<string> simplifiedFractions(int n) {
+        vector<string> ans;
+        for(int i = 1; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) { // loop denominator and numerator until n
+                if (i / j == 1) 
+                    continue; // skip if numbers are same
+                if (canBeSimplifed(i, j)) 
+                    continue; // skip if fraction can be simplified
+                ans.push_back(to_string(i) + "/" + to_string(j)); // push once fraction can't be simplified
+            }
+        }
+        return ans;
+    }
+};
