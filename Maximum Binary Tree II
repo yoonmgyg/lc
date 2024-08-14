@@ -1,0 +1,11 @@
+class Solution {
+public:
+    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
+        if (!root) // check for valid node
+            return new TreeNode(val);
+        if (val > root->val) // add new node if current value is less
+            return new TreeNode(val, root, NULL);
+        root->right = insertIntoMaxTree(root->right, val); // add value node to right
+        return root;
+    }
+};
