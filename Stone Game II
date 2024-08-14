@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int dp[101][200], n;
+    int dfs(vector<int>& piles, int i, int m, int total) {
+        if (dp[i][m] != -1) // use previous calculation if existing
+            return dp[i][m];
+        int res = 0, taken = 0;
+
+        for (int j = i; j < min(i + 2 * m, n); j++) { // loop through starting position with sequential piles
+            taken += piles[j];
+            res = max(res, total - dfs(piles, j + 1, max(m, j - i + 1), total - taken));  // move taken piles to next position
+        }
+        return dp[i][m] = res; // save results in dp
+    }
+    
+    int stoneGameII(vector<int>& piles) {
+        memset(dp, -1, sizeof(dp));
+        n = piles.size();
+        return dfs(piles, 0, 1, accumulate(piles.begin(), piles.end(), 0));
+    }
+};
