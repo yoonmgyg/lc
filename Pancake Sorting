@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> pancakeSort(vector<int>& A) {
+        vector<int> result;
+        for (int i = 0; i < A.size(); i++) { // loop through A
+           auto maxPosition = max_element(A.begin(), A.end() - i); // get largest element
+           result.push_back(maxPosition  - A.begin() + 1);  // add max and back of array
+           result.push_back(A.size() - i);
+           reverse(A.begin(),maxPosition+1); // reverse to complete pancake flip
+           reverse(A.begin(),A.end() - i); 
+        }
+        return result;
+    }
+};
