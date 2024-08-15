@@ -1,26 +1,17 @@
 class Solution {
 public:
-    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        // get last elements of vectors
-        int i = m - 1;
-        int j = n - 1;
-        int k = m + n - 1;
-        while(i>=0 && j>=0){
-            //  if nums1 element is greater, place it at the end and decrement index 
-            if(nums1[i] > nums2[j]){
-                nums1[k] = nums1[i];
-                i--; k--;
-            }
-            // if nums2 element is greater, place at end
-            else{
-                nums1[k] = nums2[j];
-                j--; k--;
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {        
+        int i = m - 1, j = n - 1, k = m + n - 1;
+        while (i >= 0 && j >= 0) { // loop until all elements are merged
+            if (nums1[i] > nums2[j]) { // add greater end onto end of nums1
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
             }
         }
-        // place rest of elements of nums2 at beginning once nums1 is out
-        while(j>=0){
-            nums1[k] = nums2[j];
-            j--; k--;
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
         }
+
     }
 };
