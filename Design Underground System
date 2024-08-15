@@ -1,0 +1,34 @@
+
+
+class UndergroundSystem {
+public:
+    UndergroundSystem() {}
+
+    void checkIn(int id, string stationName, int t) {
+        checkIns[id] = make_pair(stationName, t); // add check in to map
+    }
+
+    void checkOut(int id, string stationName, int t) {
+        auto checkInInfo = checkIns[id];
+        checkIns.erase(id); // remove from map
+        string travel = checkInInfo.first + "," + stationName;
+        int travelTime = t - checkInInfo.second; // calculate time and travel
+
+        if (travelTimes.find(travel) != travelTimes.end()) { // use existing travel if found
+            travelTimes[travel].first += travelTime;
+            travelTimes[travel].second++;
+        } else {
+            travelTimes[travel] = make_pair(travelTime, 1); // calculate new traveltime
+        }
+    }
+
+    double getAverageTime(string startStation, string endStation) {
+        string travel = startStation + "," + endStation;
+        auto travelInfo = travelTimes[travel];
+        return (double) travelInfo.first / travelInfo.second; // calculate average from travel info
+    }
+
+private:
+    unordered_map<int, pair<string, int>> checkIns;
+    unordered_map<string, pair<int, int>> travelTimes;
+};
