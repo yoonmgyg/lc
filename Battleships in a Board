@@ -1,0 +1,29 @@
+class Solution {
+    void dfs(vector<vector<char>>& board, int i, int j){
+        if (i<0 || i>=board.size() || j<0 || j>=board[0].size()) // check within bounds 
+            return;
+        if (board[i][j]=='.') // skip if already visited
+            return;
+        board[i][j]='.'; // visit current grid
+        dfs(board, i-1, j); // dfs through adjacent
+        dfs(board, i+1, j);
+        dfs(board, i, j-1);
+        dfs(board, i, j+1);
+    }
+    
+public:
+    int countBattleships(vector<vector<char>>& board) {
+        if (board.size() == 0) 
+            return 0;
+        int count = 0;
+        for (int i = 0; i < board.size(); i++) { // loop through all sections of grid
+            for (int j = 0; j < board[0].size(); j++){
+                if (board[i][j]=='X') {
+                    count++; // count Xs
+                    dfs(board, i, j); // remove ship
+                }
+            }
+        }
+        return count;
+    }
+};
