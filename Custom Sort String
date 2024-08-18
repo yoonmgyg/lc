@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        vector<int> map(26, 0);
+        for (char c : s) { // add each char's numerical value into map by frequency
+            map[c - 'a']++;
+        }
+        string result;
+
+        for (char c : order) { // loop through ordered string
+            result.append(map[c - 'a'], c); // add each char into result as many times as its frequency
+            map[c - 'a'] = 0;
+        }
+
+        for (int i = 0; i < 26; ++i) { // add remaining map into results
+            result.append(map[i], 'a' + i);
+        }
+        return result;
+    }
+};
