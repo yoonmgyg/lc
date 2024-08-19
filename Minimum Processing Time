@@ -1,0 +1,13 @@
+class Solution {
+    public int minProcessingTime(List<Integer> processorTime, List<Integer> tasks) {
+        sort(processorTime); // sort processor time
+        sort(tasks, reverseOrder()); // sort tasks in descending order 
+        int time = 0;
+        for (int i = 0; i < tasks.size(); i++) { // loop through tasks 
+            int pTime = processorTime.get(i/4); // add time for 4 cores to process
+            int timeTaken = pTime + tasks.get(i); // store time from processor and tasks
+            time = max(timeTaken, time); // store max time
+        }
+        return time; 
+    }
+}
