@@ -1,0 +1,21 @@
+class Solution {
+public:
+	int getKth(int lo, int hi, int k) {
+		vector<pair<int, int>>v;
+		for (int i = lo; i <= hi; i++) {
+			int ans = 0;
+			int x = i;
+			while (x != 1) { // calculate power value
+				if (x % 2) {
+					x = 3 * x + 1;
+				} else {
+					x = x / 2;
+				}
+				ans++;
+			}
+			v.push_back({ans, i}); // add answer into vector
+		}
+		sort(v.begin(), v.end()); // sort vector based on power
+		return v[k - 1].second; 
+	}
+};
