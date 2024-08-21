@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& grid) {
+        int r = grid.size(), c = grid[0].size();
+        int sum = 0; 
+        for (int j = 0; j < c; j++) { // loop through each column
+            int col1 = 0;
+            int b = 1 << (c-1-j); 
+            for (int i = 0; i < r; i++) { // loop through each row
+                bool one = (grid[i][0] == 0) ^ (grid[i][j] == 1); // move and flip row
+                col1 += one; // count number of 1s
+            }
+            sum += max(r-col1, col1)*b; // calculate score from column
+        }
+        return sum;
+    }
+};
