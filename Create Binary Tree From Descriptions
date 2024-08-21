@@ -1,0 +1,35 @@
+class Solution {
+public:
+    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+        unordered_map<int, TreeNode*> map;
+        unordered_set<int> children;
+        
+        for (auto& arr : descriptions) { // loop through descriptions
+            int parent = arr[0], child = arr[1], isLeft = arr[2]; // store each parent and child
+            children.insert(child);
+            
+            if (map.find(parent) == map.end()) { // create new parent if not found
+                map[parent] = new TreeNode(parent);
+            }
+            if (map.find(child) == map.end()) { // create new child if not found
+                map[child] = new TreeNode(child);
+            }
+            
+            if (isLeft == 1) { // place child according to left
+                map[parent]->left = map[child];
+            } else {
+                map[parent]->right = map[child];
+            }
+        }
+        
+        int root = -1;
+        for (auto& arr : descriptions) { // loop through descriptions for root
+            if (children.find(arr[0]) == children.end()) { // if not in children, set as root
+                root = arr[0];
+                break;
+            }
+        }
+        
+        return map[root];
+    }
+};
