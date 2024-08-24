@@ -2,27 +2,19 @@ class Solution {
 public:
     bool isPalindrome(string s) {
         int left = 0;
-        int right = s.length() - 1;
-
-        // start at ends of string and move towards center until they meet
+        int right = s.size() - 1;
         while (left < right) {
-            // check if alphanumerical
-            if (!isalnum(s[left])) {
+            if (!isalnum(s[left])) { // skip if not alphanumerical
                 left++;
-            } 
-            else if (!isalnum(s[right])) {
+            } else if (!isalnum(s[right])) {
                 right--;
-            } 
-            // return false if not equal
-            else if (tolower(s[left]) != tolower(s[right])) {
+            } else if (tolower(s[left]) != tolower(s[right])) { // check if lowercase letters are the same
                 return false;
-            } 
-            else {
-                left++;
-                right--;
+            } else { // move towards center
+                ++left;
+                --right;
             }
         }
-
         return true;
     }
 };
