@@ -2,24 +2,17 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int profit = 0;
-        int high = 0;
+        int high = 0; 
         int low = INT_MAX;
-        // loop through prices
-        for (int i : prices) {
-            // set lowest price and reset highest 
-            if (i < low) {
-                low = i;
-                high =  0;
+        for (int price : prices) {
+            if (price < low) { // update low and reset high if lesser
+                low = price;
+                high = 0;
             }
-            // if greater than the current highest and the lowest, set to highest price
-            else if (i > high && i > low) {
-                high = i;
-                int current = high - low;
-                // set as highest profit if greater than historical profit
-                if (current > profit) {
-                    profit = current;
-                }
+            if (price > high) { // update high if greater
+                high = price;
             }
+            profit = max(profit, high - low); // check if profit is graeter
         }
         return profit;
     }
