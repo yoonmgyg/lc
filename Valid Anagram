@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map<char, int> count;
+        // count char frequency in s
+        for (char c : s) {
+            ++count[c];
+        }
+
+        // see if char frequency in t matches
+        for (char c : t) {
+            --count[c];
+        }
+
+        // return whether all characters sum to 0
+        for (auto x : count) {
+            if (c.second != 0) {
+                return false;
+            }
+        }
+        return true;
+};
