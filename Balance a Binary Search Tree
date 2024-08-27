@@ -1,31 +1,17 @@
 class Solution {
 public:
-    vector<TreeNode*> sortedArr;
-    TreeNode* balanceBST(TreeNode* root) {
-        // add to sorted array then make balanced tree using bin search
-        inorderTraverse(root);
-        return sortedArrayToBST(0, sortedArr.size() - 1);
+    int height (TreeNode* root)  { // get height of root through dfs
+        if (!root) {
+            return 0;
+        }
+        int left = height(root->left);
+        int right = height(root->right);
+        return max(left, right) + 1; 
     }
-
-    void inorderTraverse(TreeNode* root) {
-        if (root == NULL) 
-            return;
-        // inorder traversal to add to array in sorted order
-        inorderTraverse(root->left);
-        sortedArr.push_back(root);
-        inorderTraverse(root->right);
-    }
-
-    // recursive binary search to create balanced tree 
-    TreeNode* sortedArrayToBST(int start, int end) {
-        if (start > end) 
-            return NULL;
-        int mid = (start + end) / 2;
-        TreeNode* root = sortedArr[mid];
-
-        // apply to middle of subtrees to get balanaced tree
-        root->left = sortedArrayToBST(start, mid - 1);
-        root->right = sortedArrayToBST(mid + 1, end);
-        return root;
+    bool isBalanced(TreeNode* root) {
+        if (!root) {
+            return true;
+        }
+        return abs(height(root->left) - height(root->right)) <= 1; // check if difference of height of both subtrees is not greater than 1
     }
 };
