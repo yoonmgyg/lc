@@ -1,0 +1,31 @@
+class MyQueue {
+public:
+    stack<int> in, out;
+    MyQueue() {
+    }
+    
+    void push(int x) {
+        in.push(x); // add to in stack
+    }
+    
+    int pop() {
+        peek();
+        int firstout = out.top(); // return top of out stack
+        out.pop();
+        return firstout;
+    }
+    
+    int peek() {
+        if (out.empty()) { // pop elements from in into out to get FIFO order
+            while (!in.empty()) {
+                out.push(in.top());
+                in.pop();
+            }
+        }
+        return out.top();
+    }
+    
+    bool empty() {
+        return in.empty() && out.empty(); // check if both stacks are empty
+    }
+};
