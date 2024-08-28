@@ -1,17 +1,15 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        ListNode* slow = head; // make slow and fast pointers
         ListNode* fast = head;
-        ListNode* slow = head;
-        // go through list with fast and slow pointer, and check if fast pointer returns
-        while (fast != NULL && fast->next != NULL) {
-            fast = fast->next->next;
+        while (fast && fast->next) { // loop within cycle until fast pointer meets slow
             slow = slow->next;
-            // if fast pointer equals slow pointer, then there is a cycle
+            fast = fast->next->next;
             if (fast == slow) {
                 return true;
             }
         }
-        return false;
+        return false;  // if LL ends, then is not a cycle
     }
 };
