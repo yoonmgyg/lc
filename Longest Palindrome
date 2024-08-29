@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char, int> mp;
+        int odd = 0;
+        for (char c : s) { // add char by freq to map
+            mp[c]++;
+            if (mp[c] % 2 != 0) { // count odd characters and decrement when even
+                odd++;
+            } else {
+                odd--;
+            }
+        }
+
+        if (odd > 1) { // if more than 1 odd, subtract odd chars
+            return s.size() - odd + 1;
+        }
+        return s.size();
+    }
+};
