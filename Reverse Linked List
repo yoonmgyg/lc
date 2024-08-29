@@ -1,21 +1,15 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        // create new head of linked list
-        ListNode* node = nullptr;
-
-        // loop through linked list
-        while (head != nullptr) {
-            // store next pointer into temp
-            ListNode* temp = head->next;
-            // set previous node as next node
-            head->next = node;
-            // update previous node
-            node = head;
-            // update head to next node
-            head = temp;
+        ListNode* after = nullptr;
+        ListNode* prev = nullptr;
+        while (head) { // loop through linked list
+            after = head->next; // store next node;
+            head->next = prev; // set next to previous node
+            prev = head; // set prev to current head;
+            head = after; // move head to next node;
         }
 
-        return node;        
+        return prev;        
     }
 };
