@@ -1,14 +1,21 @@
-class Solution:
-    def majorityElement(self, nums: List[int]) -> int:
-        // dictionary of elements
-        count = {}
-        n = len(nums)
-        for num in nums:
-            if num not in count:
-            // initialize elements in dict
-                count[num] = 0
-            // count instances of elements
-            count[num] += 1
-            // return answer if majority
-            if count[num] > n // 2:
-                return num
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count = 0;
+        int sol = 0;
+        
+        for (int num : nums) {
+            if (count == 0) {
+                sol = num;
+            }
+
+            if (sol == num) {
+                count++;
+            }
+            else {
+                count--;
+            }
+        }
+        return sol;
+    }
+};
