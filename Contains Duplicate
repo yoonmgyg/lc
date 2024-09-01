@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int, int> mp;
+        for (int i : nums) { // count freq in map
+            mp[i]++;
+        }
+
+        for (auto m : mp) {
+            if (m.second >= 2) // return true if any have duplicates
+                return true; 
+        }
+        return false;
+    }
+};
