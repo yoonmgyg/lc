@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        queue<pair<int, int>> q;
+        vector<pair<int, int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+        for (int i = 0; i < mat.size(); i++) { // add all non-zeros into queue
+            for (int j = 0; j < mat[0].size(); j++) {
+                if (mat[i][j] == 0) {
+                    q.push({i, j});
+                } else {
+                    mat[i][j] = -1;
+                }
+            }
+        }
+
+        while (!q.empty()) { // go through all non-0
+            pair<int, int> curr = q.front();
+            q.pop();
+
+            for (auto x : dir) { // look through all adjacent tiles
+                int row = curr.first + x.first;
+                int col = curr.second + x.second;
+                if (row >= 0 && col >= 0 && row < mat.size() && col < mat[0].size() && mat[row][col] == -1) { // if adjacent is valid and current is -1, push adjacent and set to current + 1
+                    q.push({row, col});
+                    mat[row][col] = mat[curr.first][curr.second] + 1;
+                }
+            }
+        }
+        return mat;
+    }
+};
