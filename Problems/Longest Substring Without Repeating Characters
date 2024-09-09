@@ -1,14 +1,19 @@
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        longest_string = ''
-        curr_string = ''
-        for i in s:
-            if i not in curr_string:
-                curr_string += i
-            else:
-                if len(curr_string) > len(longest_string):
-                    longest_string = curr_string
-                curr_string = curr_string.rsplit(i)[1]+i
-        if len(longest_string)<len(curr_string):
-            return len(curr_string)
-        return len(longest_string)
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_set<char> chars;
+        int maximum = 0;
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) { // create sliding window for each substring
+            while (chars.find(s[right]) != chars.end()) { // while right window can be found, erase until left is at right
+                chars.erase(s[left]);
+                left++;
+            }
+
+            chars.insert(s[right]); // add rightmost character
+            maximum = max(maximum, right - left + 1); // calculate current length and see if max
+        }
+
+        return maximum;
+    }
+};
