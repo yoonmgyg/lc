@@ -1,33 +1,27 @@
-// return vector of tree ordered by levels
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> result;
-        vector<int> temp;
-        // check if empty
-        if(root == nullptr)
-            return result;
-        // push tree into queue
-        queue<TreeNode*> levels;
-        levels.push(root);
+        vector<vector<int>> res;
+        if (!root) 
+            return res;
         
-        while(!levels.empty()){
-            int size = levels.size();
-            TreeNode* current;
-            // loop throughout tree and push each branch before removing
-            for (int i = 0; i < size; i++){
-                current = levels.front();
-                temp.push_back(current->val);
-                if (current->left)
-                    levels.push(current->left);
-                if (current->right)
-                    levels.push(current->right);
-                levels.pop();
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            vector<int> row;
+            int rowSize = q.size();
+            for (int i = 0; i < rowSize; i++) { // loop through current row
+                TreeNode* curr = q.front();
+                q.pop();
+                if (curr->left) // push children into queue
+                    q.push(curr->left);
+                if (curr->right) 
+                    q.push(curr->right);
+                row.push_back(curr->val); // get values in current row
             }
-            // push back the root of the level for the result
-            result.push_back(temp);
-            temp.clear();
+            res.push_back(row); // push row into answer
         }
-        return result;
+        return res;
     }
 };
