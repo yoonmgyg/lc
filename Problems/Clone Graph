@@ -1,35 +1,16 @@
-// return new graph with same values
 class Solution {
-    public:
-    // depth first search through graph
-    Node* dfs(Node* cur, unordered_map<Node*,Node*> &mp)
-    {
-        vector<Node*> neighbor;
-        // create new node of current head
-        Node* clone = new Node(cur->val);
-        // store clone in map
-        mp[cur] = clone;
-            for(auto it : cur->neighbors) {
-                // if already stored, push to neighbor
-                if(mp.find(it)!=mp.end()) {
-                    neighbor.push_back(mp[it]);    
-                }
-                // otherwise dfs
-                else {
-                    neighbor.push_back(dfs(it,mp));
-                }
-            }
-            clone->neighbors=  neighbor;
-            return clone;
-    }
+public:
+    unordered_map<Node*, Node*> nodeMap;
     Node* cloneGraph(Node* node) {
-        unordered_map<Node*,Node*> mp;
-        if(node==NULL)
-            return NULL;
-        if(node->neighbors.size()==0)   
-        {
-            Node* clone= new Node(node->val);
-            return clone; 
+        if (!node)
+            return nullptr;
+        
+        if (nodeMap.find(node) == nodeMap.end()) { // if node is not in map
+            nodeMap[node] = new Node(node->val); // create  new node and loop through neighbors
+            for (Node* n : node->neighbors) {
+                nodeMap[node]->neighbors.push_back(cloneGraph(n)); // push back recursive nodes onto neighbors
+            }
         }
-        return dfs(node,mp);
+        return nodeMap[node];
     }
+};
