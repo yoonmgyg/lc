@@ -1,27 +1,37 @@
-// evaluate expression in reverse polish
 class Solution {
 public:
-      int evalRPN(vector<string>& tokens) {
- int n = tokens.size();
-    stack<int>st;
-    for(int i=0; i < n; i++){
-        if (tokens[i] == "+" or tokens[i] == "-" or tokens[i] == "*" or tokens[i] == "/"){
-                // evaluate operations using numbers on stack
-                int num1 = st.top(); 
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st;
+        for (string t : tokens) { // loop through strings
+            if (t == "+") { // if operand, get last 2 no and calculate result 
+                int numTwo = st.top();
                 st.pop();
-                int num2 = st.top(); 
+                int numOne = st.top();
                 st.pop();
-                int newNum = 0;
-                // use tokens on stack as operators
-                if(tokens[i] == "+") newNum = num2+num1;
-                else if(tokens[i] == "-") newNum = num2-num1;
-                else if(tokens[i] == "*") newNum = num2*num1;
-                else newNum = num2/num1;
-                st.push(newNum);
+                st.push(numOne + numTwo);
+            } else if (t == "-") {
+                int numTwo = st.top();
+                st.pop();
+                int numOne = st.top();
+                st.pop();
+                st.push(numOne - numTwo);
+            } else if (t == "*") {
+                int numTwo = st.top();
+                st.pop();
+                int numOne = st.top();
+                st.pop();
+                st.push(numOne * numTwo);
+            } else if (t == "/") {
+                int numTwo = st.top();
+                st.pop();
+                int numOne = st.top();
+                st.pop();
+                st.push(numOne / numTwo);
+            } else { // otherwise push number onto stack
+                st.push(stoi(t));
+            }
+
         }
-        // if not an operator, add onto stack
-        else st.push(stoi(tokens[i]));
+        return st.top();
     }
-    return st.top();
-      }
 };
