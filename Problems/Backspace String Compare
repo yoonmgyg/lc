@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        stack<char> a;
+        for (char c : s) { // add each char to stack
+            if (c == '#' && !a.empty()) { // remove char if #
+                a.pop();
+            } else if (c != '#') {
+                a.push(c);
+            }
+        }
+
+        stack<char> b;
+        for (char c : t) {
+            if (c == '#' && !b.empty()) {
+                b.pop();
+            } else if (c != '#') {
+                b.push(c);
+            }
+        }
+        return a == b; // see if stacks are equal
+    }
+};
