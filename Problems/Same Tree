@@ -1,19 +1,17 @@
-// return bool if trees are identical
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        // check for null tree
-        if (p == NULL && q == NULL) {
+        if (!p && !q) { // true if both are null
             return true;
         }
-        // check if one tree is null
-        if (p == NULL || q == NULL) {
+        if (!p || !q) { // false if one is null
             return false;
         }
-        // recursively check if subtrees are equal
-        if (p->val == q->val) {
+
+        if (p->val == q->val) { // recursively call on subtrees if same
             return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
         }
-        return false;
+
+        return false; // return false if not equal
     }
 };
