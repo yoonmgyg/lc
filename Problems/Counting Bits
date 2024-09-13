@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> res;
+        res.push_back(0); // initialize vector
+        if (num > 0) {
+            for (int i = 1; i < n; i++) { // 
+                if (i % 2 == 0) { // if even, use number divided by 2 and shift left by 1
+                    res[i] = res[i / 2]; 
+                } else { // if odd, add 1 to previous
+                    res[i] = res[i-1] + 1;
+                }
+            }
+        }
+
+        return res;
+    }
+};
