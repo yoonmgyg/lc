@@ -1,20 +1,17 @@
-// Symmetric Tree
 class Solution {
 public:
-    bool isMirror(TreeNode* left, TreeNode* right) {
-    // both branches null
-    if (left == NULL && right == NULL) { 
-        return true;
+    bool isMirror(TreeNode* leftNode, TreeNode* rightNode) {
+        if (!leftNode && !rightNode) // true if both are null
+            return true;
+        if (!leftNode || !rightNode) // false if one is null
+            return false;
+        // check if current nodes and mirrored children are equal
+        return (leftNode->val == rightNode->val) && isMirror(leftNode->left, rightNode->right) && isMirror(leftNode->right, rightNode->left);
     }
-    // one branch is null
-    if (left == NULL || right == NULL) {
-        return false;
-    }
-    // recursively go through all left and right branches to check if equal
-    return (left->val == right->val) && isMirror(left->left, right->right) && isMirror(left->right, right->left);
-}
 
-bool isSymmetric(TreeNode* root) {
-    if (root == NULL) return true;
-    return isMirror(root->left, root->right);
-}
+    bool isSymmetric(TreeNode* root) {
+        if (!root) 
+            return true;
+        return isMirror(root->left, root->right);
+    }
+};
