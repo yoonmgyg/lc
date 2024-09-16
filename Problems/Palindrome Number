@@ -1,21 +1,18 @@
-// return if palindrome
 class Solution {
 public:
     bool isPalindrome(int x) {
-        // return false if negative
         if (x < 0) {
             return false;
         }
 
+        long copy = x;
         long reverse = 0;
-        int xcopy = x;
 
-        // get reversed number by getting each digit backwards through modulo
-        while (x > 0) {
-            reverse = (reverse * 10) + (x % 10);
-            x /= 10;
+        while (copy > 0) {
+            reverse = (reverse * 10) + (copy % 10); // shift digits left and add rightmost digit
+            copy /= 10; // repeat until all of x is reversed
         }
-        // check if numbers are equal
-        return reverse == xcopy;        
+
+        return reverse == x;
     }
 };
