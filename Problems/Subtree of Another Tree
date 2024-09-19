@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkTree(TreeNode* root, TreeNode* subRoot) {
+        if (!root || !subRoot) // return true if both are null, false if not
+            return !root && !subRoot;
+
+        else if (root->val == subRoot->val) 
+            return checkTree(root->left, subRoot->left) && checkTree(root->right, subRoot->right);
+        else 
+            return false;
+    }
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if (!root) // check if root exists
+            return false;
+
+        else if (checkTree(root, subRoot)) // check if trees are same
+            return true;
+        
+        // check if either subtree is subtree
+        else
+            return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+    }
+};
