@@ -1,34 +1,27 @@
-// create a stack with push, pop, top and minimum
 class MinStack {
 public:
-    // vector of pairs as stack, second int is minimum in stack
-    vector<pair<int,int>> st;
+    stack<pair<int, int>> nums; // store top and minimum number
+    MinStack() { 
+    }
+    
     void push(int val) {
-        // initialize pair if empty
-        if(st.empty()){
-            pair<int,int> p;
-            p.first=val;
-            p.second=val;
-            st.push_back(p);
-        } 
-        // if not empty, push current minimum value
-        else {
-            pair<int,int> p;
-            p.first=val;
-            p.second=min(val,st.back().second);
-            st.push_back(p);
+        if (nums.empty()) {
+            nums.push({val, val}); // push as both vals if empty
+        } else {
+            nums.push({val, min(val, nums.top().second)}); // store value and minimum value thus far
         }
+        
     }
-    // remove last element
+    
     void pop() {
-        st.pop_back();
+        nums.pop(); // remove top from stack
     }
-    // return top element
+    
     int top() {
-        return st.back().first;
+        return nums.top().first; // get first value as value of top
     }
-    // return minimum found from top element
+    
     int getMin() {
-        return st.back().second;
+        return nums.top().second; // get second value as minimum
     }
 };
