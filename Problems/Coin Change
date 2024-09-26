@@ -1,23 +1,21 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
-        vector<int> minCoins(amount + 1, amount + 1);
-        // initialize minimum coins for each value
-        minCoins[0] = 0;
-
+        // Initialize dp array, where dp[i] is the minimum coins needed for amount i
+        vector<int> dp(amount + 1, amount + 1);
+        dp[0] = 0; // 0 coins needed to make amount 0
+        
+        // Iterate through all amounts from 1 to amount
         for (int i = 1; i <= amount; i++) {
-            // loop through each type of coin
-            for (int j = 0; j < coins.size(); j++) {
-                // if current amount fits within coin, put 1 + minimum amount of coins for remiander
-                if (i - coins[j] >= 0) {
-                    minCoins[i] = min(minCoins[i], 1 + minCoins[i - coins[j]]);
+            for (int coin : coins) {
+                // If it's possible to use the current coin
+                if (i >= coin) {
+                    dp[i] = min(dp[i], dp[i - coin] + 1);
                 }
             }
         }
-        // return -1 if amount couldn't be changed
-        if (minCoins[amount] == amount + 1) {
-            return -1;
-        } 
-        return minCoins[amount];       
+
+        // If the amount can't be formed, return -1, otherwise return the answer
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 };
