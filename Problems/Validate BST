@@ -1,32 +1,17 @@
 class Solution {
-public:
-
-    void inorder(TreeNode* root, vector <int> &nodes) {
+private:
+    bool valid(TreeNode* root, int minimum, int maximum) { // check if root is within range
         if (!root)
-            return;
-        inorder(root -> left, nodes);
-        nodes.push_back(root -> val);    
-        inorder(root -> right, nodes); 
+            return true;
+        int currVal = root->val;
+        if (!(currVal > minimum && currVal < maximum)) // false if not in range
+            return false;
+
+        return valid(root->left, minimum, currVal) && valid(root->right, currVal, maximum); // dfs to children
     }
 
+public:
     bool isValidBST(TreeNode* root) {
-        if(!root)
-            return true;
-
-        vector <int> nodes;
-        // add nodes in inorder trafversal
-        inorder(root, nodes); 
-        set <int> s(nodes.begin(), nodes.end());
-
-        // check for duplicate values
-        if(s.size() != nodes.size())
-            return false;
-        // loop through vector and check if next element is greater
-        for(int i = 0; i < nodes.size()-1; i++) {
-            if(nodes[i] > nodes[i+1])
-                return false;
-        }       
-
-        return true;
+        return valid(root, INT_MIN, INT_MAX);
     }
 };
