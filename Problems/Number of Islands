@@ -1,29 +1,37 @@
-// function to find number of islands in grid vector
+#include <vector>
+#include <queue>
+
 class Solution {
 private:
-    // function to erase all adjacent land recursively
-    void findIslands(vector<vector<char>>& grid, int i, int j) {
-        if (i < 0 || j < 0 || i >= grid.size() || j >=grid[0].size() || grid[i][j] != '1') {
-            return;
+    void findIslands(std::vector<std::vector<char>>& grid, int i, int j) {
+        int dir[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        <pair<int, int>> q;
+        q.push({i, j});
+        grid[i][j] = '0'; // Mark as visited
+
+        while (!q.empty()) { // loop through q
+            auto [x, y] = q.front();
+            q.pop();
+            for (auto& d : dir) { // see if q is visited
+                int newX = x + d[0];
+                int newY = y + d[1];
+                if (newX >= 0 && newY >= 0 && newX < grid.size() && newY < grid[0].size() && grid[newX][newY] == '1') {
+                    grid[newX][newY] = '0'; // Mark as visited
+                    q.push({newX, newY});
+                }
+            }
         }
-        grid[i][j] = '0';
-        // use for adjacent grid tiles
-        findIslands(grid, i + 1, j);
-        findIslands(grid, i - 1, j);
-        findIslands(grid, i, j + 1);
-        findIslands(grid, i, j - 1);
     }
+
 public:
-    int numIslands(vector<vector<char>>& grid) {
+    int numIslands(std::vector<std::vector<char>>& grid) {
         if (grid.empty() || grid[0].empty()) {
             return 0;
         }
-        
+
         int islands = 0;
-        // loop through all grid tiles
         for (int i = 0; i < grid.size(); i++) {
             for (int j = 0; j < grid[0].size(); j++) {
-                // if land is found, erase all adjacent lands and increment by one
                 if (grid[i][j] == '1') {
                     islands++;
                     findIslands(grid, i, j);
