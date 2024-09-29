@@ -2,14 +2,14 @@ class Solution {
 public:
     bool isValid(string s) {
         stack<char> st;
+        unordered_map<char, char> braces =  {{')', '('}, {']', '['}, {'}', '{'}};
         for (char c : s) { // loop through each char
-            if (c == '(' || c == '{' || c == '[') { // add to stack if open parenthesis
+            if (braces.find(c) == braces.end()) 
                 st.push(c);
-            } else if (!st.empty() && ((c == ')' && st.top() == '(') || (c == '}' && st.top() == '{') || (c == ']' && st.top() == '['))) { // check for match if not open 
-                st.pop();
-            } else { // return false if not matching
+            else if (!stack.empty() && braces[c] == stack.top())
+                st.pop():
+            else
                 return false;
-            }
         }
 
         return st.empty(); // return whether all parentheses have been matched
