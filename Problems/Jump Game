@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int endIndex = nums.size() - 1;
+
+        for (int i = nums.size() - 2; i >= 0; i--)  // loop through nums backwards
+            if (i + nums[i] >= endIndex)  // if current index + i reaches end, move end backwards
+                endIndex = i;
+        
+
+        return endIndex == 0;
+    }
+};
