@@ -1,0 +1,30 @@
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root) {
+            if (key < root->val) { // search for key until found
+                root->left = deleteNode(root->left, key);
+            } else if (key > root->val) {
+                root->right = deleteNode(root->right, key);
+            } else {
+                if (!root->left && !root->right) { // return null if no children
+                    delete root;
+                    return nullptr;
+                }
+                if (!root->left || !root->right) {
+                    TreeNode* child = root->left ? root->left : root->right;
+                    delete root;
+                    return child;
+                }
+
+                TreeNode* tmp = root->left;
+                while (tmp->right) { // get rightmost val of left child
+                    tmp = tmp->right;
+                }
+                root->val = tmp->val; // replace val with tmp
+                root->left = deleteNode(root->left, root->val); // recursively call to replace left tree
+            }
+        }
+        return root;
+    }
+};
