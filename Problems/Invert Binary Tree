@@ -1,0 +1,14 @@
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if (!root) 
+            return nullptr;
+
+        TreeNode* tmp = root->left; // copy left
+        root->left = root->right; // set left to right
+        root->right = tmp; // set right to left 
+        invertTree(root->left); // dfs to subchildren
+        invertTree(root->right);
+        return root; 
+    }
+};
