@@ -3,16 +3,17 @@ public:
     string customSortString(string order, string s) {
         string result = "";
         unordered_map<int,int> mp;
-        for (auto& x : s) { // add string into map
-            mp[x]++;
+        for (auto& it : s) { // add string into map
+            mp[it]++;
         }
-        for (auto& x : order){ // if character exists, add into map and erase
+        for (auto& it : order){ // if character exists, add into map and erase
             if (mp.find(it) != mp.end()) {
                 result.append(mp[it], it);
                 mp.erase(it);
-		}
+            }
+
         }
-        for (auto &it : mp) { // add both instances and letter
+        for (auto& it : mp) { // add both instances and letter
             result.append(it.second, it.first);
         }
         return result;
