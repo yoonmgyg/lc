@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> res;
+        for (int n : nums) { // loop through nums
+            if (res.empty() || res.back() < n) { // add to res if empty or greatest
+                res.push_back(n);
+            } else { // otherwise do bin search to find proper index to replace with n
+                int left = 0;
+                int right = res.size() - 1;
+                while (left <= right) {
+                    int mid = left + (right - left) / 2;
+                    if (res[mid] == n) {
+                        break;
+                    } else if (res[mid] <= n) {
+                        left = mid + 1;
+                    } else {
+                        right = mid - 1;
+                    }
+                }
+                res[left] = n;
+            }
+        }
+
+        return res.size();
+
+    }
+};
