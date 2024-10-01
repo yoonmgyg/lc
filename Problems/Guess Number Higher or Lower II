@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int getMoneyAmount(int n) {
+        vector<vector<int>> dp(n+1, vector<int>(n+1, 0)); // create vector of range of beginning and end
+        for (int i = 2; i <= n; i++) { // loop for each size of range
+            for (int begin = 0; begin <= n - i; begin++) { 
+                int end = begin + i;
+                for (int j = begin; j < end; j++) { // guess lowest numbers
+                    int guess = j+1;
+                    if (j == begin) {
+                        dp[begin][end] = guess + dp[begin+1][end]; // if beginning, add cost of guess and next range
+                    } else {
+                        dp[begin][end] = min(dp[begin][end], max(dp[begin][j], dp[j+1][end]) + guess); 
+                    }
+                }
+            }
+        }
+        return dp[0][n];
+    }
+};
