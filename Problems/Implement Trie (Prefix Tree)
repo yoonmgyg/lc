@@ -1,59 +1,45 @@
-class TrieNode {
-public:
-    bool isWord;
-    TrieNode* children[26];
-    // initialize children
-    TrieNode() {
-        isWord = false;
-        memset(children, 0, sizeof(children));
-    }
-};
-
 class Trie {
-private:
-    TrieNode* root;
-    
 public:
-    Trie() {
-        root = new TrieNode();
+    Trie() {}
+    ~Trie() {
+        for (auto& x : mp) { // recursively delete tries
+            delete x.second;
+        }
     }
-
-    
     void insert(string word) {
-        TrieNode* node = root;
-        // loop through each char and add to dictionary
+        Trie* root = this;
         for (char c : word) {
-            int index = c - 'a';
-            if (!node->children[index]) {
-                node->children[index] = new TrieNode();
+            if (!root->mp.count(c)) { // if not in map, create new trie for c
+                root->mp[c] = new Trie();
             }
-            node = node->children[index];
         }
-        node->isWord = true;
-    }
-    bool search(string word) {
-        TrieNode* node = root;
-        // loop through each char and check through each node if character exists
-        for (char c : word) {
-            int index = c - 'a';
-            if (!node->children[index]) {
-                return false;
-            }
-            node = node->children[index];
-        }
-        return node->isWord;
+        root->isword = true; // mark word at end
     }
     
-    bool startsWith(string prefix) {
-        TrieNode* node = root;
-        // search for char by going through dictionary and checking each char's node
+    bool search(string word) {
+        Trie* root = this;
+        for (char c : word) { 
+            if (!root->mp.count(c)) { // loop to find each char within map
+                return false;
+            }            
+            root = root->mp[c];
+        }
+        return root->isword;
+    }
+    
+    bool startsWith(string prefix) { 
+        Trie* root = this;
         for (char c : prefix) {
-            int index = c - 'a';
-            if (!node->children[index]) {
+            if (!root->mp.count(c)) { // if char of prefix cannot be found, return false
                 return false;
             }
-            node = node->children[index];
+            root = root->mp[c];
         }
+
         return true;
     }
+
+private:
+    unordered_map<char, Trie*> mp;
+    bool isword = false;
 };
