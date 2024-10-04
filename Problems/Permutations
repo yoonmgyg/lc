@@ -2,33 +2,21 @@ class Solution {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
-        // return itself if only 1 element
-        if (nums.size() == 1) {
-            vector<int> singleList;
-            singleList.push_back(nums[0]);
-            res.push_back(singleList);
-            return res;
+        backtrack(nums, 0, res);
+        return res;
+        
+    }
+private:
+    void backtrack(vector<int>& nums, int start, vector<vector<int>>& res) {
+        if (start == nums.size()) { // add to res once all numbers are added
+            res.push_back(nums);
+            return;
         }
 
-        // loop through nums
-        for (int i = 0; i < nums.size(); i++) {
-            int n = nums[i];
-            vector<int> remainingNums;
-            // get each element for permutations
-            for (int j = 0; j < nums.size(); j++) {
-                if (j != i) {
-                    remainingNums.push_back(nums[j]);
-                }
-            }
-            // recursively add each element into vector of vectors
-            vector<vector<int>> perms = permute(remainingNums);
-            // get each permutation and add with n to return result
-            for (vector<int> p : perms) {
-                p.insert(p.begin(), n); 
-                res.push_back(p); 
-            }
+        for (int i = start; i < nums.size(); i++) { // swap numbers from start to i
+            swap(nums[start], nums[i]);
+            backtrack(nums, start + 1, res);
+            swap(nums[start], nums[i]); // swap number back
         }
-        
-        return res;    
     }
 };
