@@ -1,0 +1,33 @@
+class Solution {
+public:
+    unordered_map<string, vector<string>> mp;
+    unordered_set<string> seen;
+    vector<vector<string>> res;
+    void dfs(string email) {
+        seen.insert(email); // mark email as seen
+        res.back().push_back(email); // add to res
+        for (auto& adj : mp[email]) {
+            if (!seen.count(adj)) {
+                dfs(adj); // dfs to all adjacent emails
+            }
+        }
+    }
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        for (auto& acc : accounts) {
+            for (int i = 2; i < acc.size(); i++) { // loop through accounts
+                mp[acc[i]].push_back(acc[i-1]); // add adjacent accounts into map
+                mp[acc[i-1]].push_back(acc[i]);
+            }
+        }
+
+        for (auto& acc : accounts) {
+            if (!seen.count(acc[1])) { // if first email not seen, add name and other emails
+                res.push_back({acc[0]}); 
+                dfs(acc[1]);
+                sort(res.back().begin() + 1, res.back().end()); // sort inserted emails
+            }
+        }
+        return res;
+    }
+    
+};
