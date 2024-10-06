@@ -1,26 +1,21 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        // merges intervals within intervals
-        // sort intervals
-        sort(begin(intervals), end(intervals));
-        vector<vector<int>> mergedIntervals;
-        // initialize first interval
-        int startInterval = intervals[0][0];
-        int endInterval = intervals[0][1];
-        // loop through intervals and merge if within previous interval
-        for (int i = 1; i < intervals.size(); i++) {
-            if (intervals[i][0] > endInterval) {
-                mergedIntervals.push_back({startInterval, endInterval});
-                startInterval = intervals[i][0];
-                endInterval = intervals[i][1];
-            }
-            else if (intervals[i][1] > endInterval) {
-                endInterval = intervals[i][1];
+         // sort intervals by beginning, and merge intervals whose beginning are within others' end
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> res;
+        vector<int> curr = intervals[0];
+
+        for (int i = 1; i < intervals.size(); i++) { // loop through intervals
+            if (intervals[i][0] <= curr[1]) { // if beginning of interval is less than current end, set max as end
+                curr[1] = max(curr[1], intervals[i][1]);
+            } else { // push completed interval otherwise
+                res.push_back(curr);
+                curr = intervals[i];
             }
         }
 
-        mergedIntervals.push_back({startInterval, endInterval});
-        return mergedIntervals;
+        res.push_back(curr);
+        return res;
     }
 };
