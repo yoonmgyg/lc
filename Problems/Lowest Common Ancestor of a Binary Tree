@@ -1,14 +1,20 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // recursively search until a node gets a result from left and right trees
         if (!root) {
             return nullptr;
         }
-        if (p->val < root->val && q->val < root->val) { // search left if lesser
-             return lowestCommonAncestor(root->left, p, q);
-        } else if (p->val > root->val && q->val > root->val) { // search right if greater
-             return lowestCommonAncestor(root->right,p,q);
+        if (root->val == p->val || root->val == q->val) { // return root if matching
+            return root;     
         }
-        return root;
+
+        TreeNode* left = lowestCommonAncestor(root->left, p, q); // dfs for left and right subtrees
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        if (left && right) { // return root if both exist
+            return root;
+        }
+
+        return left ? left : right; // return existing if only one
     }
 };
