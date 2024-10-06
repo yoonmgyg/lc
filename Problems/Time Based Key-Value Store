@@ -1,0 +1,21 @@
+class TimeMap {
+public:
+    // create map within map to store timestamp and value
+    unordered_map<string, map<int, string>> mp;
+    TimeMap() {
+        
+    }
+    
+    void set(string key, string value, int timestamp) {
+        mp[key].insert({timestamp, value}); // insert timestamp and value into map within map
+    }
+    
+    string get(string key, int timestamp) {
+        auto upper = mp[key].upper_bound(timestamp); // get first key greater than timestamp
+        if (upper == mp[key].begin()) {
+            return "";
+        }
+        upper--; // subtract one to get last key less than timestamp
+        return upper->second;
+    }
+};
