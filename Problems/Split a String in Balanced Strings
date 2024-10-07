@@ -1,0 +1,23 @@
+/*
+Determine number of substrings that can be created with a balance of L and R characters within s:
+By counting Ls and Rs and increasing the count when equal
+*/
+class Solution {
+public:
+    int balancedStringSplit(string s) {
+        int l = 0;
+        int r = 0;
+        int res = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == 'L') {
+                l++;
+            } else if (s[i] == 'R') {
+                r++;
+            }
+            if (l == r) {
+                res++;
+            }
+        }
+        return res;
+    }
+};
