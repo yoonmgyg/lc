@@ -1,0 +1,24 @@
+/* 
+Sort array with 0, 1, and 2 using 3 pointers at the left, middle, and right of the array
+*/
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int left = 0;
+        int mid = 0;
+        int right = nums.size() - 1;
+
+        while (left <= right) {
+            if (nums[mid] == 0) { // if red, swap to left
+                swap(nums[mid], nums[left]);
+                left++;
+                mid++;
+            } else if (nums[left] == 1) { 
+                mid++;
+            } else { // if blue, swap to right
+                swap(nums[mid], nums[right]);
+                right--;
+            }
+        }
+    }
+};
