@@ -1,0 +1,19 @@
+/*
+Hash string by dividing into substrings of k length, getting the sum of its index in the alphabet, dividing by 26, and appending to result
+class Solution {
+public:
+    string stringHash(string s, int k) {
+        string res;
+        for (int i = 0; i < s.length(); i += k) { // loop by k substrings
+            int hashSum = 0;
+            for (int j = i; j < i + k; j++) { // calculate sum within substr
+                int hash = s[j] - 'a';
+                hashSum += hash;
+            }
+            res += 'a' + (hashSum % 26); // add sum % 26
+
+        }
+
+        return res;
+    }
+};
