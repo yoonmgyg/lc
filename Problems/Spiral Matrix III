@@ -1,0 +1,31 @@
+// Get next element when spiralling clockwise within matrix by keeping track of direction and steps and determining if within bounds
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        vector<vector<int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; // loop through 4 directions
+        vector<vector<int>> result = {{rStart, cStart}};
+        int steps = 0
+        int d = 0;
+        
+        while (result.size() < rows * cols) { // loop through matrix
+            if (d == 0 || d == 2) 
+                steps++; // count steps within matrix
+            
+            for (int i = 0; i < steps; i++) { 
+                rStart += directions[d][0]; // add directions to get new coordinate
+                cStart += directions[d][1];
+                
+                if (rStart >= 0 && rStart < rows && cStart >= 0 && cStart < cols) { // make sure new position is within matrix
+                    result.push_back({rStart, cStart});
+                }
+                
+                if (result.size() == rows * cols) 
+                    return result;
+            }
+            
+            d = (d + 1) % 4;
+        }
+        
+        return result;
+    }
+};
