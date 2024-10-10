@@ -1,0 +1,19 @@
+/* 
+Convert string input to possible morse codes by getting their index within morse vector
+*/
+
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        // set up morse alphabet
+        vector<string> d = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+        unordered_set<string> s;
+        for (auto w : words) { // loop through words and use each alphabet index to get morse code
+            string code;
+            for (auto c : w) 
+                code += d[c - 'a'];
+            s.insert(code);
+        }
+        return s.size();
+    }
+};
