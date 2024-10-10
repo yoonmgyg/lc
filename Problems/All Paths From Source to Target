@@ -1,25 +1,32 @@
+/*
+Get all paths from source to target within graph by using BFS within a queue
 class Solution {
-public:    
-    void dfs(vector<vector<int>>& graph,  vector<vector<int>>& ans, vector<int>& visited, int node){
-        visited.push_back(node);
-        // when reaching n-1, push back into answer
-        if (node == graph.size()-1) {
-            ans.push_back(visited);
-        }
-        // otherwise loop and add visited until reached
-        else {
-            for (int i = 0; i < graph[node].size(); i++) {
-                dfs(graph, ans, visited, graph[node][i]);
+public:
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector <vector<int>> result;
+        int n = graph.size();
+        int s = 0;
+        int e = n;
+        vector <int> adj[n];
+        for (int i = 0; i < n; i++) // add adjacenct nodes into vector
+            for (auto g : graph[i])
+                adj[i].push_back(g);
+        
+        queue <vector<int>> q;
+        vector <int> path;
+        q.push({0});
+        while (!q.empty()) { // loop through queue and all adjacent paths which result in the node n-1
+            path = q.front();
+            q.pop();
+            if (path.back() == n-1)
+                result.push_back(path);
+            
+            for (auto ele : adj[path.back()]){
+                vector <int> temp = path;
+                temp.push_back(ele);
+                q.push(temp);
             }
         }
-        visited.pop_back();
+        return result;
     }
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-        
-        vector<int> visited;
-        vector<vector<int>> ans; 
-        dfs(graph,ans,visited,0);
-       
-        return ans;
-    }
-}
+};
