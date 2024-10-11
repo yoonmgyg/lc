@@ -1,0 +1,18 @@
+/*
+Get minimum element of average when removing smallest and largest element, using a sorted array and two pointers at the least and greatest
+class Solution {
+public:
+    double minimumAverage(vector<int>& v) {
+        sort(v.begin(),v.end());
+        int left = 0;
+        int right = n-1;
+        double ans = DBL_MAX;
+        while (left < right) {
+            double k = (v[left] + v[right]) / (2.0);
+            ans = min(ans,k);
+            i++;
+            j--;
+        }
+        return ans;
+    }
+};
