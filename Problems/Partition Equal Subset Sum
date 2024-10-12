@@ -1,0 +1,22 @@
+/* 
+Determine if vector can be partitioned into equal sums using DP to determine if sum / 2 can be reached
+*/
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum = accumulate(nums.begin(), nums.end(), 0); // add all of nums
+        int target = sum / 2;
+        if (sum % 2 == 1) {
+            return false;
+        }
+
+        vector<int> dp(target + 1, 0); // initialize dp vector
+        dp[0] = 1;
+
+        for (auto num : nums) // loop through nums
+            for (int i = target; i >= num; i--) // loop from target to num
+                dp[i] = dp[i] || dp[i - num];
+
+        return dp[target];
+    }
+};
