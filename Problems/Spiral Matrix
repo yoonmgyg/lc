@@ -1,42 +1,31 @@
-// return matrix in circular order
+/*
+Traverse matrix in spiral pattern by turning clockwise whenever a boundary is hit
+*/
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        vector<int> result;
-        if (matrix.empty() || matrix[0].empty()) {
-            return result;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int x = 0;
+        int y = 0;
+        int dx = 1;
+        int dy = 0;
+
+        vector<int> res;
+        for (int i = 0; i < rows * cols; i++) {
+            res.push_back(matrix[y][x]);
+            matrix[y][x] = -1;
+
+            // when hitting boundary, turn clockwise
+            if (x + dx < 0 || x + dx >= cols || y + dy < 0 || y + dy >= rows || matrix[y + dy][x + dx] == -101) {
+                int temp = dx;
+                dx = -dy;
+                dy = temp;
+            }
+
+            x += dx;
+            y += dy;
         }
-        // determine matrix dimensions and boundaries
-        int rows = matrix.size(), cols = matrix[0].size();
-        int left = 0, right = cols-1, top = 0, bottom = rows-1;
-        // loop until matrix center is reached
-        while (left <= right && top <= bottom) {
-            // enter top of matrix
-            for (int i = left; i <= right; i++) {
-                result.push_back(matrix[top][i]);
-            }
-            top++;
-            // enter right of matrix
-            for (int i = top; i <= bottom; i++) {
-                result.push_back(matrix[i][right]);
-            }
-            right--;
-            // enter bottom of matrix
-            if (top <= bottom) {
-                for (int i = right; i >= left; i--) {
-                    result.push_back(matrix[bottom][i]);
-                }
-                bottom--;
-            }
-            //enter left of matrix
-            if (left <= right) {
-                for (int i = bottom; i >= top; i--) {
-                    result.push_back(matrix[i][left]);
-                }
-                left++;
-            }
-        }
-        
-        return result;
+        return res;
     }
 };
