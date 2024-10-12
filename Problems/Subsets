@@ -1,26 +1,17 @@
+/*
+Get all possible subset of nums by getting all previous subsets and adding each number from nums
+*/
 class Solution {
 public:
-    void getSubset(vector<int>& nums, vector<vector<int>>& subs, vector<int>& set, int index) {
-        // if index reaches end of list, add set into subs
-        if (index == nums.size()) {
-            subs.push_back(set);
-            return;
-        }        
-
-        // recursively add each index no into set
-        set.push_back(nums[index]);
-        getSubset(nums, subs, set, index+1);
-        // remove last element and add again into set
-        set.pop_back();
-        getSubset(nums, subs, set, index+1);
-
-    }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> subs;
-        vector<int> set;
-
-        // enter answers as parameters for function
-        getSubset(nums, subs, set, 0);
+        vector<vector<int>> subs = {{}}; // init subsets
+        for (int num : nums) { // loop through nums
+            int n = subs.size();
+            for (int i = 0; i < n; i++) { // add all previous subsets and push new num
+                subs.push_back(subs[i]);
+                subs.back().push_back(num);
+            }
+        }
         return subs;
     }
 };
