@@ -1,49 +1,42 @@
+/*
+Find number of unique paths which walk over a tile once through dfs all adjacent tiles
+*/
 class Solution {
 public:
-    int x, y, xLen, yLen, countZeros = 0, totalZeros = 0, res = 0, cell;
-    void dfs(vector<vector<int>>& grid, int x, int y) {
-        // check that grid is within bounds
-        if (x < 0 || y < 0 || x == xLen || y == yLen) 
+    int res = 0, empty = 1;
+    void dfs(vector<vector<int>>& grid, int x, int y, int count) {
+        if (x < 0 || x >= grid.size() || y < 0 || y >= grid[0].size() || grid[x][y] == -1)  // determine if valid tile
             return;
-        cell = grid[y][x];
-        // increase unique paths if all cells were visited
-        if (cell) {
-            res += cell == 2 && countZeros == totalZeros;
+        
+        if (grid[x][y] == 2) { // add to answer if empty
+            if (empty == count) 
+                res++;  
             return;
         }
-        // marking cell as visited
-        grid[y][x] = -1;
-        countZeros++;
-        // loop through north, south, east, west cells 
-        dfs(grid, x, y - 1);
-        dfs(grid, x + 1, y);
-        dfs(grid, x, y + 1);
-        dfs(grid, x - 1, y);
-        // backtracking cell as visitable
-        grid[y][x] = 0;
-        countZeros--;
+        
+        grid[x][y] = -1;
+        
+        dfs(grid, x+1, y, count+1); // go through adjacent tiles
+        dfs(grid, x-1, y, count+1);
+        dfs(grid, x, y+1, count+1);
+        dfs(grid, x, y-1, count+1);
+        
+        grid[x][y] = 0;
+        
     }
+    
     int uniquePathsIII(vector<vector<int>>& grid) {
-        // setting class variables right
-        yLen = grid.size();
-        xLen = grid[0].size();
-        for (int i = 0; i < yLen; ++i) {
-            for (int j = 0; j < xLen; ++j) {
-                cell = grid[i][j];
-                // finding the starting point
-                if (cell == 1) {
-                    x = i;
-                    y = j;
-                }
-                // increasing countZeros for each cell == 0
-                totalZeros += !cell;
+        int start_x, start_y;
+        for (int i = 0; i < grid.size(); i++) { // loop through each grid to find start
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == 1) 
+                    start_x = i, start_y = j;
+                else if (grid[i][j] == 0) 
+                    empty++;
             }
         }
-        // begin looping through all directions from start point
-        dfs(grid, x, y - 1);
-        dfs(grid, x + 1, y);
-        dfs(grid, x, y + 1);
-        dfs(grid, x - 1, y);
+        
+        dfs(grid, start_x, start_y, 0);
         return res;
     }
 };
