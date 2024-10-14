@@ -1,0 +1,22 @@
+/*
+Find pairs of reverse strings by adding into map
+*/
+class Solution {
+public:
+    int maximumNumberOfStringPairs(vector<string>& words) {
+        int ans = 0;
+        unordered_map<string, int> mp;
+        for (auto word : words){
+            string r = word;
+            reverse(r.begin(), r.end());
+            if (mp[r] > 0) { // if reverse exists, add to ans
+                ans++; 
+                mp[r]--; 
+            }
+            else { // otherwise add new reverse
+                mp[w]++;
+            }
+        }
+        return ans;
+    }
+};
