@@ -1,0 +1,32 @@
+/*
+Merge linked lists between A and B by changing the next pointer at A to list2 and the end of list2 to B 
+*/
+class Solution {
+public:
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        ListNode* ptrA = list1;
+        for (int i = 0; i < a - 1; ++i) // loop until node A
+            ptrA = ptrA->next;
+    
+        ListNode* removedPtr = ptrA->next;
+        ListNode* ptrB = removedPtr;
+
+        for (int i = 0; i < b - a + 1; ++i) { // remove nodes until B
+            ptrB = removedPtr->next;
+            delete(removedPtr);
+            removedPtr = ptrB;
+        }
+
+        ptrA->next = list2; // set next of A to list2
+        
+        ListNode* ptrTwoEnd = list2; 
+        while (ptrTwoEnd->next) // loop until end of list 2
+            ptrTwoEnd = ptrTwoEnd->next;
+
+        ptrTwoEnd->next = ptrB; // place B at next of list 2
+
+        return list1;
+        
+
+    }
+};
