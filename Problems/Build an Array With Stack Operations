@@ -1,0 +1,28 @@
+/*
+Create array with stack opeartions by pushing and popping integers not within the target
+*/
+
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> operations;
+        int targetIndex = 0;
+        
+        for (int i = 1; i <= n; i++) { // loop through all elements
+            if (targetIndex == target.size()) {
+                break;  
+            }
+            
+            if (target[targetIndex] == i) { // push at targetIndex
+                operations.push_back("Push");
+                targetIndex++;
+            } else {
+                operations.push_back("Push"); // if not target, push and remove recent index
+                operations.push_back("Pop");
+            }
+        }
+        
+        return operations;
+    }
+
+};
