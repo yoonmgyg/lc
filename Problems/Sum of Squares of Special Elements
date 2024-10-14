@@ -1,0 +1,16 @@
+/* 
+Get the sum of elements in which i divides n by looping through vector and getting the square
+*/
+class Solution {
+public:
+    int sumOfSquares(vector<int>& nums) {
+        int n = nums.size();
+        int sum = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) { // if divisible, add sqr 
+                sum += nums[i-1] * nums[i-1];
+            }
+        }
+        return sum;
+    }
+};
