@@ -1,23 +1,22 @@
+/*
+Gets the pair of integers which sum to the target by using two pointers which adjust depending on their sum relative to the target.
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        // get leftmost and rightmost index
+    vector<int> twoSum(vector<int>& nums, int target) {
         int left = 0;
-        int right = numbers.size() - 1;
-        while (left != right) {
-            int sum = numbers[left] + numbers[right];
-            if (sum == target) {
+        int right = nums.size() - 1;
+
+        while (left < right) { // loop through 2 pointers
+            int sum = nums[left] + nums[right];
+            if (sum == target) { // return if foud
                 return {left + 1, right + 1};
-            }
-            // increase left index if sum is less than target
-            else if (sum < target) {
+            } else if (sum < target) { // move left pointer if less
                 left++;
-            }
-            // decrease right index if sum is greater
-            else {
+            } else { // move right pointer if greater
                 right--;
             }
         }
+
         return {};
     }
 };
