@@ -1,24 +1,23 @@
- int maxArea(vector<int>& height) {
-        int n = height.size();
-        int start = 0;
-        int end = n-1;
-        int maxArea = 0;
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxVol = 0;
+        int left = 0;
+        int right = height.size() - 1;
 
-        while(start<end){
-            int currentArea = min(height[start],height[end])*(end-start);
+        while (left <= right) {
+            int width = right - left;
+            int minHeight = min(height[left], height[right]);
+            
+            maxVol = max(maxVol, minHeight * width);
 
-            if(currentArea > maxArea){
-                maxArea = currentArea;
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
             }
 
-
-            if(height[start]<height[end]){
-                start++;
-            }
-            else
-            {
-                end--;
-            }
         }
-        return maxArea;
+        return maxVol;
     }
+};
