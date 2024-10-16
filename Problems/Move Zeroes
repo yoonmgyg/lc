@@ -1,12 +1,15 @@
+/*
+Move All zeroes to the end while keeping the relative order by swapping all non-zeroes to the left
+*/
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
-        int left = 0; // create two pointers 
+        int left = 0; // get index of last non zero
         for (int right = 0; right < nums.size(); right++) {
-            if (nums[right] != 0) { // if not zero, swap with last non-zero element
-                swap(nums[left], nums[right]);
+            if (nums[right] != 0) { // if not zero, swap to left
+                swap(nums[right], num[left]);
                 left++;
             }
-        }      
+        }   
     }
 };
