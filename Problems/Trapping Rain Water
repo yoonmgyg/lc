@@ -1,85 +1,25 @@
+/*
+Gets the amount of rainwater trapped if height is an elevation map with a width of 1 by finding the minimum height of local maximums
+*/
 class Solution {
-
-    unordered_set<int> pools_filled;
-
-    int hash(int start, int end) {
-        return start*20000 + end;
-    }
-
 public:
     int trap(vector<int>& height) {
+        int left = 0, right = height.size() - 1;
+        int lMax = height[left], rMax = height[right];
+        int total = 0;
 
-        if (height.size() < 2) return 0;
-        int start = 0;
-        int end = 1; 
-        
-        int cumul_area = 0;
-        int occupied_area = 0;
-
-        while (start <= end && end < height.size()) {
-            if (end - start >= 2) {
-                if (height[end] >= height[start]) {
-                    cumul_area += (end - start - 1) * min(height[start], height[end]);
-                    cumul_area -= occupied_area;
-
-                    pools_filled.insert(hash(start, end));
-
-                    occupied_area = 0;
-
-                    start = end;
-                    end++;
-                } else {
-                    occupied_area += height[end];
-                    end++;
-                }
-            } else {
-                if (height[end] >= height[start]) {
-                    occupied_area = 0;
-                    start = end;
-                    end++;
-                } else {
-                    occupied_area += height[end];
-                    end++;
-                }
+        while (left < right) { // loop through height
+            if (lMax < rMax) { // if left is smaller, subtract current height from left height to get water
+                left++;
+                lMax = max(lMax, height[left]);
+                total += lMax - height[left];
+            } else { // if right is smaller, subtract current height from right height to get water
+                right--;
+                rMax = max(rMax, height[right]);
+                total += rMax - height[right];
             }
         }
 
-        start = height.size() - 1;
-        end = height.size() - 2;
-        occupied_area = 0;
-
-        while (end <= start && end >= 0) {
-            if (start - end >= 2) {
-                if (height[end] >= height[start]) {
-                    if (pools_filled.find(hash(end, start)) == pools_filled.end()) {
-                        cumul_area += (start - end - 1) * min(height[start], height[end]);
-                        cumul_area -= occupied_area;
-
-                        occupied_area = 0;
-
-                        start = end;
-                        end--;
-                    } else {
-                        occupied_area = 0;
-                        start = end;
-                        end--;
-                    }
-                } else {
-                    occupied_area += height[end];
-                    end--;
-                }
-            } else {
-                if (height[end] >= height[start]) {
-                    occupied_area = 0;
-                    start = end;
-                    end--;
-                } else {
-                    occupied_area += height[end];
-                    end--;
-                }
-            }
-        }
-
-        return cumul_area;
+        return total;
     }
 };
