@@ -1,0 +1,24 @@
+/*
+Gets the amount of fruit that can be gotten if 2 types can be gotten at a time while moving to the right, by using a map to keep track of fruits
+*/
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        unordered_map<int, int> mp;
+        int maxFruit = 0;
+
+        int start = 0;
+        for (int end = 0; end < fruits.size(); end++) { // loop through fruits
+            mp[fruits[end]]++; // add fruit at end
+            while (mp.size() > 2) { // if more than 2 types, move sliding window forward until there are not
+                mp[fruits[start]]--;
+                if (mp[fruits[start]] == 0) {
+                    mp.erase(fruits[start]);  
+                }
+                start++;
+            }
+            maxFruit = max(maxFruit, end - start + 1);
+        }
+        return maxFruit;
+    }
+};
