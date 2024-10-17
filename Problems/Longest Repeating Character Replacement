@@ -1,0 +1,23 @@
+/*
+Gets the longest of longest repeating chars with k replacements by getting the max frequency of a char and comparing it with the window, moving the window forward if lesser
+*/
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        unordered_map<char, int> mp;
+        int maxChars = 0;
+        int maxLength = 0;
+
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            mp[s[right]]++;
+            maxChars = max(maxChars, mp[s[right]]);
+            if (k + maxChars < right - left + 1) { // if maxChars + k replacements is less, left window is moved
+                mp[s[left]]--;
+                left++;
+            }
+            maxLength = max(maxLength, right - left + 1);
+        }
+        return maxLength;
+    }
+};
