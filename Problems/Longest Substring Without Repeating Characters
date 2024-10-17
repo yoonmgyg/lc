@@ -1,19 +1,21 @@
+/*
+Finds longest substring without repeating characters by creating a sliding window which moves the beginning when a duplicate is found
+*/
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         unordered_set<char> chars;
-        int maximum = 0;
-        int left = 0;
-        for (int right = 0; right < s.length(); right++) { // create sliding window for each substring
-            while (chars.find(s[right]) != chars.end()) { // while right window can be found, erase until left is at right
-                chars.erase(s[left]);
-                left++;
+        int maxChars = 0;
+
+        int start = 0;
+        for (int end = 0; end < s.length(); end++) { // loop through each char
+            while (chars.find(s[end]) != chars.end()) { // if char can be found, erase beginning until found
+                chars.erase(s[start]);
+                start++;
             }
-
-            chars.insert(s[right]); // add rightmost character
-            maximum = max(maximum, right - left + 1); // calculate current length and see if max
+            chars.insert(s[end]);
+            maxChars = max(maxChars, end - start + 1);
         }
-
-        return maximum;
+        return maxChars;
     }
 };
