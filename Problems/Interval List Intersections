@@ -1,0 +1,25 @@
+/* 
+Check for intersections between lists through two pointers for each beginning and end
+*/
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
+        vector<vector<int>> res;
+        int i = 0;
+        int j = 0;
+        
+        while (i < firstList.size() && j < secondList.size()) { 
+            int st = max(firstList[i][0], secondList[j][0]); // get start and end of current intersection
+            int et = min(firstList[i][1], secondList[j][1]);
+            if (st <= et) { // put current into list
+              ans.push_back({st, et}); 
+            }
+            if (firstList[i][1] <= secondList[j][1]) { // increment i if smaller
+                i++;
+            } else {
+                j++;
+            }
+        }
+    return res;
+    }
+};
