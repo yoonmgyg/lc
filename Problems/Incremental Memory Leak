@@ -1,0 +1,17 @@
+/*
+Determine if memory in 2 sticks is enough for the leak by comparing with the maximum in each stick
+*/
+class Solution {
+public:
+    vector<int> memLeak(int memory1, int memory2) {
+        int i = 1;
+        while (max(memory1, memory2) >= i){
+            if (memory1 >= memory2) // subtract memory1 if greater
+                memory1 -= i;
+            else  // subtract memory2 if greater
+                memory2 -= i;
+            i++;
+        }
+        return {i, memory1, memory2};
+    }
+};
