@@ -1,31 +1,17 @@
+/*
+Gets the best time to buy stock by comparing the maximum profit when utilizing the fee
+*/
 class Solution {
-private:
-    int maxProfitHelper(int idx, bool canBuy, int fee, vector<int> &prices, vector<vector<int>>& dp) {
-        // check if empty
-        if (idx == prices.size()) {
-            return 0;
-        }
-
-        // check dp for existing calculation 
-        if (dp[idx][canBuy] != INT_MIN) {
-            return dp[idx][canBuy];
-        }
-        int buy = INT_MIN, sell = INT_MIN;
-        // calculate profit for buy and sell values recursively using dp and price index
-        if (canBuy) {
-            buy = -prices[idx] + maxProfitHelper(idx + 1, !canBuy, fee, prices, dp);
-        } else {
-            sell = prices[idx] - fee + maxProfitHelper(idx + 1, !canBuy, fee, prices, dp);
-        }
-    `   // calculate profit when ignoring
-        int move_on = maxProfitHelper(idx + 1, canBuy, fee, prices, dp);
-        // store max profit in dp vector
-        return dp[idx][canBuy] = max({buy, sell, move_on});
-    }
 public:
     int maxProfit(vector<int>& prices, int fee) {
-        int n = prices.size();
-        vector<vector<int>> dp(n + 1, vector<int>(2, INT_MIN));
-        return maxProfitHelper(0, true, fee, prices, dp);
+        int buy = INT_MIN;
+        int sell = 0;
+
+        for (int price : prices) { // loop through price
+            buy = max(buy, sell - price); // get maximum sell - price
+            sell = max(sell, buy + price - fee); // find maximum profit when using fee
+        }
+
+        return sell;
     }
 };
