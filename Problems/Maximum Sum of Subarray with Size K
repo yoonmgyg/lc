@@ -1,0 +1,21 @@
+/*
+Get maximum sum of subarray of size K by utilizing sliding window to get subarrays
+*/
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+        int currSum = 0;
+        int maxSum = 0;
+        int start = 0;
+        for (int end = 0; end < nums.size(); ++end) { // loop through each nums
+            currSum += nums[end]; // add end
+            if (end - start + 1 == k) { // if k size, subtract beginning
+                maxSum = max(maxSum, currSum);
+                currSum -= nums[start];
+                start++;
+            }
+        }
+        return maxSum;
+        
+    }
+};
