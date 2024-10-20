@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> stringSequence(string target) {
+        vector<string> res;
+        string currString = "";
+        int currChar = -1;
+        while (currString != target) {
+            if (currString.empty() || (currString.length() != target.length() && currString.back() == target[currChar])) {
+                currString += 'a';
+                currChar++;
+            } else {
+                currString[currChar]++;
+            }
+            res.push_back(currString);
+        }
+        
+        return res;
+    }
+};
