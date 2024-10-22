@@ -1,21 +1,21 @@
+/*
+Merge intervals by checking previous interval and determining if start is within the last interval's end
+*/
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-         // sort intervals by beginning, and merge intervals whose beginning are within others' end
-        sort(intervals.begin(), intervals.end());
         vector<vector<int>> res;
-        vector<int> curr = intervals[0];
 
-        for (int i = 1; i < intervals.size(); i++) { // loop through intervals
-            if (intervals[i][0] <= curr[1]) { // if beginning of interval is less than current end, set max as end
-                curr[1] = max(curr[1], intervals[i][1]);
-            } else { // push completed interval otherwise
-                res.push_back(curr);
-                curr = intervals[i];
+        sort(intervals.begin(), intervals.end());
+
+        for (int i = 0; i < intervals.size(); ++i) {
+            if (res.empty() || res.back()[1] < intervals[i][0]) {
+                res.push_back(intervals[i]);
+            } else {
+                res.back()[1] = max(res.back()[1], intervals[i][1]);
             }
         }
-
-        res.push_back(curr);
+        
         return res;
     }
 };
