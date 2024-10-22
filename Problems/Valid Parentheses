@@ -1,17 +1,21 @@
+/* 
+Determine if parentheses are valid by adding onto stack and checking if counterpart is at the top
+*/
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
-        unordered_map<char, char> braces =  {{')', '('}, {']', '['}, {'}', '{'}};
-        for (char c : s) { // loop through each char
-            if (braces.find(c) == braces.end()) 
-                st.push(c);
-            else if (!stack.empty() && braces[c] == stack.top())
-                st.pop():
-            else
-                return false;
-        }
+        stack<int> stack;
+        unordered_map<char, char> bracket = {{')', '('}, {']', '['}, {'}', '{'}};
 
-        return st.empty(); // return whether all parentheses have been matched
+        for (char c : s) {
+            if (bracket.find(c) == bracket.end()) {
+                stack.push(c);
+            } else if (!stack.empty() && bracket[c] == stack.top()) {
+                stack.pop();
+            } else {
+                return false;
+            }
+        }
+        return stack.empty();
     }
 };
