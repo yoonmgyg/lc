@@ -1,0 +1,31 @@
+/*
+Gets free time of all employees by flattening employee schedule, merging all intervals, and getting the space between intervals
+*/
+class Solution {
+public:
+    vector<vector<int>> employeeFreeTime(vector<vector<vector<int>>>& schedule) {
+        vector<int> flatSchedule = schedule[0];
+
+        for (int i = 1; i < schedule.size(); ++i) { // flatten interval
+            flatSchedule.insert(flatSchedule.end(), schedule[i].begin(), schedule[i].end());
+        }
+
+        sort(flatSchedule.begin(), flatSchedule.end());
+        vector<vector<int>> mergedSchedule;
+        for (int i = 0; i < flatSchedule.size(); ++i) { // merge intervals
+            if (mergedSchedule.empty() || mergedSchedule.back()[1] < flatSchedule[i][0]) {
+                mergedSchedule.push_back(flatSchedule[i]);
+            } else {
+                mergedSchedule.back()[1] = max(mergedSchedule.back()[1], flatSchedule[i][1]);
+            }
+        }
+
+        vector<vector<int>> res;
+        for (int i = 1; i < mergedSchedule.size(); ++i) { // get gaps between intervals
+            res.append({mergedSchedule[i-1][1], mergedSchedule[i][0]});
+        }
+
+        
+        return res;
+    }
+};
