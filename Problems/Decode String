@@ -1,0 +1,34 @@
+/*
+Decodes a string according to the encoding: k[encoded_string]
+Utilizes a stack to keep track of current strings and number
+*/
+class Solution {
+public:
+    string decodeString(string s) {
+        int num = 0;
+        string currString = "";
+        stack<int> numStack;
+        stack<string> strStack;
+        for (char c : s) { // loop through each char
+            if (c == '[') { // if bracket, push current number and string
+                numStack.push(num);
+                strStack.push(currString);
+                num = 0;
+                currString = "";
+            } else if (c == ']') { // if end, add previous string and number
+                num = numStack.top(); numStack.pop();
+                string prevString = strStack.top(); strStack.pop();
+                string newString = "";
+                for (int i = 0; i < num; i++) {
+                    newString += currString;
+                }
+                currString = prevString + newString;
+            } else if (isdigit(c)) {
+                num = num * 10 + (c - '0');
+            } else {
+                currString += c;
+            }
+        }
+        return currString;
+    }
+};
