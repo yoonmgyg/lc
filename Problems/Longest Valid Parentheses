@@ -1,0 +1,26 @@
+/*
+Gets the longest valid parentheses by checking the length to the previous unmatched parenthesis iwthin astack
+*/
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<char> st;
+        int maxLen = 0;
+
+        st.push(-1);
+        for (int i = 0; i < s.length(); ++i) { // loop through s
+            if (s[i] == '(') { // if open, push
+                st.push(i);
+            } else {
+                st.pop();  // if closed parenthesis, pop
+                if (st.empty()) { // readd closed if empty
+                    st.push(i);
+                } else { // otherwise calculate length from previous
+                    maxLen = max(maxLen, i - st.top());
+                }
+            }
+        }
+        return maxLen;
+    }
+};
