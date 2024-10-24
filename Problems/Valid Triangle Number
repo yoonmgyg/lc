@@ -1,0 +1,22 @@
+/* 
+Finds the valid triangle number by setting the largest element and checking if the other 2 variable sums are greater
+*/
+class Solution {
+public:
+    int triangleNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end());  // sort array
+        int count = 0;
+        for (int i = nums.size() - 1; i >= 2; --i) {  // set the largest element
+            int j = 0, k = i - 1;
+            while (j < k) {
+                if (nums[j] + nums[k] > nums[i]) {  // check if a triangle can be formed
+                    count += (k - j);  //  pairs between j and k are valid
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        return count;
+    }
+};
