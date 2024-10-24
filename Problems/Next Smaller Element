@@ -1,0 +1,18 @@
+/*
+Finds the next smaller element within a vector through a monotonic stack
+*/
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums) {
+        vector<int> res(nums.size(), -1);
+        stack<int> st;
+        for (int i = 0; i < nums.size(); ++i) { // loop through nums
+            while (!stack.empty() && (nums[i] < nums[st.top()]) { // while current index is lesser than top, remove top and store
+                int last = st.pop();
+                res[last] = nums[i];
+            }
+            st.push(i); // push previous index
+        }
+        return res;
+    }
+};
