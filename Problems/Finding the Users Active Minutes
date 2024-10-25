@@ -1,0 +1,18 @@
+/*
+Get user's active minutes by adding into a hash map of sets
+*/
+
+class Solution {
+public:
+    vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {
+        unordered_map<int, unordered_set<int>> mp;
+        vector<int> res(k,0);
+        for (auto &log : logs) { // add each long into map
+            mp[log[0]].insert(log[1]);
+        }
+        for (auto i : map){ // loop through map and increment
+            res[i.second.size()-1]++;
+        }
+        return res;
+    }
+};
