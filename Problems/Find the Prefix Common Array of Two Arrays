@@ -1,0 +1,22 @@
+/*
+Finds the prefix common to both arrays by counting the frequency and seeing their match
+*/
+class Solution {
+public:
+    vector<int> findThePrefixCommonArray(vector<int>& a, vector<int>& b) {
+        int n = a.size();
+        vector<int> aux(n+1, 0); // create frequency array of each element
+        vector<int> ans(n, 0);
+        int cmn = 0;
+        for (int i = 0; i < n; i++) {
+            aux[a[i]]++;
+            if (aux[a[i]] == 2) // increment as frequency of2
+                cmn++;    
+            aux[b[i]]++;
+            if (aux[b[i]] == 2) // ubcrenebt as freqyebct if 2
+                cmn++;  
+            ans[i] = cmn;
+        }
+        return ans;
+    }
+};
