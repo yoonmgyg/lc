@@ -1,20 +1,14 @@
-class Solution {
-public:
-    int wateringPlants(vector<int>& p, int capacity) {
-        int ans = 0, c = capacity;
-        for (int i = 0; i < p.size(); i++) {
-            // if enough water, take step andwater plant
-            if (c >= p[i])
-                ans++; 
-            // if not, go back and fill then come back
-            else {
-                ans += i;
-                ans += i+1;
-                c=capacity;
-            }
-            // subtract water
-             c = c-p[i];
+/*
+Simulates the steps needed to water plants from left to right if water can be refilled at a river in x = -1
+*/
+int wateringPlants(vector<int>& p, int capacity) {
+    int res = 0, can = capacity;
+    for (int i = 0; i < p.size(); ++i) { // loop through plants
+        if (can < p[i]) { // if less than needed, fill can
+            res += i * 2;
+            can = capacity;
         }
-        return ans;
+        can -= p[i]; // subtract water
     }
-};
+    return res + p.size();
+}
