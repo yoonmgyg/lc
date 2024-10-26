@@ -1,15 +1,16 @@
+/*
+Reverse LL by storing previous and future nodes and swapping with current
+*/
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* after = nullptr;
-        ListNode* prev = nullptr;
-        while (head) { // loop through linked list
-            after = head->next; // store next node;
-            head->next = prev; // set next to previous node
-            prev = head; // set prev to current head;
-            head = after; // move head to next node;
+        ListNode* after = nullptr, prev = nullptr;
+        while (head) {
+            after = head->next; // get next node
+            head->next = prev; // set next node to previous
+            prev = head; // set previous node to current
+            head = after; // set current node to next
         }
-
-        return prev;        
+        return prev;
     }
 };
