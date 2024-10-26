@@ -1,0 +1,24 @@
+/*
+Deletes node with a given target by looping through LL
+*/
+class Solution {
+public:
+    void deleteNode(ListNode* head, ListNode* target) {
+        if (head->val == target->val) {
+            return head->next;
+        }
+        TreeNode* prev = nullptr;
+        TreeNode* curr = head;
+
+        while (curr) { // while curr exists, go to next node
+            prev = curr;
+            curr = curr->next;
+            if (curr->val == target->val)  { // check if node is target
+                prev->next = curr->next;
+                delete curr;
+                break;
+            }
+        }
+        return head;
+    }
+};
