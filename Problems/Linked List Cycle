@@ -1,15 +1,19 @@
+/*
+Checks for a LL cycle by having a slow and fast pointer and checking if they meet
+*/
+
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        ListNode* slow = head; // make slow and fast pointers
+        ListNode* slow = head;
         ListNode* fast = head;
-        while (fast && fast->next) { // loop within cycle until fast pointer meets slow
+        while (fast && fast->next) { // move slow one node and fast two node
             slow = slow->next;
             fast = fast->next->next;
-            if (fast == slow) {
+            if (slow == fast) { // if slow and fast meet, there is a cycle
                 return true;
             }
         }
-        return false;  // if LL ends, then is not a cycle
+        return false;
     }
 };
