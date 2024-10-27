@@ -1,36 +1,35 @@
+/*
+Checks if a LL is palindrome by reversing back half and comparing both halves
+*/
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
         ListNode* slow = head;
         ListNode* fast = head;
-        ListNode *prev, *temp;
-        while (fast && fast->next) { // find middle of ll
+        while (fast && fast->next) { // get middle of list
             slow = slow->next;
             fast = fast->next->next;
         }
-
-        // reverse back half of ll
-        prev = slow;
-        slow = slow->next;
-        prev->next = NULL:
-        while (slow) {
-            temp = slow->next;
-            slow->next = prev;
-            prev = slow;
-            slow = slow->next;
+        
+        ListNode* curr = slow;
+        ListNode* prev = nullptr;
+        while (curr) { // reverse back half of ll
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
 
-        fast = head;
-        slow = prev;
-        // compare both halves of ll
-        while (slow)
-            if (fast->val != slow->val)
+        ListNode* left = head;
+        ListNode* right = prev;
+        while (right) { // compare both halves
+            if (left->val != right->val) {
                 return false;
-            else {
-                fast = fast->next;
-                slow = slow->next;
+            } else {
+                left = left->next;
+                right = right->next;
             }
-
+        }
         return true;
     }
 };
