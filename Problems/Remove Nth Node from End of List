@@ -1,23 +1,26 @@
+/*
+Gets Nth node from end by moving fast pointer n spaces and moving slow pointer while fast pointer exists
+*/
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* res = new ListNode(0, head);
-        ListNode* temp = res;
+        ListNode* dummy = new ListNode(0); // create dummy node for return
+        dummy->next = head;
 
-        // move head to nth node
-        for (int i = 0; i < n; i++) {
-            head = head->next;
+        ListNode* fast = dummy;
+        ListNode* slow = dummy;
+        for (int i = 0; i <= n; i++) { // advance fast by n
+            fast = fast->next;
         }
 
-        // temp pointer stops when head reaches end, at the pointer before the nth node from the end
-        while (head != nullptr) {
-            head = head->next;
-            temp = temp->next;
+        while (fast) { // move slow while fast exists
+            fast = fast->next;
+            slow = slow->next;
         }
+        ListNode* tmp = slow->next->next; // delete the nth node
+        delete slow->next;
+        slow->next = tmp;
 
-        // change the node before n to link to the node after n
-        temp->next = temp->next->next;
-
-        return res->next;        
+        return dummy->next;
     }
 };
