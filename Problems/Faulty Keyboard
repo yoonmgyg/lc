@@ -1,0 +1,18 @@
+/*
+Store reversed and current string and merge at end
+*/
+class Solution {
+public:
+    string finalString(string s) {
+        string curr, rev;
+        for (char c : s) {
+            if (c == 'i') { // swap with reverse string
+                swap(curr, rev);
+            } else {
+                curr += c;
+            }
+        }
+        return string(rbegin(rev), rend(rev)) + curr; // reverse reverse string and add current
+        
+    }
+};
