@@ -1,0 +1,17 @@
+/*
+Convert any uppercase letters to lowercase by checking ASCII values
+*/
+class Solution {
+public:
+    string toLowerCase(string s) {
+        string res = "";
+        for (char c : s) { 
+            if (c >= 'A' && c <= 'Z') { // check if uppercase
+                res += c + 'a' - 'A'; // subtract uppercase and add lowercase
+            } else {
+                res += c;
+            }
+        }
+        return res;
+    }
+};
