@@ -1,34 +1,39 @@
-//Upvote and Comment
+/*
+Reorders list according to L0 -> Ln -> L1 -> Ln-1... by reversing back half of list and merging both lists
+
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        // check if empty
-        if (!head) return;
-        
-        // finding the middle through slow and fast pointers
-        ListNode *tmp = head, *half = head, *prev = NULL;
-        while (tmp->next && tmp->next->next) {
-            tmp = tmp->next->next;
-            half = half->next;
+        if (!head || !head->next || !head->next->next) { // check if empty or small
+            return;
         }
-        
-        // reverse second half of list
-        while (half) {
-            tmp = half->next;
-            half->next = prev;
-            prev = half;
-            half = tmp;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast && fast->next) { // get middle of list
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        half = prev;
-        
-        // merge halves back and alternate between nodes
-        while (head && half) {
-            tmp = head->next;
-            prev = half->next;
-            head->next = half;
-            half->next = tmp;
-            head = tmp;
-            half = prev;
+
+        ListNode* curr = slow->next;
+        slow->next = nullptr
+        ListNode* prev = nullptr;
+        while (curr) { // reverse back half
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        ListNode* reversed = prev;
+        while (reversed && head) { // merge both lists
+            ListNode* nextHead = head->next;
+            ListNode* nextReverse = reversed->next;
+
+            head->next = reversed;
+            reversed->next = nextHead;
+
+            head = nextHead;
+            reversed = nextReverse;
         }
     }
 };
