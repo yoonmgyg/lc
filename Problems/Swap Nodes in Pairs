@@ -1,27 +1,26 @@
+/*
+Swaps pair of nodes by swapping the current node with the next and moving to the next pair
+*/
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        // check if list is empty
-        if (!head || !head->next) {
-            return head;
-        }
-
-
-        // create node pointing for answer
         ListNode* dummy = new ListNode(0);
         dummy->next = head;
-        ListNode* curr = dummy;
 
-        // get node pairs and swap with first and second
-        while (!curr->next  && !curr->next->next) {
-            ListNode* first = curr->next;
-            ListNode* second = curr->next->next;
-            curr->next = second;
-            first->next = second->next;
-            second->next = first;
-            curr = curr->next->next;
+        ListNode* prev = dummy;
+        ListNode* curr = head;
+        while (curr && curr->next) { // loop through ll
+            ListNode* after = curr->next;
+
+            prev->next = after; // swap current and next node
+            curr->next = after->next; 
+            after->next = curr;
+
+            prev = curr;
+            curr = curr->next;
+
         }
-        
+
         return dummy->next;
     }
 };
