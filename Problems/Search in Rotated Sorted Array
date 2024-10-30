@@ -1,24 +1,27 @@
+/*
+Searches rotated sorted array by comparing left and middle variables to determine the sorted half and their relation to the target
+*/
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
         int left = 0;
         int right = nums.size() - 1;
 
-        while (left <= right) { // bin search
+        while (left <= right) {
             int mid = left + (right - left) / 2;
             if (nums[mid] == target) {
                 return mid;
-            } else if (nums[mid] < nums[left]) { // if mid less than left
-                if (nums[mid] <= target && target <= nums[right]) { // if target between mid and right, move left to mid +1
-                    left = mid + 1;
-                } else { // if not, move right mid - 1;
-                    right = mid - 1;
-                }
-            } else { // if mid greater than left
-                if (nums[left] <= target && target <= nums[mid]) {
+            } else if (nums[left] <= nums[mid]) {
+                if (nums[left] <= target && target < nums[mid]) {
                     right = mid - 1;
                 } else {
                     left = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
                 }
             }
         }
