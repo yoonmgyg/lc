@@ -1,0 +1,25 @@
+/*
+Finds the minimum rate of banana consumption to complete within the given hours by using a binary search
+*/
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1;
+        int right = *max_element(piles.begin(), piles.end()); 
+        while (left <= right) { // loop between rate of 1 and maximum within the piles
+            int mid = left + (right - left) / 2;
+            long long time = 0;
+            for (int pile : piles) { // calculate time by rate
+                time += ceil(pile / (double) mid);
+            }
+
+            if (time > h) { // adjust left if greater
+                left = mid + 1;
+            } else { adjust right if less
+                right = mid - 1;
+            }
+        }
+
+        return left;
+    }
+};
