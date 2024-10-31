@@ -1,15 +1,16 @@
+/*
+Gets the Kth largest element by inserting into min heap and removing the top numbers after k
+*/
 class Solution {
 public:
     int findKthLargest(std::vector<int>& nums, int k) {
-        priority_queue<int, vector<int>, greate<int>> min_heap(nums.begin(), nums.begin() + k);
-        // loop through nums to find kth largest number
-        for (int i = k; i < nums.size(); i++) {
-            // if greater than the top, replace it as the largest number
-            if (nums[i] > min_heap.top()) {
-                min_heap.pop();
-                min_heap.push(nums[i]);
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+        for (int num : nums) {
+            minHeap.push(num);
+            if (minHeap.size() > k) {
+                minHeap.pop();
             }
         }
-        // return kth minimum at top of heap
-        return min_heap.top();
+        return minHeap.top();
     }
+};
