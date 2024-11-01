@@ -1,18 +1,22 @@
+/*
+Finds the K closest points to origin by calculating the distance and sorting within a Min Heap
+*/
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        vector<vector<int>> res;
-        priority_queue <vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
-        for (auto& p : points) { // add each point into min heap
-            int dist = p[0] * p[0] + p[1] * p[1];
-            minHeap.push({dist, p[0], p[1]});
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
+        for (auto point : points) { // calculate distance and push to min Heap
+            int distance = point[0] * point[0] + point[1] * point[1];
+            minHeap.push({distance, point[0], point[1]});
         }
 
-        for (int i = 0; i < k; i++) { // get top k elements of minheap
+        vector<vector<int>> res;
+        for (int i = 0; i < k; ++i) { // get K elements
             vector<int> top = minHeap.top();
             res.push_back({top[1], top[2]});
             minHeap.pop();
         }
+
         return res;
     }
 };
