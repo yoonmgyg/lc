@@ -1,0 +1,23 @@
+/*
+Finds K closest elements by using a Min Heap to sort the absolute distance to x
+*/
+
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
+        for (auto& i : arr) { // add abs dist to min heap
+            int dist = abs(i - x);
+            minHeap.push({dist, i});
+        }
+
+        vector<int> res;
+        for (int i = 0; i < k; ++i) { // remove k elements
+            res.push_back(minHeap.top()[1]);
+            minHeap.pop();
+        }
+
+        sort(res.begin(), res.end());
+        return res;
+    }
+};
