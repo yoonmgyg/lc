@@ -1,0 +1,17 @@
+/*
+Checks if path sums to target through a DFS which subtracts the current node's value from the target
+*/
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (!root) {
+            return false;
+        }
+        if (!root->left && !root->right) {
+            return targetSum == root->val;
+        }
+        targetSum -= root->val;
+
+        return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);
+    }
+};
