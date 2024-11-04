@@ -1,0 +1,14 @@
+// Gets the sum of tree nodes by adding nodes through a DFS
+class Solution {
+public:
+    int sumOfNodes(TreeNode* root) {
+        if (!root) {
+            return 0;
+        }
+        if (!root->left && !root->right) {
+            return root->val;
+        }
+
+        return sumOfNodes(root->left) + sumOfNodes(root->right) + root->val;
+    }
+}
