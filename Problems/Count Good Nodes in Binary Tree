@@ -1,19 +1,27 @@
+/*
+Counts nodes less than the nodes of its path through a DFS which stores the maximum value
+*/
+
 class Solution {
-public:
-    int solve(TreeNode* root, int high){
-        if (root){
-            // recursively traverse into left and right trees and get max
-            int  k = solve(root->left, max(high, root->val)) + solve(root->right, max(high, root->val));
-            // add good node if greater than high
-            if (root->val >= high) {
-                k++;
-            }
-            // return number of good nodes
-            return k;
+private: 
+    int dfs(TreeNode* root, int maxPath) {
+        if (!root) {
+            return 0;
         }
-        return 0;
+        int left = dfs(root->left, max(maxPath, root->val)); 
+        int right = dfs(root->right, max(maxPath, root->val));
+        int goodNodes = left + right; 
+        if (maxPath <= root->val) { // if greater than max, count as good
+            goodNodes++;
+        }
+
+        return goodNodes;
+
     }
+public:
+    int good = 0;
     int goodNodes(TreeNode* root) {
-        return solve(root, -10001);
+        good = dfs(root, root->val);
+        return good;
     }
 };
