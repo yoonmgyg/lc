@@ -1,0 +1,21 @@
+/*
+Calculates the tilt through a dfs which sums each branch and adds the tilt of each node to a global variable
+*/
+class Solution {
+private:
+    int tilt = 0;
+    int dfs(TreeNode* root) {
+        if (!root) {
+            return 0;
+        }
+        int left = dfs(root->left);
+        int right = dfs(root->right);
+        tilt += abs(left - right);
+        return left + right + root->val;
+    }
+public:
+    int findTilt(TreeNode* root) {
+        dfs(root);
+        return tilt;
+    }
+};
