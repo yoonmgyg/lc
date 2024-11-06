@@ -1,19 +1,23 @@
+/*
+Calculates the maximum diameter of BST through a DFS of branches for length, storing tha maximum of left and right branches in global variable
+*/
 class Solution {
-public:
-    int diameter(TreeNode* root, int& d) {
-        if (!root) 
+private:
+    int diameter = 0;
+    int lengthOfTree(TreeNode* root) {
+        if (!root) {
             return 0;
-        
-        int left = diameter(root->left, d);  // go through left and right branches
-        int right = diameter(root->right, d);
+        }
 
-        d = max(d, left + right); // add diameter and compare with max
-        return max(left, right) + 1; // return current diameter length
-
-    } 
+        int left = lengthOfTree(root->left);
+        int right = lengthOfTree(root->right);
+        diameter = max(diameter, left + right);
+        return max(left, right) + 1;
+    }
+public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int d = 0;
-        diameter(root, d); // call diameter on root
-        return d;
+        lengthOfTree(root);
+        return diameter;
+
     }
 };
