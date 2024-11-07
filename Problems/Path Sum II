@@ -1,0 +1,28 @@
+/*
+Gets the paths equal to sum through a backtracking DFS which subtracts their current value from the sum
+*/
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> paths;
+        vector<int> path;
+        getPaths(root, targetSum, path, paths);
+        return paths;
+    }
+private:
+    void getPaths (TreeNode* root, int targetSum, vector<int>& path, vector<vector<int>>& pathList){
+        if (!root) {
+            return;
+        }
+        path.push_back(root->val);
+        if (!root->left && !root->right) {
+            if (root->val == targetSum) {
+                pathList.push_back(path);
+            }
+        }
+
+        getPaths(root->left, targetSum - root->val, path, pathList);
+        getPaths(root->right, targetSum - root->val, path, pathList);
+        path.pop_back();
+    }
+};
