@@ -1,16 +1,21 @@
+/*
+Clones graph through dfs which creates same node and calls dfs on all neighbors
+*/
 class Solution {
 public:
-    unordered_map<Node*, Node*> nodeMap;
+    unordered_map<Node*, Node*> nodeGraph;
     Node* cloneGraph(Node* node) {
-        if (!node)
+        if (!node) {
             return nullptr;
-        
-        if (nodeMap.find(node) == nodeMap.end()) { // if node is not in map
-            nodeMap[node] = new Node(node->val); // create  new node and loop through neighbors
-            for (Node* n : node->neighbors) {
-                nodeMap[node]->neighbors.push_back(cloneGraph(n)); // push back recursive nodes onto neighbors
+        }
+
+        if (nodeGraph.find(node) == nodeGraph.end()) {
+            nodeGraph[node] = new Node(node->val);
+            for (auto neighbor : node->neighbors) {
+                nodeGraph[node]->neighbors.push_back(cloneGraph(neighbor));
             }
         }
-        return nodeMap[node];
+        
+        return nodeGraph[node];
     }
 };
