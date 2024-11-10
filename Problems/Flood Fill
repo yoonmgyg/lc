@@ -1,18 +1,23 @@
+/*
+Fills with the same color through a DFS of adjacent elements, keeping track of the origin and color to be made
+*/
 class Solution {
-public:
-    void fillAdj(vector<vector<int>>& image, int i, int j, int color, int origin) {
-       if (i < 0 || j < 0 || i >= image.size() || j >= image[0].size() || image[i][j] != origin) {
+private: 
+    vector<pair<int, int>> dir = {{1, 0}, {-1,0}, {0, 1}, {0, -1}};
+    void dfs(vector<vector<int>>& image, int i, int j, int color, int origin) {
+        if (i < 0 || i >= image.size() || j < 0 || j >= image[0].size() || image[i][j] != origin) {
             return;
-       } 
+        }
+
         image[i][j] = color;
-        fillAdj(image, i - 1, j, color, origin);
-        fillAdj(image, i, j - 1, color, origin);
-        fillAdj(image, i + 1, j, color, origin);
-        fillAdj(image, i, j + 1, color, origin);
+        for (auto [di, dj] : dir) {
+            dfs(image, i + di, j + dj, color, origin);
+        }
     }
+public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         if (color != image[sr][sc]) {
-            fillAdj(image, sr, sc, color, image[sr][sc]);
+            dfs(image, sr, sc, color, image[sr][sc]);
         }
         return image;
     }
