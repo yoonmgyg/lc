@@ -1,0 +1,24 @@
+/*
+DFS through matrix by using a set to keep track of visited matrices and looping through adjacent elements
+*/
+class Solution {
+private: 
+    void dfs(vector<vector<int>>& matrix, int i, int j, unordered_set<pair<int, int>>& visited) {
+        if (visited.find({i , j}) != visited.end() || i < 0 || i >= matrix.size() || j < 0 || j >= matrix[0].size()) {
+            return;
+        }
+
+        visited.insert({i, j});
+        cout << i << ", " << j << endl;
+
+        vector<pair<int, int>> dir = {{1, 0}, {0, 1}, {-1, 0} , {0, -1}};
+        for (auto [di, dj] : dir) {
+            dfs(i + di, j + dj);
+        }
+    }
+public: 
+    void matrixDFS(vector<vector<int>> matrix) {
+        unordered_set<pair<int, int>> visited;
+        dfs(matrix, 0, 0, visited);
+    }
+};
