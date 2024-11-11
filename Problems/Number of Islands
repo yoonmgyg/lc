@@ -1,40 +1,30 @@
-#include <vector>
-#include <queue>
-
+/*
+Counts number of contiguous islands by looping through each element, and erasing visited islands through a DFS
+*/
 class Solution {
 private:
-    void findIslands(std::vector<std::vector<char>>& grid, int i, int j) {
-        int dir[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        <pair<int, int>> q;
-        q.push({i, j});
-        grid[i][j] = '0'; // Mark as visited
-
-        while (!q.empty()) { // loop through q
-            auto [x, y] = q.front();
-            q.pop();
-            for (auto& d : dir) { // see if q is visited
-                int newX = x + d[0];
-                int newY = y + d[1];
-                if (newX >= 0 && newY >= 0 && newX < grid.size() && newY < grid[0].size() && grid[newX][newY] == '1') {
-                    grid[newX][newY] = '0'; // Mark as visited
-                    q.push({newX, newY});
-                }
-            }
+    const vector<pair<int, int>> dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    void dfs(vector<vector<char>>& grid, int i, int j) {
+        if (i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size() || grid[i][j] == '0') {
+            return;
         }
-    }
+        grid[i][j] = '0';
+        for (auto [di, dj] : dir) {
+            dfs(grid, i + di, j + dj);
+        }
 
+    }
 public:
-    int numIslands(std::vector<std::vector<char>>& grid) {
+    int numIslands(vector<vector<char>>& grid) {
         if (grid.empty() || grid[0].empty()) {
             return 0;
         }
-
         int islands = 0;
-        for (int i = 0; i < grid.size(); i++) {
-            for (int j = 0; j < grid[0].size(); j++) {
+        for (int i = 0; i < grid.size(); ++i) {
+            for (int j = 0; j < grid[0].size(); ++j) {
                 if (grid[i][j] == '1') {
                     islands++;
-                    findIslands(grid, i, j);
+                    dfs(grid, i, j);
                 }
             }
         }
