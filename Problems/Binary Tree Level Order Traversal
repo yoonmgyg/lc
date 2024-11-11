@@ -1,27 +1,34 @@
+/*
+Gets the level order through a BFS through each level
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> res;
-        if (!root) 
+        if (!root) {
             return res;
-        
+        }
+
         queue<TreeNode*> q;
         q.push(root);
 
         while (!q.empty()) {
             vector<int> row;
-            int rowSize = q.size();
-            for (int i = 0; i < rowSize; i++) { // loop through current row
+            int levelLen = q.size();
+            for (int i = 0; i < levelLen; ++i) {
                 TreeNode* curr = q.front();
                 q.pop();
-                if (curr->left) // push children into queue
+
+                if (curr->left) {
                     q.push(curr->left);
-                if (curr->right) 
+                }
+                if (curr->right) {
                     q.push(curr->right);
-                row.push_back(curr->val); // get values in current row
+                }
+                row.push_back(curr->val);
             }
-            res.push_back(row); // push row into answer
+            res.push_back(row);
         }
         return res;
+        
     }
 };
