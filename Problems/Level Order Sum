@@ -1,0 +1,35 @@
+/*
+Gets the level order sum through a BFS which pushes each row to the result vector
+*/
+class Solution {
+public:
+    vector<int> levelOrderSum(TreeNode* root) {
+        if (!root) {
+            return 0;
+        }
+
+        queue<TreeNode*> q;
+        q.push(root);
+
+        vector<int> res;
+        while (!q.empty()) {
+            int sum = 0;
+            int levelSize = q.size();
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* curr = q.front(); 
+                q.pop();
+
+                if (curr->left) {
+                    q.push(curr->left);
+                }
+                if (curr->right) {
+                    q.push(curr->right);
+                }
+                sum += curr->val;
+
+            }
+            res.push_back(sum);
+        }
+        return res;
+    }
+};
