@@ -1,42 +1,44 @@
+/*
+Gets the Maximum Level Sum through a BFS which gets the sum of a level and updates the maximum
+*/
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-        if (root == nullptr) {
+        if (!root) {
             return 0;
         }
 
-        queue<TreeNode*> queue;
-        queue.push(root);
+        queue<TreeNode*> q;
+        q.push(root);
+
+        int maxSum = root->val;
         int maxLevel = 1;
-        int maxSum = INT_MIN;
         int level = 1;
 
-        // loop through queue
-        while (!queue.empty()) {
-            int levelSum = 0;
-            int levelSize = queue.size();
+        while (!q.empty()) {
+            int sum = 0;
+            int levelSize = q.size();
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* curr = q.front(); 
+                q.pop();
 
-            // make node of front and add according to level size
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode* node = queue.front();
-                queue.pop();
-                levelSum += node->val;
+                if (curr->left) {
+                    q.push(curr->left);
+                }
+                if (curr->right) {
+                    q.push(curr->right);
+                }
+                sum += curr->val;
 
-                // enter subtrees into queue
-                if (node->left != nullptr) {
-                    queue.push(node->left);
-                }
-                if (node->right != nullptr) {
-                    queue.push(node->right);
-                }
             }
 
-              // update max sum and levels
-              maxSum = max(maxSum, levelSum);
-              maxLevel = max(maxLevel, level);
-
-
+            if (sum > maxSum) {
+                maxSum = sum;
+                maxLevel = level;
+            }       
+     
             level++;
+
         }
 
         return maxLevel;
