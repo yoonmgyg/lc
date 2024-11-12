@@ -1,40 +1,41 @@
+/*
+Gets the zigzag order of a binary tree by setting a boolean for the order and pushing to the left or right of the row according to the order
+*/
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>> result;
-        vector<int> temp;
-        if(root == nullptr)
-            return result;
+        vector<vector<int>> res;
+        if (!root) {
+            return res;
+        }
 
-        // put each node in queue for levels
-        bool flag = false;
-        queue<TreeNode*> levels;
-        levels.push(root);
+        queue<TreeNode*> q;
+        q.push(root);
+        bool leftToRight = true;
+        while (!q.empty()) {
+            int levelSize = q.size();
+            vector<int> level;
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* curr = q.front();
+                q.pop();
+                if (leftToRight) {
+                    level.push_back(curr->val);
+                } else {
+                    level.insert(level.begin(), curr->val);
+                }
 
-        while(!levels.empty()){
-            int size = levels.size();
-            TreeNode* current;
-            for(int i = 0; i < size; i++){
-                // push left and right branch into level order and current value into temp vector
-                current = levels.front();
-                temp.push_back(current->val);
-                if(current->left)
-                    levels.push(current->left);
-                if(current->right)
-                    levels.push(current->right);
-                levels.pop();
+                if (curr->left) {
+                    q.push(curr->left);
+                }
+                if (curr->right) {
+                    q.push(curr->right);
+                }
+
             }
 
-            // reverse direction for zig zag
-            if (flag)
-                reverse(temp.begin(),temp.end());
-
-            // insert value in level order to result
-            result.push_back(temp);
-            flag = !flag;
-            
-            temp.clear();
+            leftToRight = !leftToRight;
+            res.push_back(level);
         }
-        return result;
+        return res;
     }
 };
