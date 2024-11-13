@@ -1,0 +1,31 @@
+/*
+Does a BFS through a matrix through keeping track of visited elements and pushing adjacent elements
+*/
+class Solution {
+public:
+    vector<pair<int, int>> dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    void matrixBFS(vector<vector<int>>& grid) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+        vector<vector<bool>> visited(rows, vector<bool> (cols, false));
+
+        queue<pair<int, int>> q;
+        q.push({0, 0});
+        visited[0][0] = true;
+
+        while (!q.empty()) {
+            int currR = q.front().first;
+            int currC = q.front().second;
+            q.pop();
+            cout << grid[currR][currC] << endl;
+            for (auto [dr, dc] : dir) {
+                int newR = currR + dr;
+                int newC = currC + dc;
+                if (newR >= 0 && newR < rows && newC >= 0 && newC < cols && !visited[newR][newC]) {
+                    visited[newR][newC] = true;
+                    q.push({newR, newC});
+                }
+            }
+        }
+    }
+};
