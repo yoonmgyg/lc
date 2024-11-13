@@ -1,0 +1,40 @@
+/*
+Gets the maximum width of a tree through a BFS which keeps track of the node and its position within the tree doing a level order traversal
+*/
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if (!root) {
+            return 0;
+        }
+
+        unsigned long long maxPos = 0;
+        queue<pair<TreeNode*, unsigned long long>> q;
+        q.push({root, 0});
+        
+        while (!q.empty()) {
+            int levelSize = q.size();
+            unsigned long long leftPos =  q.front().second;
+            unsigned long long rightPos = 0;
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* currNode = q.front().first;
+                unsigned long long currPos = q.front().second;
+                q.pop();
+
+                if (i == levelSize - 1) {
+                    rightPos = currPos;
+                }
+
+                if (currNode->left) {
+                    q.push({currNode->left, currPos * 2});
+                }
+
+                if (currNode->right) {
+                    q.push({currNode->right, currPos * 2 + 1});
+                }
+            }
+            maxPos = max(maxPos, rightPos - leftPos + 1);
+        }
+        return maxPos;
+    }
+};
