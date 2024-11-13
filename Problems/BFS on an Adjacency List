@@ -1,0 +1,24 @@
+/*
+BFS through an adjacency list through a queue and set which keeps track of visited nodes
+*/
+class Solution {
+public:
+    void adjacencyBFS(TreeNode* root, unordered_map<TreeNode*, vector<TreeNode*>> adjList) {
+        unordered_set<int> visited;
+        queue<TreeNode*> q;
+        q.push(root);
+        visited.insert(root);
+
+        while (!q.empty()) {
+            TreeNode* curr = q.front();
+            q.pop();
+            for (auto neighbor : adjList[curr]) {
+                if (adjList.find(neighbor) == adjList.end()) {
+                    visited.insert(neighbor);
+                    q.push(neighbor);
+                    cout << neighbor->val << endl;
+                }
+            }
+        }
+    }
+};
