@@ -1,0 +1,31 @@
+/*
+Level order traversal through a graph by using a queue and visited set and pushing adjacent neighbors
+*/
+class Solution {
+public:
+      vector<vector<TreeNode*> adjListLevels(TreeNode* root, unordered_map<TreeNode*, vector<TreeNode*>> adjList) {
+          vector<vector<TreeNode*>> res;
+          queue<TreeNode*> q;
+          q.push(root);
+          unordered_set<TreeNode*> visited;
+          visited.insert(root);
+
+          while (!q.empty()) {
+              int levelSize = q.size();
+              vector<TreeNode*> level;
+              for (int i = 0; i < levelSize; ++i) {
+                  TreeNode* head = q.front();
+                  q.pop();
+                  level.push_back(head);
+                  for (auto neighbor : adjList[head]) {
+                      if (visited.find(neighbor) == visited.end()) {
+                            visited.insert(neighbor);
+                            q.push(neighbor);
+                      }
+                  }
+              }
+              res.push_back(level);
+          }
+        return res;
+      }
+};
