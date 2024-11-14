@@ -1,0 +1,39 @@
+/*
+Gets the minimum knight moves through a BFS which loops through all possible knights in a level
+*/
+class Solution {
+public:
+    vector<pair<int, int>> dir = {{2, 1}, {1, 2}, {-2, 1}, {2, -1}, {-2, -1}, {-1, 2}, {1, -2}, {-1, -2}};
+    int minimumKnightMoves(int x, int y) {
+        queue<pair<int, int>> q;
+        vector<vector<bool>> visited(401, vector<bool>(401, false));
+
+        int offset = 200;
+        q.push({0, 0});
+        visited[offset][offset] = true;
+
+        int moves = 0;
+        while (!q.empty()) {
+            int levelSize = q.size();
+            for (int i = 0; i < levelSize; ++i) {
+                auto [currR, currC] = q.front();
+                q.pop();
+                if (currR == x && currY == y) {
+                    return moves;
+                }
+                for (auto [dr, dc] : dir) {
+                    int newR = currR + dr;
+                    int newC = currC + dc;
+                    int offsetR = newR + offset;
+                    int offsetC = newC + offset;
+                    if (offsetR >= 0 && offsetR <= 400 && offsetC >= 0 && offsetC <= 400 && !visited[offsetR][offsetC]) {
+                        visited[offsetR][offsetC] = true;
+                        q.push({newR, newC});
+                    }
+                }
+            }
+            moves++;
+        }   
+        return -1;
+    }
+}
