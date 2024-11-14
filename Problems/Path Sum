@@ -15,3 +15,36 @@ public:
         return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);
     }
 };
+
+/*
+Path Sum but with backtracking
+*/
+
+class Solution {
+private:
+    void backtrack(TreeNode* root, vector<int>& path, vector<vector<int>>& res,  int& sum, int targetSum) {
+        if (!root) {
+            return;
+        }
+        path.push_back(root->val);
+        sum += root->val;
+
+        if (!node->left && !node->right) {
+            if (sum == targetSum) {
+                res.push_back(path);
+            }
+        }
+        else {
+            backtrack(root->left, path, res, sum, targetSum);
+            backtrack(root->right, path, res, sum, targetSum);
+        }
+        path.pop_back();
+    }
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> res;
+        vector<int> path
+        backtrack(root, path, res, 0, targetSum);
+        return !(res.empty());
+    }
+};
