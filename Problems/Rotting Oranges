@@ -1,14 +1,15 @@
+/*
+Gets the minutes for rotting oranges by counting fresh oranges, pushing rotting oranges into queue for BFS with minutes being counter per level
+*/
 class Solution {
 public:
+    vector<pair<int, int>> dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     int orangesRotting(vector<vector<int>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
-
-        int fresh = 0;
         queue<pair<int, int>> q;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 2) { // rotting into q
+        int fresh = 0;
+        for (int i = 0; i < grid.size(); ++i) {
+            for (int j = 0; j < grid[0].size(); ++j) {
+                if (grid[i][j] == 2) {
                     q.push({i, j});
                 } else if (grid[i][j] == 1) {
                     fresh++;
@@ -16,34 +17,25 @@ public:
             }
         }
 
-        if (fresh == 0) {
-            return 0;
-        }
-
-        int minutes = -1;
-        vector<pair<int, int>> dirs = {{1, 0},{-1, 0},{0, -1},{0, 1}};
-
-        while (!q.empty()) {
-            int qsize = q.size();
-            while (qsize--) {
-                auto [x, y] = q.front();
-                q.pop(); // get and remove front of q
-
-                for (auto [dx, dy] : dirs) { // go in 4 dirs from front
-                    int i = x + dx;
-                    int j = y + dy;
-                    if (i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == 1) {
-                        grid[i][j] = 2;
-                        q.push({i, j});
-                        fresh --;
+        int minutes = 0;
+        while (!q.empty() && fresh > 0) {
+            int rotting = q.size();
+            minutes++;
+            
+            for (int i = 0; i < rotting; ++i) {
+                auto [currR, currC] = q.front();
+                q.pop();
+                for (auto [dR, dC] : dir) {
+                    int newR = currR + dR;
+                    int newC = currC + dC;
+                    if (newR >= 0 && newR < grid.size() && newC >= 0 && newC < grid[0].size() && grid[newR][newC] == 1) {
+                        grid[newR][newC] = 2;
+                        q.push({newR, newC});
+                        fresh--;
                     }
                 }
-            }
-            minutes++;
+            }            
         }
-
-        return fresh > 0 ? -1 : minutes;
-
-
+        return fresh == 0 ? minutes : -1;
     }
 };
