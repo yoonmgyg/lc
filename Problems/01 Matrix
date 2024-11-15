@@ -1,11 +1,13 @@
+/*
+Gets distance from 0 by a BFS from every existing 0 to non-0 numbers + 1
+*/
 class Solution {
 public:
+    vector<pair<int, int>> dir = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         queue<pair<int, int>> q;
-        vector<pair<int, int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
-        for (int i = 0; i < mat.size(); i++) { // add all non-zeros into queue
-            for (int j = 0; j < mat[0].size(); j++) {
+        for (int i = 0; i < mat.size(); ++i) {
+            for (int j = 0; j < mat[0].size(); ++j) {
                 if (mat[i][j] == 0) {
                     q.push({i, j});
                 } else {
@@ -14,18 +16,19 @@ public:
             }
         }
 
-        while (!q.empty()) { // go through all non-0
-            pair<int, int> curr = q.front();
+        while (!q.empty()) {
+            auto [currR, currC] = q.front();
             q.pop();
-
-            for (auto x : dir) { // look through all adjacent tiles
-                int row = curr.first + x.first;
-                int col = curr.second + x.second;
-                if (row >= 0 && col >= 0 && row < mat.size() && col < mat[0].size() && mat[row][col] == -1) { // if adjacent is valid and current is -1, push adjacent and set to current + 1
-                    q.push({row, col});
-                    mat[row][col] = mat[curr.first][curr.second] + 1;
+            
+            for (auto [dR, dC] : dir) {
+                int newR = currR + dR;
+                int newC = currC + dC;
+                if (newR >= 0 && newR < mat.size() && newC >= 0 && newC < mat[0].size() && mat[newR][newC] == -1) {
+                    mat[newR][newC] = mat[currR][currC] + 1;
+                    q.push({newR, newC});
                 }
             }
+            
         }
         return mat;
     }
