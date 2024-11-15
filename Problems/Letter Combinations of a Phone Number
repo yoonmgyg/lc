@@ -1,42 +1,33 @@
-// return list of possible cellphone letter combinations from digits
+// return list of possible cellphone letter combinations from digits by a backtracking dfs of all letters mapped to the next number
 class Solution {
-public:
-    void backtrack(const string& digits, int idx, string comb, vector<string>& res, const unordered_map<char, string>& digitToLetters) {
-        // push possible vector once equaling digits
-        if (idx == digits.length()) {
-            res.push_back(comb);
+private:
+    unordered_map<char, string> digitToLetters = {
+        {'2', "abc"},
+        {'3', "def"},
+        {'4', "ghi"},
+        {'5', "jkl"},
+        {'6', "mno"},
+        {'7', "pqrs"},
+        {'8', "tuv"},
+        {'9', "wxyz"}
+    };
+
+    void backtrack(vector<string>& comb, string digits, int index, string letters) {
+        if (index == digits.size()) {
+            comb.push_back(letters);
             return;
         }
-        
-        // add each possible letter at each index
-        string letters = digitToLetters.at(digits[idx]);
-        for (char letter : letters) {
-            backtrack(digits, idx + 1, comb + letter, res, digitToLetters);
+        string nextLetters = digitToLetters[digits[index]];
+        for (char letter : nextLetters) {
+            backtrack(comb, digits, index + 1, letters + letter);
         }
-    }    
-
+    }
+public:
     vector<string> letterCombinations(string digits) {
         vector<string> res;
-        // empty input
-        if (digits.empty()) {
-            return res;
+        if (!digits.empty()) {
+            backtrack(res, digits, 0, "");
         }
-        // dict for number conversion
-        unordered_map<char, string> digitToLetters = {
-            {'2', "abc"},
-            {'3', "def"},
-            {'4', "ghi"},
-            {'5', "jkl"},
-            {'6', "mno"},
-            {'7', "pqrs"},
-            {'8', "tuv"},
-            {'9', "wxyz"}
-        };
-        
-        backtrack(digits, 0, "", res, digitToLetters);
-        
-        return res;        
+        return res;
     }
-
-
 };
