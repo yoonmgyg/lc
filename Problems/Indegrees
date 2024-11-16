@@ -1,0 +1,12 @@
+// Gets the indegrees by incrementing the number of receiving edges
+
+class Solution {
+public:
+    vector<int> indegrees(int n, vector<pair<int, int>> edges) {
+        vector<int> indegree(n, 0);
+        for (auto [u, v] : edges) {
+            indegree[v]++;
+        }
+        return indegree;
+    }
+}
