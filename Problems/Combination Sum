@@ -1,27 +1,29 @@
+/*
+Gets the combination of sums through a backtracking dfs of possible combinations which subtract from the target
+*/
 class Solution {
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> res;
-        vector<int> combinations;
-        backtrack(candidates, target, 0, 0, combinations, res);
+        vector<int> comb;
+        sort(candidates.begin(), candidates.end());
+        backtrack(candidates, target, 0, comb, res);
         return res;
     }
-
 private:
-    void backtrack(vector<int>& candidates, int target, int idx, int total, vector<int>& combinations, vector<vector<int>>& res) {
-        if (total == target) { // if equals total, add to res
-            res.push_back(combinations);
+    void backtrack(vector<int>& candidates, int target, int index, vector<int>& comb, vector<vector<int>>& res) {
+        if (target == 0) {
+            res.push_back(comb);
             return;
+        } 
+
+        for (int i = index; i < candidates.size(); ++i) {
+            if (candidates[i] > target) {
+                return;
+            }
+            comb.push_back(candidates[i]);
+            backtrack(candidates, target - candidates[i], i, comb, res);
+            comb.pop_back();        
         }
-
-        if (total > target || idx >= candidates.size()) { // if exceeding total or idx, skip
-            return;
-        }
-
-        combinations.push_back(candidates[idx]); // push current index
-        backtrack(candidates, target, idx, total + candidates[idx], combinations, res); // backtrack on all candidates with idx
-        combinations.pop_back(); // remove previous combinations
-        backtrack(candidates, target, idx + 1, total, combinations, res); // backtrack with next index
-
     }
 };
