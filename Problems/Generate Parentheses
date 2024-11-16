@@ -1,34 +1,26 @@
-// generate all combinations of parentheses
-void backtrack(int n, int leftCount, int rightCount, vector<char>& output,
-               vector<string>& result) {
-    // parentheses are equal and can be appended to result
-    if (leftCount >= n && rightCount >= n) {
-        // join array into string and output
-        string outputStr(output.begin(), output.end());
-        result.push_back(outputStr);
-    }
-
-    // left parentheses need to be added, backtrack to equal parentheses
-    if (leftCount < n) {
-        output.push_back('(');
-        backtrack(n, leftCount + 1, rightCount, output, result);
-        output.pop_back();
-    }
-
-    // right parentheses need to be added
-    if (rightCount < leftCount) {
-        output.push_back(')');
-        backtrack(n, leftCount, rightCount + 1, output, result);
-        output.pop_back();
-    }
-}
-
+/*
+Generates parentheses through a dfs which checks for the number of open and closed brackets 
+*/
 class Solution {
+private:
+    void backtrack(string s, int n, int open, int close, vector<string>& res) {
+        if (s.size() == 2 * n) {
+            res.push_back(s);
+            return;
+        }
+
+        if (open < n) {
+            backtrack(s + '(', n, open + 1, close, res);
+        }
+
+        if (close < open) {
+            backtrack(s + ')', n, open, close + 1, res);
+        }
+    }
 public:
     vector<string> generateParenthesis(int n) {
-        vector<string> result;
-        vector<char> output;
-        backtrack(n, 0, 0, output, result);
-        return result;
+        vector<string> res;
+        backtrack("", n, 0, 0, res);
+        return res;
     }
 };
