@@ -1,0 +1,13 @@
+class Solution {
+public:
+    vector<int> adjListIndegrees(unordered_map<int, vector<int>> adjList, int n) {
+        vector<int> res(n, 0);
+        for (auto [key, neighbor] : adjList) {
+            for (auto v : neighbor) {
+                res[v]++;
+            }
+        }
+        return res;
+    }
+
+}
