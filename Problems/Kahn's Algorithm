@@ -1,0 +1,38 @@
+/*
+Topological sort of graph by getting indegrees, pushin gall zeroes to a queue and subtracting neighbors, pushing those with also 0 indegrees into the queue
+*/
+class Solution {
+public:
+    vector<int> kahnsAlgorithm(unordered_map<int, vector<int>> adjList, int n) {
+        vector<int> indegrees(n, 0);
+        for (auto [node, neighbors] : adjList) {
+            for (auto neighbor : neighbors) {
+                indegrees[neighbor]++;
+            }
+        }
+
+        queue<int> q;
+        for (int i = 0; i < indegrees.size(); ++i) {
+            if (indegrees[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        vector<int> res;
+        while (!q.empty()) {
+            int head = q.front();
+            q.pop();
+            res.push_back(head);
+            for (auto neighbor : adjList[head]) {
+                if (--indegrees[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        if (res.size() < n) {
+            return {};
+        }
+        return res;
+    }
+};
