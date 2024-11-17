@@ -1,34 +1,38 @@
+/*
+Check if course schedule is possible through inserting prereqs into an adjacency list and using Kahn's algorithm to push all nodes with 0 indegrees to queue and subtracting neighbors
+*/
 class Solution {
 public:
-    bool canFinish(int n, vector<vector<int>>& prerequisites) {
-        vector<int> incoming(n, 0);
-        vector<vector<int>> adj(n);
-        vector<int> ans;
-
-        for (auto x : prerequisites) { // loop through prereq pairs
-            adj[x[0]].push_back(x[1]); // place requirement in index of course
-            incoming[x[1]]++; // count prereqs
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> indegrees(numCourses, 0);
+        vector<vector<int>> adjList(numCourses);
+        for (auto prereq : prerequisites) {
+            adjList[prereq[1]].push_back(prereq[0]);
+            indegrees[prereq[0]]++;
         }
 
         queue<int> q;
-        for (int i = 0; i < n; i++) {
-            if (incoming[i] == 0) { // if no prereqs, add to q
+        for (int i = 0; i < indegrees.size(); ++i) {
+            if (indegrees[i] == 0) {
                 q.push(i);
             }
         }
 
-        while (!q.empty()) {
-            int currClass = q.front(); // add front as visited
-            ans.push_back(currClass);
-            q.pop();
 
-            for (auto x : adj[currClass]) { // for each prereq in current class, decrement
-                incoming[x]--;
-                if (incoming[x] == 0) // if all prereqs met, push to q
-                    q.push(x);
+        int coursesTaken = 0;
+        while (!q.empty()) {
+            int head = q.front();
+            q.pop();
+            coursesTaken++;
+
+            for (int neighbor : adjList[head]) {
+                if (--indegrees[neighbor] == 0) {
+                    q.push(neighbor);
+                }
             }
         }
 
-        return ans.size() == n; // see if all are in ans
+        return coursesTaken == numCourses;
+        
     }
 };
