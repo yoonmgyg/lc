@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        for (auto& query : queries) {
+            for (int i = query[0]; i < query[1] + 1; ++i) {
+                nums[i]--;
+            }
+        }
+
+        for (auto& num : nums) {
+            if (num > 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
