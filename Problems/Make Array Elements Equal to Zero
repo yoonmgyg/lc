@@ -1,0 +1,39 @@
+/*
+Check if array elements are 0 by checking if left and right sums are equal or have an absolute value of 1
+*/
+class Solution {
+public:
+    int countValidSelections(vector<int>& nums) {
+        int start = 0;
+        int left = 0;
+        int right = 0;
+
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == 0) {
+                start = i;
+                break;
+            }
+            left += nums[i];
+        }
+
+        for (int i = start; i < nums.size(); ++i) {
+            right += nums[i];
+        }
+
+        int valid = 0;
+        for (int i = start; i < nums.size(); ++i) {
+            if (nums[i] == 0) {
+                if (left == right) {
+                    valid += 2;
+                } else if (abs(left - right) == 1) {
+                    valid++;
+                }
+            } else {
+                left += nums[i];
+                right -= nums[i];
+            }
+        }
+
+        return valid;
+    }
+};
