@@ -1,0 +1,27 @@
+/*
+Gets the max pop year through a line sweep algorithm which maps the changing population years
+*/
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        map<int, int> years;
+        for (auto& person : logs) {
+            ++years[person[0]];
+            --years[person[1]];
+        }
+
+        int maxPop = 0;
+        int maxYear = 0;
+        int currPop = 0;
+
+        for (auto& year : years) {
+            currPop += year.second;
+            if (currPop > maxPop) {
+                maxPop = currPop;
+                maxYear = year.first;
+            }
+        }
+
+        return maxYear;
+    }
+};
