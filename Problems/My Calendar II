@@ -1,0 +1,26 @@
+/*
+Use sweeping line algorithm through an ordered map to count room bookings at a time
+*/
+class MyCalendarTwo {
+public:        
+    map<int, int> line;
+
+    MyCalendarTwo() {
+    }
+    
+    bool book(int startTime, int endTime) {
+        line[startTime]++;
+        line[endTime]--;
+
+        int events = 0;
+        for (auto booking : line) {
+            events += booking.second;
+            if (events >= 3) {
+                line[startTime]--;
+                line[endTime]++;
+                return false;
+            }
+        }
+        return true;
+    }
+};
