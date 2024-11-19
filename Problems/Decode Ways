@@ -1,33 +1,32 @@
+// Gets number of ways by storing last two methods of ways
 class Solution {
 public:
-    int numDecodings(std::string s) {
-        // check if empty or 0
-        if (s.empty() || s[0] == '0') {
+    int numDecodings(string s) {
+        int n = s.length();
+        if (n == 0 || s[0] == '0') {
             return 0;
         }
-        // map all possible letters to dp vector
-        int n = s.length();
-        std::vector<int> dp(n + 1, 0);
-        dp[0] = 1;
-        dp[1] = 1;
 
-        // loop throughout string chars
+        int firstDigit = 1; // dp[i-2]
+        int secondDigit = 1; // dp[i-1]
+
         for (int i = 2; i <= n; ++i) {
-            // separate into one and two digits for all possible decodes
-            int oneDigit = s[i - 1] - '0';
-            int twoDigits = std::stoi(s.substr(i - 2, 2));
+            int current = 0;
 
-            // add previous character value if not 0
+            int oneDigit = s[i-1] - '0';
             if (oneDigit != 0) {
-                dp[i] += dp[i - 1];
+                current += secondDigit;
             }
 
-            // if between 10 and 26, add character value previous to last
+            int twoDigits = stoi(s.substr(i-2, 2));
             if (10 <= twoDigits && twoDigits <= 26) {
-                dp[i] += dp[i - 2];
+                current += firstDigit;
             }
+
+            firstDigit = secondDigit;
+            secondDigit = current;
         }
 
-        return dp[n];
+        return secondDigit;
     }
 };
