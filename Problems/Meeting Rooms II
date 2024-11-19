@@ -1,0 +1,22 @@
+/*
+Gets the number of meetinr grooms throuhgh a line sweep adding the frequenecy within an ordered map
+*/
+class Solution {
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        map<int, int> line; 
+        for (auto& interval : intervals) {
+            line[interval.start]++;
+            line[interval.end]--;
+        }
+
+        int maxRooms = 0;
+        int currRooms = 0;
+        for (auto interval : line) {
+            currRooms += interval.second;
+            maxRooms = max(maxRooms, currRooms);
+        }
+
+        return maxRooms;
+    }
+};
