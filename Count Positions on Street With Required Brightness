@@ -1,0 +1,28 @@
+/*
+Calculate range of each light's brightness and use line sweep to see if requirements are met
+*/
+class Solution {
+public:
+    int reqBrightness(int n, vector<vector<int>> lights, vector<int> req) {
+        vector<int> street(n, 0);
+        for (auto& light : lights) {
+            int begin = max(0, light[0] - light[1]);
+            ++street[begin];
+            int end = min(n - 1, light[0] + light[1])
+            if (end + 1 < n) {
+                --street[end + 1];
+            }
+            
+        }
+
+        int res = 0;
+        int brightness = 0;
+        for (int i = 0; i < n; ++i) {
+            brightness += street[i];
+            if (brightness >= req[i]) {
+                ++res;
+            }
+        }
+        return res;
+    }
+};
