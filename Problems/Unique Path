@@ -1,16 +1,18 @@
+/*
+Get unique paths through DP which calculates from adding left and upper adjacent grids
+*/
 class Solution {
 public:
     int uniquePaths(int m, int n) {
         // initialize m x n 2d vector
-        vector<vector<int>> grid(m, vector<int> (n, 1));
+        vector<int> grid(n, 1);
         // loop through each square of grid
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 // add paths from left and above current grid
-                grid[i][j] = grid[i-1][j] + grid[i][j-1];
+                grid[j] += grid[j-1];
             }
         }
-        // return last square of grid
-        return grid[m-1][n-1];
+        return grid[n-1];
     }
 };
