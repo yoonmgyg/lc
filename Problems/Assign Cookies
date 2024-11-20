@@ -1,0 +1,22 @@
+/*
+Assign cookies by sorting in ascending order and matching cookies and children one by one
+*/
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(), g.end());
+        sort(s.begin(), s.end());
+        
+        int child = 0;
+        int cookie = 0;
+        int res = 0;
+        while (child < g.size() && cookie < s.size()) {
+            if (s[cookie] >= g[child]) {
+                res++;
+                child++;
+            }
+            cookie++;
+        }
+        return res;
+    }
+};
