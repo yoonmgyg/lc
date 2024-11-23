@@ -1,3 +1,38 @@
+/*
+Loops through each number and checks previous number for smaller numbers, setting the dp if so
+Time: O(n^2)
+Space: O(n)
+*/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        if (nums.empty()) {
+            return 0;
+        }
+
+        int n = nums.size();
+        vector<int> dp(n, 1);
+
+        int maxLIS = 1;
+        for (int i = 1; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                    maxLIS = max(maxLIS, dp[i]);
+
+                }
+            }
+        }
+        return maxLIS;
+    }
+};
+
+/*
+Uses binary search to create the longest increasing index 
+Time: O(n log n)
+Space: O(n)
+*/
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
