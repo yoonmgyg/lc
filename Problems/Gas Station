@@ -1,38 +1,26 @@
+/*
+Loops through each gas station to get the surplus in fuel, move start if there is a deficit
+*/
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int ans=-1;
-        int n=gas.size(); 
-        int diff; 
-        int sum=0, backsum=0;
-
-        // loop through gas stations
-        for (int i=0;i<n;i++) {
-            diff= gas[i]-cost[i];
-            // add sum if negative
-            if(diff<0) {
-                sum+=diff;
-                continue;
+        // checks if gas stations which provide and cost gas can be traversed clockwise
+        int surplus = 0;
+        int total = 0;
+        int startIndex = 0;
+        for (int i = 0; i < gas.size(); i++) {
+            // get total surplus throughout circuit
+            total += gas[i] - cost[i];
+            // get surplus when starting from station
+            surplus += gas[i] - cost[i];
+            if (surplus < 0) {
+                // reset station if surplus is less than 0
+                surplus = 0;
+                startIndex  = i + 1;
             }
-
-            else {
-                // use old as starting point
-                if (sum>=0) {
-                    if(i==0) 
-                    ans=i;
-                    sum+=diff; 
-                    continue;
-                }
-                // choose as starting point
-                else {
-                    backsum=backsum+sum;
-                    sum=diff;
-                    ans=i;
-                }
-            }
-
         }
-        sum=sum+backsum;
-        return sum>=0 ? ans : -1;
+
+        // return station index if total gas is greater than 0
+        return (total < 0) ? -1 : startIndex;
     }
 };
