@@ -7,11 +7,10 @@ public:
         vector<bool> dp(s.size() + 1, false);
         dp[0] = true;
 
-        unordered_set<string> set(wordDict.begin(), wordDict.end());
-        for (int i = 1; i <= s.size(); i++) {
-            for (const string& word : wordDict) { // loop through words for each i
+        for (int i = 1; i <= s.size(); ++i) {
+            for (auto& word : wordDict) {
                 int start = i - word.size();
-                if (start >= 0 && dp[start] && s.substr(start, word.length()) == word) { // check if substr matches word
+                if (start >= 0 && dp[start] == true && s.substr(start, word.size()) == word) {
                     dp[i] = true;
                     break;
                 }
