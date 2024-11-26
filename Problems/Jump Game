@@ -1,13 +1,17 @@
+/*
+Loops through each index and adds from the current number to see if the maximum can be reached
+*/
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int endIndex = nums.size() - 1;
-
-        for (int i = nums.size() - 2; i >= 0; i--)  // loop through nums backwards
-            if (i + nums[i] >= endIndex)  // if current index + i reaches end, move end backwards
-                endIndex = i;
-        
-
-        return endIndex == 0;
+        int n = nums.size();
+        int maxIndex = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i > maxIndex) {
+                return false;
+            }
+            maxIndex = max(maxIndex, i + nums[i]);
+        }
+        return true;
     }
 };
