@@ -1,3 +1,6 @@
+/*
+Implements Trie by using char map of other Tries to get next characters
+*/
 class Trie {
 public:
     Trie() {}
