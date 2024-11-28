@@ -1,0 +1,14 @@
+/*
+Calculate the prefix sum by adding previous numbers and storing in array
+*/
+class Solution {
+public:
+    int prefixSum(vector<int>& nums) {
+        int n = nums.size();  
+        vector<int> prefix(n + 1, 0);
+        for (int i = 1; i < n + 1; ++i) {
+            prefix[i] = prefix[i-1] + nums[i-1];
+        }
+        return prefix
+    }
+};
