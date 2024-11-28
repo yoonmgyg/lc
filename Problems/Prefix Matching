@@ -1,0 +1,63 @@
+/*
+Searches for a prefix using a Trie to get all words starting with the prefix
+*/
+class Trie {
+public:
+    Trie() {}
+    ~Trie() {
+        for (auto& x : mp) { // recursively delete tries
+            delete x.second;
+        }
+    }
+    void insert(string word) {
+        Trie* root = this;
+        for (char c : word) {
+            if (!root->mp.count(c)) { // if not in map, create new trie for c
+                root->mp[c] = new Trie();
+            }
+        }
+        root->isword = true; // mark word at end
+    }
+    
+    bool search(string word) {
+        Trie* root = this;
+        for (char c : word) { 
+            if (!root->mp.count(c)) { // loop to find each char within map
+                return false;
+            }            
+            root = root->mp[c];
+        }
+        return root->isword;
+    }
+    
+    bool prefix(string word) { 
+        Trie* root = this;
+        vector<int> res;
+        for (char c : prefix) {
+            if (!root->mp.count(c)) { // if char of prefix cannot be found, return false
+                return res;
+            }
+            root = root->mp[c];
+        }
+
+        
+        dfs(root, word, res);
+        return res;
+
+        
+    }
+
+    
+private:
+    unordered_map<char, Trie*> mp;
+    bool isword = false;
+
+    void dfs(Trie* node, string current, vector<string>& results) {
+        if (node->isword) {
+            results.push_back(current);
+        }
+        for (auto& [ch, nextNode] : node->mp) {
+            dfs(nextNode, current + ch, results);
+        }
+    }
+};
