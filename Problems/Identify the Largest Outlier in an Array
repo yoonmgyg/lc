@@ -1,0 +1,28 @@
+// Gets the largest outlier from an array by adding all numbers to a map and seeing if the sum of all numbers except one can be found within the map
+class Solution {
+public:
+    int getLargestOutlier(vector<int>& nums) {
+        vector<int> sums;
+        int n = nums.size();
+        int total = accumulate(nums.begin(), nums.end(), 0);
+        unordered_map<int, int> numMap;
+        int outlier = INT_MIN;
+        
+        for (auto& num : nums) {
+            numMap[num]++;
+        }
+        
+        for (int i = 0; i < n; ++i) {
+            int sum = total - nums[i]; // select outlier
+            if (sum % 2 == 0) {
+                int specialSum = sum / 2;
+                if (numMap.contains(specialSum) && !(numMap[specialSum] < 2 && specialSum == nums[i])) {
+                    outlier = max(outlier, nums[i]);
+                }
+            }
+            
+        }
+        
+        return outlier;
+    }
+};
