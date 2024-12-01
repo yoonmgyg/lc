@@ -1,0 +1,11 @@
+// Finds the smallest number with all set bits by consistently moving a bit to the left and setting the rightmost bit to 1
+class Solution {
+public:
+    int smallestNumber(int n) {
+        int x = 1;
+        while (x < n) {
+            x = (x << 1) | 1;
+        }
+        return x;
+    }
+};
