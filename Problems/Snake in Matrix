@@ -1,0 +1,16 @@
+// Move between rows in matrix by adding and subtracting n, otherwise 1
+class Solution {
+public:
+    int finalPositionOfSnake(int n, vector<string>& v) {
+        int c = 0; 
+    
+        for (string x : v) {
+            if (x=="DOWN") c += n;
+            else if (x=="UP") c -= n;
+            else if (x=="RIGHT") c += 1;
+            else if (x=="LEFT") c -= 1;
+        }
+    
+        return c;
+    }
+};
