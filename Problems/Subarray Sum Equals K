@@ -1,0 +1,21 @@
+/*
+Gets the subarray sums equalling K by using a map of prefix sums to keep track of previous sums
+*/
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count = 0;
+        int sum = 0;
+        unordered_map<int, int> prefix;
+        prefix[0] = 1;
+
+        for (auto& num : nums) {
+            sum += num; // add each number
+            if (prefix.contains(sum - k)) { // if previous numbers have sum - k, add previous subarrays
+                count += prefix[sum - k];
+            } 
+            prefix[sum] += 1;
+        }
+        return count;
+    }
+};
