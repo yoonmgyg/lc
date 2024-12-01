@@ -1,5 +1,5 @@
 /*
-Re[;ace dogots nu getting ascii char value and pushing to string
+Replace all digits by getting ascii char value and pushing to string
 */
 class Solution {
 public:
