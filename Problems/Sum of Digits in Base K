@@ -1,0 +1,12 @@
+// Gets the sum of digits by getting the remainder of k and continually dividing to get the next digit
+class Solution {
+public:
+    int sumBase(int n, int k) {
+        int num = 0;
+        while (n) {
+            num += n % k;
+            n /= k;
+        }
+        return num;
+    }
+};
