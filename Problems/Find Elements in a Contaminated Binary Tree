@@ -1,0 +1,19 @@
+ // Places each element in set and resets tree values
+class FindElements {
+public:
+    FindElements(TreeNode* root) {
+        recover(root, 0);
+    }
+    
+    bool find(int target) {
+        return set.count(target);
+    }
+
+    void recover(TreeNode* root, int x) {
+        if (!root) return;
+        root->val = x;
+        set.emplace(x);
+        recover(root->left, 2 * x + 1);
+        recover(root->right, 2 * x + 2);
+    }
+};
