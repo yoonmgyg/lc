@@ -1,31 +1,28 @@
+// Sets matrix zeroes by marking rows and cols with a zero in a set
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
 
-	// create array for each row and column
-        unordered_set<int> setRows; 
-        unordered_set<int> setColumns; 
-
-        // loop through array and insert rows and columns which should be 0
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                if(matrix[i][j] == 0){
-                    setRows.insert(i);
-                    setColumns.insert(j);
+        unordered_set<int> zeroRow;
+        unordered_set<int> zeroCol;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (matrix[i][j] == 0) {
+                    zeroRow.insert(i);
+                    zeroCol.insert(j);
                 }
             }
         }
 
-	// loop through matrix and set to 0 if found in arrays
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                if (setRows.count(i) > 0 || setColumns.count(j) > 0){
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (zeroRow.contains(i) || zeroCol.contains(j)) {
                     matrix[i][j] = 0;
                 }
             }
         }
+        
     }
 };
-
