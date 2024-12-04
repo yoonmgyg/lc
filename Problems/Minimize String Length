@@ -1,0 +1,12 @@
+// Minimizes string length by getting number of distinct chars in set
+class Solution {
+public:
+    int minimizedStringLength(string s) {
+        unordered_set<char> count;
+        for (int i = 0; i < s.size(); i++){
+            count.insert(s[i]);
+        }
+        return count.size();
+        
+    }
+};
