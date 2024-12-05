@@ -1,5 +1,7 @@
 /* 
 Determine if parentheses are valid by adding onto stack and checking if counterpart is at the top
+Time: O(n)
+Space: O(n)
 */
 class Solution {
 public:
@@ -19,3 +21,18 @@ public:
         return stack.empty();
     }
 };
+
+# Python solution
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        paren = {")" : "(", "}":"{", "]":"["}
+
+        for char in s:
+            if char in paren.values():
+                stack.append(char)
+            elif char in paren.keys():
+                if not stack or paren[char] != stack.pop():
+                    return False
+        
+        return not stack
