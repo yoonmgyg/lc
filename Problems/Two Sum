@@ -1,3 +1,4 @@
+// CPP solution through map
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -13,3 +14,18 @@ public:
         return {-1, -1};
     }
 };
+
+
+# Python solution through map of sum components
+# Time: O(n) 
+# Space: O(n)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        mp = {}
+        for i in range(len(nums)):
+            if target - nums[i] in mp:
+                return [mp[target - nums[i]], i]
+            else:
+                mp[nums[i]] = i
+
+        return [-1, -1]
