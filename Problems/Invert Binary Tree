@@ -1,3 +1,9 @@
+/*
+CPP solution 
+Switches left and right subtrees to invert Binary Tree
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
@@ -12,3 +18,18 @@ public:
         return root; 
     }
 };
+
+# Python
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return
+        
+        tmp = root.left
+        root.left = root.right
+        root.right = tmp
+        
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
+        return root
