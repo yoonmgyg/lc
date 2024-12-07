@@ -1,5 +1,8 @@
 /*
+CPP solution
 Fills with the same color through a DFS of adjacent elements, keeping track of the origin and color to be made
+T: O(m * n)
+S: O(m * n)
 */
 class Solution {
 private: 
@@ -22,3 +25,24 @@ public:
         return image;
     }
 };
+
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        row = len(image)
+        col = len(image[0])
+        direction = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        original = image[sr][sc]
+        if original == color:
+            return image
+
+        def dfs(r, c):
+            if r < 0 or r >= row or c < 0 or c >= col or image[r][c] != original:
+                return
+            
+            image[r][c] = color
+            for dr, dc in direction:
+                dfs(r + dr, c + dc)
+            
+        dfs(sr, sc)
+        return image
