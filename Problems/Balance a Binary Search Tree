@@ -1,3 +1,10 @@
+/*
+CPP solution
+Checks if a BST is balanced by getting the height of either node and checking the absolute difference
+T: O(n)
+S: O(h)
+*/
+
 class Solution {
 public:
     int height (TreeNode* root)  { // get height of root through dfs
@@ -15,3 +22,20 @@ public:
         return abs(height(root->left) - height(root->right)) <= 1; // check if difference of height of both subtrees is not greater than 1
     }
 };
+
+# Python solution
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def getHeight(node : TreeNode) -> int:
+            if not node:
+                return 0
+            
+            left = self.getHeight(node.left)
+            right = self.getHeight(node.right)
+            
+            if left == -1 or right == -1 or abs(left - right) > 1:
+                return -1
+
+            return max(left, right) + 1
+        
+        return getHeight != -1
