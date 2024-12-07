@@ -1,3 +1,7 @@
+/*
+CPP Solution
+Gets the lowest common ancestor by checking with the value of its children
+*/
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -18,3 +22,17 @@ public:
         return left ? left : right; // return existing if only one
     }
 };
+
+# Python Solution
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+        if root.val < p.val and root.val < q.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        elif root.val > p.val and root.val > q.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        else:
+            return root
+
+
