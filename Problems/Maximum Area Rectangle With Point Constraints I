@@ -1,0 +1,27 @@
+# Gets the maximum rectangle by looping through point constrains and brute forcing all rectangles
+class Solution:
+    def maxRectangleArea(self, points: List[List[int]]) -> int:
+        n = len(points)
+        points = [(i,j) for i,j in points]
+        points = sorted(points, key = lambda x: (x[0], x[1]))
+        res = -1
+        for i in range(n):
+            for j in range(i+1,n):
+                for k in range(j+1, n):
+                    for l in range(k+1, n): 
+                        a = points[i]
+                        b = points[j]
+                        c = points[k]
+                        d = points[l]
+                        if a[0] == b[0] and a[1] == c[1] and c[0] == d[0] and b[1] == d[1]: 
+                            to_add=True 
+                            for t in range(len(points)):
+                                if t not in [i, j, k, l]:
+                                    x, y = points[t]
+                                    if x >= a[0] and x <= c[0] and y >= a[1] and y <= b[1]:
+                                        to_add = False 
+                                        break 
+                            if to_add:
+                                res = max(res, (c[0]-a[0]) * (d[1]-c[1]))
+                 
+        return res 
