@@ -1,3 +1,9 @@
+/*
+CPP Solution
+Checks if ransom note is possible by counting frequency in map
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
@@ -19,3 +25,20 @@ public:
         return true;
     }
 };
+
+# Python solution
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        mp = {}
+
+        for letter in magazine:
+            mp[letter] = 1 + mp.get(letter, 0)
+        
+        for letter in ransomNote:
+            if letter not in mp or mp[letter] <= 0:
+                return False
+
+            mp[letter] -= 1
+
+        return True
