@@ -1,5 +1,8 @@
 /*
+CPP solution
 Gets the ways of climbing stairs through a dp vector which stores previous ways and add previous calculations
+T: O(n)
+S: O(n)
 */
 class Solution {
 public:
@@ -14,3 +17,15 @@ public:
         return dp[n]
     }
 };
+
+# Python solution
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        dp = [0] * (n+1)
+        dp[0] = 1
+        dp[1] = 1
+
+        for i in range(2, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+
+        return dp[-1]
