@@ -1,3 +1,10 @@
+/*
+CPP Solution
+Counts frequency in a map and gets odd numbers of chars
+T: O(n)
+S: O(1)
+*/
+
 class Solution {
 public:
     int longestPalindrome(string s) {
@@ -18,3 +25,21 @@ public:
         return s.size();
     }
 };
+
+
+# Python Solution
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        odd = 0
+        letters = {}
+        for ch in s:
+            letters[ch] = 1 + letters.get(ch, 0)
+            if (letters[ch] % 2 == 1):
+                odd += 1
+            else:
+                odd -= 1
+        
+        if odd > 1:
+            return len(s) - odd + 1
+            
+        return len(s)
