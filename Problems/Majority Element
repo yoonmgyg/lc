@@ -1,3 +1,9 @@
+/*
+CPP
+Gets the majority element by incrementing and decrementing the majority number 
+T: O(n)
+S: O(1)
+*/
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
@@ -19,3 +25,18 @@ public:
         return sol;
     }
 };
+
+# Python
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        res = 0
+        maj = 0
+        for n in nums:
+            if maj == 0:
+                res = n
+            if n == res:
+                maj += 1
+            else:
+                maj -= 1
+
+        return res
