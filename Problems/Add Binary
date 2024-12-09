@@ -1,3 +1,9 @@
+/*
+CPP 
+Adds the binary numbers by getting the rightmost digit and adding carry values
+T: O(max(m, n))
+S: O(max(m, n))
+*/
 class Solution {
 public:
     string addBinary(string a, string b) {
@@ -19,3 +25,28 @@ public:
         return ans;
   }
 };
+
+# Python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        res = ""
+        i = len(a) - 1
+        j = len(b) - 1
+        carry = 0
+
+        while i >= 0 or j >= 0:
+            current_sum = carry
+            if i >= 0:
+                current_sum += int(a[i])
+                i -= 1
+            if j >= 0:
+                current_sum += int(b[j])
+                j -= 1
+
+            res += str(current_sum % 2)
+            carry = current_sum // 2
+
+        if carry == 1:
+            res += '1'
+
+        return res[::-1]
