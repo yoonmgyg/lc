@@ -1,5 +1,8 @@
 /*
+CPP
 Reverse LL by storing previous and future nodes and swapping with current
+T: O(n)
+S: O(1)
 */
 class Solution {
 public:
@@ -14,3 +17,16 @@ public:
         return prev;
     }
 };
+
+# Python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        after = None
+        prev = None
+        while (head):
+            after = head.next
+            head.next = prev
+            prev = head
+            head = after
+        
+        return prev
