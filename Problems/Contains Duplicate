@@ -1,3 +1,9 @@
+/*
+CPP
+Checks for duplicates by adding to set/map and returning true if the frequency is greater than two
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
@@ -13,3 +19,14 @@ public:
         return false;
     }
 };
+
+# Python
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        values = set()
+        for num in nums:
+            if num in values:
+                return True
+            values.add(num)
+        
+        return False
