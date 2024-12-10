@@ -1,3 +1,9 @@
+/*
+CPP
+Gets the middle of a LL by using slow and fast pointers to get hee middle of the list when the fast pointer reaches the end
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
@@ -10,3 +16,14 @@ public:
         return slow;
     }
 };
+
+# Python
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = head
+        fast = head
+        while (fast and fast.next):
+            slow = slow.next
+            fast = fast.next.next
+        
+        return slow
