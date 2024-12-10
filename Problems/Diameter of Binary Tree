@@ -25,7 +25,7 @@ public:
     }
 };
 
-# Pyton
+# Python
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         def maxHeight(root: Optional[TreeNode]) -> int:
