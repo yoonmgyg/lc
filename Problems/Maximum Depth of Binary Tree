@@ -1,5 +1,8 @@
 /*
-Gets the maximum depth through a recursive dfs through both children
+CPP
+Gets the maximum depth through a recursive dfs getting the height both children
+T: O(n)
+S: O(n)
 */
 class Solution {
 public:
@@ -13,3 +16,11 @@ public:
         return max(left, right) + 1; // return maximum of children and add 1
     }
 };
+
+# Python
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+        
