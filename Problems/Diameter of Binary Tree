@@ -1,5 +1,8 @@
 /*
+CPP
 Calculates the maximum diameter of BST through a DFS of branches for length, storing tha maximum of left and right branches in global variable
+T: O(n)
+S: O(n)
 */
 class Solution {
 private:
@@ -21,3 +24,19 @@ public:
 
     }
 };
+
+# Pyton
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        def maxHeight(root: Optional[TreeNode]) -> int:
+            if not root:
+                return 0
+
+            left = maxHeight(root.left)
+            right = maxHeight(root.right) 
+            self.diameter = max(self.diameter, left + right)
+            return max(left, right) + 1
+        
+        self.diameter = 0
+        maxHeight(root)
+        return self.diameter
