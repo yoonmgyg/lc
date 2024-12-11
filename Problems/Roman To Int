@@ -1,3 +1,9 @@
+/*
+CPP
+Maps values to chars and checks if previous character is less, subtract value if so and add if not
+T: O(n)
+S: O(1)
+*/
 class Solution {
 public:
     int romanToInt(string s) {
@@ -13,3 +19,24 @@ public:
         return res;
     }
 };
+
+# Python
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        roman = {
+            "I" = 1
+            "V" = 5
+            "X" = 10
+            "L" = 50
+            "C" = 100
+            "D" = 500
+            "M" = 1000
+        }
+
+        for a, b in zip(s, s[1:]):
+            if (roman[a] < roman[n]):
+                res -= roman[a]
+            else:
+                res += roman[a]
+            
+        return res + roman[s[-1]]
