@@ -1,3 +1,9 @@
+/*
+CPP
+Adds and removes characters to a stack and checks if stacks are equal
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
@@ -21,3 +27,17 @@ public:
         return a == b; // see if stacks are equal
     }
 };
+
+# Python
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        def remove_characters(s):
+            stack = []
+            for char in s:
+                if char == '#' and stack:
+                    stack.pop()
+                elif char != '#':
+                    stack.append(char)
+            return stack
+
+        return remove_characters(s) == remove_characters(t)
