@@ -1,5 +1,8 @@
 /*
+CPP
 Clones graph through dfs which creates same node and calls dfs on all neighbors
+T: O(n)
+S: O(n)
 */
 class Solution {
 public:
@@ -8,7 +11,6 @@ public:
         if (!node) {
             return nullptr;
         }
-
         if (nodeGraph.find(node) == nodeGraph.end()) {
             nodeGraph[node] = new Node(node->val);
             for (auto neighbor : node->neighbors) {
@@ -19,3 +21,24 @@ public:
         return nodeGraph[node];
     }
 };
+
+# Python
+class Solution:
+    def cloneGraph(self, node: Optional[Node]) -> Optional[Node]:
+        if not node:
+            return None
+        
+        adj_list = {}
+        def dfs(original_node):
+            if original_node in adj_list:
+                return adj_list[original_node]
+            
+            clone = Node(original_node.val)
+            adj_list[original_node] = clone
+            
+            for neighbor in original_node.neighbors:
+                clone.neighbors.append(dfs(neighbor))
+            
+            return clone
+        
+        return dfs(node)
