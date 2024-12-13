@@ -1,5 +1,9 @@
 /*
+CPP
 Gets the level order through a BFS through each level
+T: O(n)
+S: O(n)
+*/
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
@@ -32,3 +36,25 @@ public:
         
     }
 };
+
+# Python
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+
+        levelq = []
+        res = []
+        levelq.append(root)
+        while levelq:
+            level = []
+            level_len = len(levelq)
+            for i in range(level_len):
+                head = levelq.pop(0)
+                level.append(head.val)
+                if head.left:
+                    levelq.append(head.left)
+                if head.right:
+                    levelq.append(head.right)
+            res.append(level)
+        return res
