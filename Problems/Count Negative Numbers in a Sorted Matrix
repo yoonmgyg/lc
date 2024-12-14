@@ -1,6 +1,7 @@
 # Python
 # Gets the negative numbers through a binary search
-# T: O(m log n
+# T: O(m log n)
+# S: O(mn)
 class Solution(object):
     def countNegatives(self, grid):
         def bin(row):
