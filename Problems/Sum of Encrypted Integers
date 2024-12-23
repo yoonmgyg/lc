@@ -1,0 +1,9 @@
+# Python
+# Gets encrypted integers by adding product of max of num and length and adding to output
+class Solution(object):
+    def sumOfEncryptedInt(self, nums):
+        output = 0
+        for num in nums:
+            num = str(num)
+            output += int(max(num) * len(num))
+        return output
