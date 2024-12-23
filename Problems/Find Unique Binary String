@@ -1,3 +1,7 @@
+/*
+CPP
+Get the unique binary string by getting the opposite value of each index
+*/
 class Solution {
 public:
     string findDifferentBinaryString(vector<string>& nums) {
@@ -11,3 +15,13 @@ public:
         return result;
     }
 };
+
+# Python
+class Solution(object):
+    def findDifferentBinaryString(self, nums):
+        result = ""
+
+        for i in range(len(nums)):
+            result += '1' if nums[i][i] == '0' else '0'
+
+        return result
