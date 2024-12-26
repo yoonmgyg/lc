@@ -1,0 +1,18 @@
+# Python
+# Gets max distinct elements by sorting array and finding the smallest numbers
+class Solution:
+    def maxDistinctElements(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        last = nums[0] - k - 1
+        count = 0
+
+        for num in nums:
+            if num - k > last:
+                last = num - k
+            elif num + k <= last:
+                continue
+            else:
+                last += 1
+            count += 1
+
+        return count
