@@ -1,0 +1,10 @@
+# Gets common characters by counting each char and getting the minimum to return 
+class Solution(object):
+    def commonChars(self, A):
+        res = []
+        for ch in set(A[0]):
+            count = []
+            for word in A:
+                count.append(word.count(ch))
+            res += ch * min(count)
+        return res
