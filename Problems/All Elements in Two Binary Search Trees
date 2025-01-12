@@ -1,0 +1,13 @@
+# Use inorder traversal to get elements in both BSTs
+class Solution:
+    def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        res = []
+        def dfs(node):
+            if node:
+                res.append(node.val)
+                dfs(node.left)
+                dfs(node.right)
+
+        dfs(root1)
+        dfs(root2)
+        return sorted(res)
