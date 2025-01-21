@@ -1,25 +1,29 @@
-bool compareEnd(vector<int>& a,vector<int>& b) {
-	return a[1]<b[1];
+/* 
+Gets the number of intervals to be removed for all to be non-overlapping intervals by subtracting the size with the non-overlapping intervals
+Non-overlapping intervals are found by sorting the intervals by the end ascending, then comparing the beginning with the last non-overlapping interval
+*/
+bool compareEnd(vector<int>& a, vector<int>& b) {
+    return a[1] < b[1];
 }
+
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        // sort by endpoint to maximize intervals
-        sort(intervals.begin(), intervals.end(), compareEnd);
-        int overlap = 0;
-        int start = 0;
+        if (intervals.empty()) {
+            return 0;
+        }
 
-        // loop through intervals
-        for (int i = 1; i < intervals.size(); i++) {
-            // if previous interval's end is greater than current beginning, add overlap
-            if (intervals[start][1] > intervals[i][0]) {
-                overlap++;
-            }
-            // if non overlapping, switch previous interval to current
-            else {
-                start = i;
+        sort(intervals.begin(), intervals.end(), compareEnd); // sort by end
+
+        int nonOverlap = 1;
+        int end = intervals[0][1];
+        for (int i = 1; i < intervals.size(); ++i) { // loop through intervals
+            if (intervals[i][0] >= end) { // if not overlapping, set as next end
+                end = intervals[i][1];
+                nonOverlap++;
             }
         }
-        return overlap;
+
+        return intervals.size() - nonOverlap;
     }
 };
