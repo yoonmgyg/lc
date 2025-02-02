@@ -1,0 +1,7 @@
+# Check if special by seeing if adjacent numbers are even
+class Solution:
+    def isArraySpecial(self, nums: list[int]) -> bool:
+        for i in range(len(nums) - 1):
+            if nums[i] % 2 == nums[i + 1] % 2:
+                return False
+        return True
