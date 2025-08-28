@@ -1,16 +1,21 @@
 class Solution:
-    def decodeString(self, s: str) -> str:
+    def decodeString(self, s: str):
         stack = []
-        for char in s:
-            if char != "]": 
-                stack.append(char) 
-            else: 
-                curr = "" 
-                while stack and stack[-1] != "[": 
-                    curr = stack.pop() + curr 
-                stack.pop() 
-                num = "" 
-                while stack and stack[-1].isdigit(): 
-                    num = stack.pop() + num 
-                stack.append(curr * int(num))
-        return "".join(stack)
+        curr_str = ""
+        curr_int = 0
+        for ch in s:
+            if ch == '[': # store integer and string into stach before bracket
+                stack.append(curr_int)
+                stack.append(curr_str)
+                curr_str = ""
+                curr_int = 0
+            elif ch == ']': # add previous integer and string
+                last_str = stack.pop()
+                last_int = stack.pop()
+                curr_str = last_str + last_int * curr_str
+            elif ch.isdigit():
+                curr_int *= 10
+                curr_int += int(ch)
+            else:
+                curr_str += ch
+        return curr_str
