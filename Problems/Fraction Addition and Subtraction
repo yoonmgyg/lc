@@ -1,0 +1,40 @@
+class Solution:
+    def fractionAddition(self, exp: str) -> str:
+        if not exp:
+            return "0/1"
+        
+        if exp[0] != '-':
+            exp = '+' + exp
+        
+        num = []
+        den = []
+        pos = True
+        i = 0
+        while i < len(exp):
+            pos = True if exp[i] == '+' else False
+            
+            i += 1
+            n = 0
+            while exp[i].isdigit():
+                n = n*10 + int(exp[i])
+                i += 1
+            num.append(n if pos else -n)
+            
+            i += 1
+            d = 0
+            while i < len(exp) and exp[i].isdigit():
+                d = d*10 + int(exp[i])
+                i += 1
+            den.append(d)
+        
+        denominator = functools.reduce(lambda x, y: x*y, den)
+        for i,(n,d) in enumerate(zip(num, den)):
+            num[i] = n * denominator // d
+        
+        numerator = sum(num)
+        
+        g = math.gcd(numerator, denominator)
+        numerator = numerator // g
+        denominator = denominator // g
+        
+        return f"{numerator}/{denominator}"
